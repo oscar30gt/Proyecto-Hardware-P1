@@ -351,7 +351,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -455,6 +455,11 @@
               <FileName>dense_layer_q12_ARM.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\dense_layer_q12_ARM.s</FilePath>
+            </File>
+            <File>
+              <FileName>dense_layer_q12_THB.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\dense_layer_q12_THB.s</FilePath>
             </File>
           </Files>
         </Group>

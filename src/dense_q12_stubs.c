@@ -2,7 +2,7 @@
 
 #if ENABLE_ASM_IMPL == 0
 
-__weak int16_t neuron_q12_ARM(
+__weak int16_t neuron_q12_ARM(   // DONE
     const int16_t *input,
     const int16_t *weights,
     uint16_t n,

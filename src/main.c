@@ -147,33 +147,7 @@ uint32_t dense_layer_q12_C_THB(
 
 ////////////////////////////////////////////////
 
-extern uint32_t dense_layer_q12_ARM_C(
-    const int16_t *input,
-    const int16_t *weights,
-    const int16_t *bias,
-    int16_t *output,
-    uint16_t input_size,
-    uint16_t output_size,
-    int16_t clamp_min,
-    int16_t clamp_max);
 
-extern uint32_t dense_layer_q12_ARM(
-    const int16_t *input,
-    const int16_t *weights,
-    const int16_t *bias,
-    int16_t *output,
-    uint16_t input_size,
-    uint16_t output_size,
-    int16_t clamp_min,
-    int16_t clamp_max);
-
-extern int16_t neuron_q12_ARM(
-    const int16_t *input,
-    const int16_t *weights,
-    uint16_t n,
-    int16_t bias_q12,
-    int16_t clamp_min,
-    int16_t clamp_max);
 
 ///////////////////////////////////
 
@@ -325,5 +299,5 @@ int main(void) {
     // Punto de parada para depuración: inspeccionar 'ok' y 'resultado'.
     // En este entorno no hay SO; nos quedamos en bucle.
     (void)ok;
-    while (1) { /* no retornar */ }
+      while (1) { /* no retornar */ }
 }
