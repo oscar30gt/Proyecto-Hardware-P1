@@ -80,7 +80,6 @@ end_loop_l  ADD sp, sp, #20         ; pop clamp_min, clamp_max and the saved r0,
 ; r4, r5 = temporales (input[i], weights[i])
 ; r6 = offset en bytes, recorre los vectores hacia atras (2*(n-1) ... 0)
 
-            THUMB
 neuron_q12_THB
             PUSH {r4-r6, lr}
 
