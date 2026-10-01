@@ -16,31 +16,35 @@ dense_layer_q12_ARM_C
             PUSH {fp, lr}
             MOV fp, sp
             PUSH {v1-v7}
+			SUB sp, sp, #4			; reservar 4 bytes para mantener SP alineado a 8 bytes
             
             MOV v1, #0              ; checksum = 0;
             
-            LDR v2, [fp, #16]       ; clamp_min
-            LDR v3, [fp, #20]       ; clamp_max
+            ldr v2, [fp, #16]       ; clamp_min
+            ldr v3, [fp, #20]       ; clamp_max
             PUSH {v2, v3}           ; push clamp_min and clamp_max for neuron_q12_C call
 
-            MOV v2, r0              ; input pointer
-            MOV v3, r1              ; weights pointer
-            MOV v4, r2              ; bias pointer
-            MOV v5, r3              ; output pointer
-            LDRH v6, [fp, #8]       ; input_size
+            mov v2, r0              ; input pointer
+            mov v3, r1              ; weights pointer
+            mov v4, r2              ; bias pointer
+            mov v5, r3              ; output pointer
+            ldrh v6, [fp, #8]       ; input_size
 
-            LDR v7, [fp, #12]       ; output_size
+            ldrh v7, [fp, #12]      ; output_size
             CMP v7, #0              ; if (output_size == 0) skip loop
             BEQ end_loop
 
-loop        MOV r0, v2              ; r0 = input pointer
-            MOV r1, v3              ; r1 = weights pointer
-            MOV r2, v6              ; r2 = input_size
-            LDRSH r3, [v4]          ; r3 = bias[o]
+loop        mov r0, v2              ; r0 = input pointer
+            mov r1, v3              ; r1 = weights pointer
+            mov r2, v6              ; r2 = input_size
+            ldrsh r3, [v4]          ; r3 = bias[o]
             BL neuron_q12_C         ; r0 = neuron_q12_C(...)
-            STRH r0, [v5]           ; output[o] = y
+            strh r0, [v5]           ; output[o] = y
 
-            ADD v1, v1, v1, LSL #5  ; checksum = checksum * 33 (written as checksum * 32 + checksum)
+			LSL r0, r0, #16
+			LSR r0, r0, #16         ; (uint16_t)y
+            
+			ADD v1, v1, v1, LSL #5  ; checksum = checksum * 33 (written as checksum * 32 + checksum)
             ADD v1, v1, r0          ; checksum = checksum + y
 
             ADD v3, v3, v6, LSL #1  ; iterate weights_o
@@ -50,8 +54,9 @@ loop        MOV r0, v2              ; r0 = input pointer
             SUBS v7, v7, #1         ; for (uint16_t o = 0; o < output_size; ++o)
             BNE loop                ; branch to loop
             
-end_loop    ADD sp, sp, #8          ; pop clamp_min and clamp_max         
-            MOV r0, v1              ; return checksum
+end_loop    ADD sp, sp, #8          ; pop clamp_min and clamp_max   
+			ADD sp, sp, #4			; liberar los 4 bytes 	usados para la alineación
+            mov r0, v1              ; return checksum
             POP {v1-v7, fp, pc}
 
             END

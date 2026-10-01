@@ -151,7 +151,7 @@
           <Type>0</Type>
           <LineNumber>302</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>1752</Address>
+          <Address>1828</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -161,22 +161,6 @@
           <Filename>.\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\neuron_q12\main.c\302</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>36</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>480</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\dense_layer_q12_ARM_C.s</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\neuron_q12\dense_layer_q12_ARM_C.s\36</Expression>
         </Bp>
       </Breakpoint>
       <MemoryWindow1>
@@ -224,7 +208,7 @@
         <aSer3>0</aSer3>
         <eProf>1</eProf>
         <aLa>0</aLa>
-        <aPa1>1</aPa1>
+        <aPa1>0</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
