@@ -2,6 +2,7 @@
             PRESERVE8
 
             EXPORT dense_layer_q12_THB
+            EXPORT neuron_q12_THB
 
 ; r0 = *input       ; saved at r7+0
 ; r1 = *weights     ; saved at r7+4
@@ -107,6 +108,8 @@ chk_max     LDR r1, [sp, #20]       ; r1 = clamp_max
             BLE end_neuron
             MOVS r0, r1
 
-end_neuron  POP {r4-r6, pc}         ; vuelta a Thumb (el llamador es Thumb)
+end_neuron  POP {r4-r6}
+            POP {r1}                ; lr guardado (POP {pc} no cambia de estado en ARMv4T)
+            BX r1                   ; vuelve a ARM o Thumb segun el bit 0 (llamador C en ARM)
 
             END

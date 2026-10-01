@@ -2,6 +2,7 @@
             PRESERVE8
                 
             EXPORT dense_layer_q12_ARM
+            EXPORT neuron_q12_ARM
 
 ; r0 = *input
 ; r1 = *weights
