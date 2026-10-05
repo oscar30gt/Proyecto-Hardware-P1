@@ -54,9 +54,9 @@ loop        mov r0, v2              ; r0 = input pointer
             SUBS v7, v7, #1         ; for (uint16_t o = 0; o < output_size; ++o)
             BNE loop                ; branch to loop
             
-end_loop    ADD sp, sp, #8          ; pop clamp_min and clamp_max   
-			ADD sp, sp, #4			; liberar los 4 bytes 	usados para la alineación
+end_loop    ADD sp, sp, #12          ; pop clamp_min and clamp_max. liberar los 4 bytes usados para la alineación  
             mov r0, v1              ; return checksum
             POP {v1-v7, fp, pc}
 
             END
+				

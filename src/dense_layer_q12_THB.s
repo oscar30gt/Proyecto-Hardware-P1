@@ -29,17 +29,17 @@ thb         PUSH {r0, r1, r3}
 
             LDR r0, [r7, #40]       ; clamp_min
             LDR r1, [r7, #44]       ; clamp_max
-            PUSH {r0, r1}           ; push clamp_min and clamp_max for neuron_q12_C call
+            PUSH {r0, r1}           ; push clamp_min and clamp_max for neuron_q12_THB call
 
             MOVS r4, #0             ; checksum = 0;
 
-            LDR r5, [r7, #36]       ; output_size
+            LDRH r5, [r7, #36]       ; output_size
             CMP r5, #0              ; if (output_size == 0) skip loop
             BEQ end_loop_l
 
 loop_l      LDR r0, [r7, #0]        ; r0 = input pointer
             LDR r1, [r7, #4]        ; r1 = weights pointer
-            LDR r2, [r7, #32]       ; r2 = input_size
+            LDRH r2, [r7, #32]       ; r2 = input_size
 
             LSLS r3, r2, #1         ; Iterate weights
             ADDS r3, r1, r3
@@ -47,7 +47,7 @@ loop_l      LDR r0, [r7, #0]        ; r0 = input pointer
 
             MOVS r3, #0
             LDRSH r3, [r6, r3]      ; r3 = bias[o]
-            BL neuron_q12_THB       ; r0 = neuron_q12_C(...)
+            BL neuron_q12_THB       ; r0 = neuron_q12_THB(...)
             LDR r1, [r7, #8]        ; r1 = output pointer
             STRH r0, [r1, #0]       ; output[o] = y
             ADDS r1, r1, #2         ; output pointer += 2
@@ -113,3 +113,4 @@ end_neuron  POP {r4-r6}
             BX r1                   ; vuelve a ARM o Thumb segun el bit 0 (llamador C en ARM)
 
             END
+				

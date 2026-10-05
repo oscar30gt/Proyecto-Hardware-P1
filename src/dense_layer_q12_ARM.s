@@ -22,7 +22,7 @@ dense_layer_q12_ARM
             
             ldr v2, [fp, #16]       ; clamp_min
             ldr v3, [fp, #20]       ; clamp_max
-            PUSH {v2, v3}           ; push clamp_min and clamp_max for neuron_q12_C call
+            PUSH {v2, v3}           ; push clamp_min and clamp_max for neuron_q12_ARM call
 
             mov v2, r0              ; input pointer
             mov v3, r1              ; weights pointer
@@ -54,8 +54,7 @@ loop_l    mov r0, v2                ; r0 = input pointer
             SUBS v7, v7, #1         ; for (uint16_t o = 0; o < output_size; ++o)
             BNE loop_l              ; branch to loop
             
-end_loop_l  ADD sp, sp, #8          ; pop clamp_min and clamp_max
-			ADD sp, sp, #4			; liberar los 4 bytes 	usados para la alineación
+end_loop_l  ADD sp, sp, #12          ; pop clamp_min and clamp_max. liberar los 4 bytes usados para la alineación
             mov r0, v1              ; return checksum
             POP {v1-v7, fp, pc}
 
@@ -97,3 +96,4 @@ end_loop_n  MOV r0, v1, ASR #12         ; r0 = acc >> Q_SHIFT
             POP {v1-v3, fp, pc}
 
             END
+				
