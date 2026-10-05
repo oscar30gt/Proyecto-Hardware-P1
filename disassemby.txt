@@ -1,0 +1,3231 @@
+0x00000000  EB000000  BL        __scatterload(0x00000008)
+0x00000004  EB00002E  BL        __rt_entry(0x000000C4)
+0x00000008  E28F002C  ADD       R0,PC,#0x0000002C
+0x0000000C  E8900C00  LDMIA     R0,{R10-R11}
+0x00000010  E08AA000  ADD       R10,R10,R0
+0x00000014  E08BB000  ADD       R11,R11,R0
+0x00000018  E24A7001  SUB       R7,R10,#0x00000001
+0x0000001C  E15A000B  CMP       R10,R11
+0x00000020  1A000000  BNE       0x00000028
+0x00000024  EB000026  BL        __rt_entry(0x000000C4)
+0x00000028  E8BA000F  LDMIA     R10!,{R0-R3}
+0x0000002C  E24FE018  SUB       R14,PC,#0x00000018
+0x00000030  E3130001  TST       R3,#0x00000001
+0x00000034  1047F003  SUBNE     PC,R7,R3
+0x00000038  E12FFF13  BX        R3
+0x0000003C  00002030  ANDEQ     R2,R0,R0,LSR R0
+0x00000040  00002050  ANDEQ     R2,R0,R0,ASR R0
+0x00000044  E2522010  SUBS      R2,R2,#0x00000010
+0x00000048  28B00078  LDMCSIA   R0!,{R3-R6}
+0x0000004C  28A10078  STMCSIA   R1!,{R3-R6}
+0x00000050  8AFFFFFB  BHI       __scatterload_copy(0x00000044)
+0x00000054  E1B02E82  MOVS      R2,R2,LSL #29
+0x00000058  28B00030  LDMCSIA   R0!,{R4-R5}
+0x0000005C  28A10030  STMCSIA   R1!,{R4-R5}
+0x00000060  45904000  LDRMI     R4,[R0]
+0x00000064  45814000  STRMI     R4,[R1]
+0x00000068  E12FFF1E  BX        R14
+0x0000006C  E3B03000  MOVS      R3,#0x00000000
+0x00000070  E3B04000  MOVS      R4,#0x00000000
+0x00000074  E3B05000  MOVS      R5,#0x00000000
+0x00000078  E3B06000  MOVS      R6,#0x00000000
+0x0000007C  E2522010  SUBS      R2,R2,#0x00000010
+0x00000080  28A10078  STMCSIA   R1!,{R3-R6}
+0x00000084  8AFFFFFC  BHI       0x0000007C
+0x00000088  E1B02E82  MOVS      R2,R2,LSL #29
+0x0000008C  28A10030  STMCSIA   R1!,{R4-R5}
+0x00000090  45813000  STRMI     R3,[R1]
+0x00000094  E12FFF1E  BX        R14
+                 $Ven$AT$I$$__rt_lib_init:
+0x00000098  E28FC001  ADD       R12,PC,#0x00000001
+0x0000009C  E12FFF1C  BX        R12
+                 __rt_lib_init:
+0x000000A0  B51F      PUSH      {R0-R4,LR}
+                 __rt_lib_init_alloca_1:
+0x000000A2  9805      LDR       R0,[SP,#0x0014]
+0x000000A4  4686      MOV       LR,R0
+0x000000A6  BC0F      POP       {R0-R3}
+0x000000A8  9C00      LDR       R4,[SP,#0x0000]
+0x000000AA  B002      ADD       SP,#0x0008
+0x000000AC  4770      BX        LR
+0x000000AE  0000      LSL       R0,R0,#0
+                 $Ven$AT$I$$__rt_lib_shutdown:
+0x000000B0  E28FC001  ADD       R12,PC,#0x00000001
+0x000000B4  E12FFF1C  BX        R12
+                 __rt_lib_shutdown:
+0x000000B8  B430      PUSH      {R4-R5}
+0x000000BA  4675      MOV       R5,LR
+                 __rt_lib_shutdown_cpp_1:
+0x000000BC  46AE      MOV       LR,R5
+0x000000BE  BC30      POP       {R4-R5}
+0x000000C0  4770      BX        LR
+0x000000C2  0000      LSL       R0,R0,#0
+                 __rt_entry:
+0x000000C4  EB00001A  BL        __user_setup_stackheap(0x00000134)
+0x000000C8  E1A01002  MOV       R1,R2
+                 __rt_entry_li:
+0x000000CC  EBFFFFF1  BL        $Ven$AT$I$$__rt_lib_init(0x00000098)
+                 __rt_entry_main:
+0x000000D0  E59FC01C  LDR       R12,[PC,#0x001C]
+0x000000D4  E08CC00F  ADD       R12,R12,PC
+0x000000D8  E31C0001  TST       R12,#0x00000001
+0x000000DC  128FE00D  ADDNE     R14,PC,#0x0000000D
+0x000000E0  01A0E00F  MOVEQ     R14,PC
+0x000000E4  E12FFF1C  BX        R12
+0x000000E8  E28FC001  ADD       R12,PC,#0x00000001
+0x000000EC  E12FFF1C  BX        R12
+0x000000F0  F000      BL        exit(0x00000194) - Part #1
+0x000000F2  F850      BL        exit(0x00000194) - Part #2
+0x000000F4  00000990  MULEQ     R0,R0,R9
+                 $Ven$TA$I$$__rt_exit:
+0x000000F8  4778      BX        PC
+0x000000FA  46C0      NOP       
+                 __rt_exit:
+0x000000FC  E92D0003  STMDB     R13!,{R0-R1}
+                 __rt_exit_ls:
+0x00000100  EBFFFFEA  BL        $Ven$AT$I$$__rt_lib_shutdown(0x000000B0)
+                 __rt_exit_exit:
+0x00000104  E8BD0003  LDMIA     R13!,{R0-R1}
+0x00000108  EB000029  BL        $Ven$AT$I$$_sys_exit(0x000001B4)
+                 __user_initial_stackheap:
+0x0000010C  E59F000C  LDR       R0,[PC,#0x000C]
+0x00000110  E59F100C  LDR       R1,[PC,#0x000C]
+0x00000114  E59F2004  LDR       R2,[PC,#0x0004]
+0x00000118  E59F3008  LDR       R3,[PC,#0x0008]
+0x0000011C  E12FFF1E  BX        R14
+0x00000120  400000E8  ANDMI     R0,R0,R8,ROR #1
+0x00000124  400004E8  ANDMI     R0,R0,R8,ROR #9
+0x00000128  400000E8  ANDMI     R0,R0,R8,ROR #1
+0x0000012C  4770      BX        LR
+0x0000012E  4770      BX        LR
+0x00000130  4770      BX        LR
+0x00000132  0000      LSL       R0,R0,#0
+0x00000134  E1A0500E  MOV       R5,R14
+0x00000138  EB00001A  BL        __user_libspace(0x000001A8)
+0x0000013C  E1A0E005  MOV       R14,R5
+0x00000140  E1B05000  MOVS      R5,R0
+0x00000144  E1A0100D  MOV       R1,R13
+0x00000148  E1A0300A  MOV       R3,R10
+0x0000014C  E3C00007  BIC       R0,R0,#0x00000007
+0x00000150  E1A0D000  MOV       R13,R0
+0x00000154  E28DD060  ADD       R13,R13,#0x00000060
+0x00000158  E92D4020  STMDB     R13!,{R5,R14}
+0x0000015C  EBFFFFEA  BL        __user_initial_stackheap(0x0000010C)
+0x00000160  E8BD4020  LDMIA     R13!,{R5,R14}
+0x00000164  E3A06000  MOV       R6,#0x00000000
+0x00000168  E3A07000  MOV       R7,#0x00000000
+0x0000016C  E3A08000  MOV       R8,#0x00000000
+0x00000170  E3A0B000  MOV       R11,#0x00000000
+0x00000174  E3C11007  BIC       R1,R1,#0x00000007
+0x00000178  E1A0C005  MOV       R12,R5
+0x0000017C  E8AC09C0  STMIA     R12!,{R6-R8,R11}
+0x00000180  E8AC09C0  STMIA     R12!,{R6-R8,R11}
+0x00000184  E8AC09C0  STMIA     R12!,{R6-R8,R11}
+0x00000188  E8AC09C0  STMIA     R12!,{R6-R8,R11}
+0x0000018C  E1A0D001  MOV       R13,R1
+0x00000190  E12FFF1E  BX        R14
+0x00000194  B510      PUSH      {R4,LR}
+0x00000196  0004      LSL       R4,R0,#0
+0x00000198  46C0      NOP       
+0x0000019A  46C0      NOP       
+0x0000019C  0020      LSL       R0,R4,#0
+0x0000019E  F7FF      BL        $Ven$TA$I$$__rt_exit(0x000000F8) - Part #1
+0x000001A0  FFAB      BL        $Ven$TA$I$$__rt_exit(0x000000F8) - Part #2
+0x000001A2  BC10      POP       {R4}
+0x000001A4  BC08      POP       {R3}
+0x000001A6  4718      BX        R3
+0x000001A8  E59F0000  LDR       R0,[PC]
+0x000001AC  E12FFF1E  BX        R14
+0x000001B0  40000084  ANDMI     R0,R0,R4,LSL #1
+                 $Ven$AT$I$$_sys_exit:
+0x000001B4  E28FC001  ADD       R12,PC,#0x00000001
+0x000001B8  E12FFF1C  BX        R12
+0x000001BC  4901      LDR       R1,[PC,#0x0004]
+0x000001BE  2018      MOV       R0,#0x18
+0x000001C0  DFAB      SWI       0xAB
+0x000001C2  E7FE      B         0x000001C2
+0x000001C4  00020026  ANDEQ     R0,R2,R6,LSR #32
+0x000001C8  E12FFF1E  BX        R14
+    16:             PUSH {fp, lr} 
+0x000001CC  E92D4800  STMDB     R13!,{R11,R14}
+    17:             MOV fp, sp 
+0x000001D0  E1A0B00D  MOV       R11,R13
+    18:             PUSH {v1-v7} 
+0x000001D4  E92D07F0  STMDB     R13!,{R4-R10}
+    19:                         SUB sp, sp, #4      ; reservar 4 bytes para mantener SP alineado a 8 bytes 
+    20:              
+0x000001D8  E24DD004  SUB       R13,R13,#0x00000004
+    21:             MOV v1, #0              ; checksum = 0; 
+    22:              
+0x000001DC  E3A04000  MOV       R4,#0x00000000
+    23:             ldr v2, [fp, #16]       ; clamp_min 
+0x000001E0  E59B5010  LDR       R5,[R11,#0x0010]
+    24:             ldr v3, [fp, #20]       ; clamp_max 
+0x000001E4  E59B6014  LDR       R6,[R11,#0x0014]
+    25:             PUSH {v2, v3}           ; push clamp_min and clamp_max for neuron_q12_C call 
+    26:  
+0x000001E8  E92D0060  STMDB     R13!,{R5-R6}
+    27:             mov v2, r0              ; input pointer 
+0x000001EC  E1A05000  MOV       R5,R0
+    28:             mov v3, r1              ; weights pointer 
+0x000001F0  E1A06001  MOV       R6,R1
+    29:             mov v4, r2              ; bias pointer 
+0x000001F4  E1A07002  MOV       R7,R2
+    30:             mov v5, r3              ; output pointer 
+0x000001F8  E1A08003  MOV       R8,R3
+    31:             ldrh v6, [fp, #8]       ; input_size 
+    32:  
+0x000001FC  E1DB90B8  LDRH      R9,[R11,#0x08]
+    33:             ldrh v7, [fp, #12]      ; output_size 
+0x00000200  E1DBA0BC  LDRH      R10,[R11,#0x0C]
+    34:             CMP v7, #0              ; if (output_size == 0) skip loop 
+0x00000204  E35A0000  CMP       R10,#0x00000000
+    35:             BEQ end_loop 
+    36:  
+0x00000208  0A00000E  BEQ       0x00000248
+    37: loop        mov r0, v2              ; r0 = input pointer 
+0x0000020C  E1A00005  MOV       R0,R5
+    38:             mov r1, v3              ; r1 = weights pointer 
+0x00000210  E1A01006  MOV       R1,R6
+    39:             mov r2, v6              ; r2 = input_size 
+0x00000214  E1A02009  MOV       R2,R9
+    40:             ldrsh r3, [v4]          ; r3 = bias[o] 
+0x00000218  E1D730F0  LDRSH     R3,[R7]
+    41:             BL neuron_q12_C         ; r0 = neuron_q12_C(...) 
+0x0000021C  EB000688  BL        neuron_q12_C(0x00001C44)
+    42:             strh r0, [v5]           ; output[o] = y 
+    43:  
+0x00000220  E1C800B0  STRH      R0,[R8]
+    44:                         LSL r0, r0, #16 
+0x00000224  E1A00800  MOV       R0,R0,LSL #16
+    45:                         LSR r0, r0, #16         ; (uint16_t)y 
+    46:              
+0x00000228  E1A00820  MOV       R0,R0,LSR #16
+    47:                         ADD v1, v1, v1, LSL #5  ; checksum = checksum * 33 (written as checksum * 32 + checksum) 
+0x0000022C  E0844284  ADD       R4,R4,R4,LSL #5
+    48:             ADD v1, v1, r0          ; checksum = checksum + y 
+    49:  
+0x00000230  E0844000  ADD       R4,R4,R0
+    50:             ADD v3, v3, v6, LSL #1  ; iterate weights_o 
+0x00000234  E0866089  ADD       R6,R6,R9,LSL #1
+    51:             ADD v4, v4, #2          ; iterate bias 
+0x00000238  E2877002  ADD       R7,R7,#0x00000002
+    52:             ADD v5, v5, #2          ; iterate output pointer 
+    53:  
+0x0000023C  E2888002  ADD       R8,R8,#0x00000002
+    54:             SUBS v7, v7, #1         ; for (uint16_t o = 0; o < output_size; ++o) 
+0x00000240  E25AA001  SUBS      R10,R10,#0x00000001
+    55:             BNE loop                ; branch to loop 
+    56:              
+0x00000244  1AFFFFF0  BNE       0x0000020C
+    57: end_loop    ADD sp, sp, #12          ; pop clamp_min and clamp_max. liberar los 4 bytes usados para la alineación   
+0x00000248  E28DD00C  ADD       R13,R13,#0x0000000C
+    58:             mov r0, v1              ; return checksum 
+0x0000024C  E1A00004  MOV       R0,R4
+    59:             POP {v1-v7, fp, pc} 
+0x00000250  E8BD8FF0  LDMIA     R13!,{R4-R11,PC}
+    16:             PUSH {fp, lr} 
+0x00000254  E92D4800  STMDB     R13!,{R11,R14}
+    17:             MOV fp, sp 
+0x00000258  E1A0B00D  MOV       R11,R13
+    18:             PUSH {v1-v7} 
+0x0000025C  E92D07F0  STMDB     R13!,{R4-R10}
+    19:                         SUB sp, sp, #4      ; reservar 4 bytes para mantener SP alineado a 8 bytes 
+    20:              
+0x00000260  E24DD004  SUB       R13,R13,#0x00000004
+    21:             MOV v1, #0              ; checksum = 0; 
+    22:              
+0x00000264  E3A04000  MOV       R4,#0x00000000
+    23:             ldr v2, [fp, #16]       ; clamp_min 
+0x00000268  E59B5010  LDR       R5,[R11,#0x0010]
+    24:             ldr v3, [fp, #20]       ; clamp_max 
+0x0000026C  E59B6014  LDR       R6,[R11,#0x0014]
+    25:             PUSH {v2, v3}           ; push clamp_min and clamp_max for neuron_q12_ARM call 
+    26:  
+0x00000270  E92D0060  STMDB     R13!,{R5-R6}
+    27:             mov v2, r0              ; input pointer 
+0x00000274  E1A05000  MOV       R5,R0
+    28:             mov v3, r1              ; weights pointer 
+0x00000278  E1A06001  MOV       R6,R1
+    29:             mov v4, r2              ; bias pointer 
+0x0000027C  E1A07002  MOV       R7,R2
+    30:             mov v5, r3              ; output pointer 
+0x00000280  E1A08003  MOV       R8,R3
+    31:             ldrh v6, [fp, #8]       ; input_size 
+    32:  
+0x00000284  E1DB90B8  LDRH      R9,[R11,#0x08]
+    33:             ldrh v7, [fp, #12]      ; output_size 
+0x00000288  E1DBA0BC  LDRH      R10,[R11,#0x0C]
+    34:             CMP v7, #0              ; if (output_size == 0) skip loop 
+0x0000028C  E35A0000  CMP       R10,#0x00000000
+    35:             BEQ end_loop_l 
+    36:  
+0x00000290  0A00000E  BEQ       0x000002D0
+    37: loop_l    mov r0, v2                ; r0 = input pointer 
+0x00000294  E1A00005  MOV       R0,R5
+    38:             mov r1, v3              ; r1 = weights pointer 
+0x00000298  E1A01006  MOV       R1,R6
+    39:             mov r2, v6              ; r2 = input_size 
+0x0000029C  E1A02009  MOV       R2,R9
+    40:             ldrsh r3, [v4]          ; r3 = bias[o] 
+0x000002A0  E1D730F0  LDRSH     R3,[R7]
+    41:             BL neuron_q12_ARM       ; r0 = neuron_q12_ARM(...) 
+0x000002A4  EB00000C  BL        neuron_q12_ARM(0x000002DC)
+    42:             strh r0, [v5]           ; output[o] = y 
+    43:  
+0x000002A8  E1C800B0  STRH      R0,[R8]
+    44:                         LSL r0, r0, #16 
+0x000002AC  E1A00800  MOV       R0,R0,LSL #16
+    45:                         LSR r0, r0, #16         ; (uint16_t)y 
+    46:              
+0x000002B0  E1A00820  MOV       R0,R0,LSR #16
+    47:                         ADD v1, v1, v1, LSL #5  ; checksum = checksum * 33 (written as checksum * 32 + checksum) 
+0x000002B4  E0844284  ADD       R4,R4,R4,LSL #5
+    48:             ADD v1, v1, r0          ; checksum = checksum + y 
+    49:  
+0x000002B8  E0844000  ADD       R4,R4,R0
+    50:             ADD v3, v3, v6, LSL #1  ; iterate weights_o 
+0x000002BC  E0866089  ADD       R6,R6,R9,LSL #1
+    51:             ADD v4, v4, #2          ; iterate bias 
+0x000002C0  E2877002  ADD       R7,R7,#0x00000002
+    52:             ADD v5, v5, #2          ; iterate output pointer 
+    53:  
+0x000002C4  E2888002  ADD       R8,R8,#0x00000002
+    54:             SUBS v7, v7, #1         ; for (uint16_t o = 0; o < output_size; ++o) 
+0x000002C8  E25AA001  SUBS      R10,R10,#0x00000001
+    55:             BNE loop_l              ; branch to loop 
+    56:              
+0x000002CC  1AFFFFF0  BNE       0x00000294
+    57: end_loop_l  ADD sp, sp, #12          ; pop clamp_min and clamp_max. liberar los 4 bytes usados para la alineación 
+0x000002D0  E28DD00C  ADD       R13,R13,#0x0000000C
+    58:             mov r0, v1              ; return checksum 
+0x000002D4  E1A00004  MOV       R0,R4
+    59:             POP {v1-v7, fp, pc} 
+    60:  
+    61:  
+    62: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+    63:  
+    64: ; r0 = *input 
+    65: ; r1 = *weights 
+    66: ; r2 = input_size 
+    67: ; r3 = bias 
+    68: ; fp+8 = clamp_min 
+    69: ; fp+12 = clamp_max 
+    70: neuron_q12_ARM 
+0x000002D8  E8BD8FF0  LDMIA     R13!,{R4-R11,PC}
+    71:             PUSH {fp, lr} 
+0x000002DC  E92D4800  STMDB     R13!,{R11,R14}
+    72:             MOV fp, sp 
+0x000002E0  E1A0B00D  MOV       R11,R13
+    73:             PUSH {v1-v3} 
+    74:  
+0x000002E4  E92D0070  STMDB     R13!,{R4-R6}
+    75:             MOV v1, r3, LSL #12         ; v1 = bias << Q_SHIFT 
+    76:  
+0x000002E8  E1A04603  MOV       R4,R3,LSL #12
+    77:             cmp r2, #0                  ; if (input_size == 0) skip loop 
+0x000002EC  E3520000  CMP       R2,#0x00000000
+    78:             BEQ end_loop_n 
+    79:  
+0x000002F0  0A000004  BEQ       0x00000308
+    80: loop_n      ldrsh v2, [r0], #2          ; v2 = input[i]; input++ 
+0x000002F4  E0D050F2  LDRSH     R5,[R0],#0x02
+    81:             ldrsh v3, [r1], #2          ; v3 = weights[i]; weights++ 
+0x000002F8  E0D160F2  LDRSH     R6,[R1],#0x02
+    82:             MLA v1, v3, v2, v1          ; acc += weights[i] * input[i] 
+    83:  
+0x000002FC  E0244596  MLA       R4,R6,R5,R4
+    84:             SUBS r2, r2, #1             ; for (uint16_t i = 0; i < input_size; ++i) 
+0x00000300  E2522001  SUBS      R2,R2,#0x00000001
+    85:             BNE loop_n                  ; branch to loop 
+    86:  
+0x00000304  1AFFFFFA  BNE       0x000002F4
+    87: end_loop_n  MOV r0, v1, ASR #12         ; r0 = acc >> Q_SHIFT 
+0x00000308  E1A00644  MOV       R0,R4,ASR #12
+    88:             ldrsh r1, [fp, #8]          ; r1 = clamp_min 
+0x0000030C  E1DB10F8  LDRSH     R1,[R11,#0x08]
+    89:             ldrsh r2, [fp, #12]         ; r2 = clamp_max 
+    90:  
+0x00000310  E1DB20FC  LDRSH     R2,[R11,#0x0C]
+    91:             CMP r0, r1                  ; if (y < clamp_min) return clamp_min 
+0x00000314  E1500001  CMP       R0,R1
+    92:             MOVLT r0, r1 
+0x00000318  B1A00001  MOVLT     R0,R1
+    93:             CMP r0, r2                  ; if (y > clamp_max) return clamp_max 
+0x0000031C  E1500002  CMP       R0,R2
+    94:             MOVGT r0, r2 
+    95:              
+0x00000320  C1A00002  MOVGT     R0,R2
+    96:             POP {v1-v3, fp, pc} 
+0x00000324  E8BD8870  LDMIA     R13!,{R4-R6,R11,PC}
+                 $Ven$AT$I$$neuron_q12_THB:
+0x00000328  E28FC061  ADD       R12,PC,#0x00000061
+0x0000032C  E12FFF1C  BX        R12
+    17:             PUSH {r4-r7, lr} 
+    18:  
+0x00000330  E92D40F0  STMDB     R13!,{R4-R7,R14}
+    19:             LDR r4, =thb            ; thumb part @ 
+0x00000334  E59F4004  LDR       R4,[PC,#0x0004]
+    20:             ORR r4, r4, #1          ; set thumb bit 
+0x00000338  E3844001  ORR       R4,R4,#0x00000001
+    21:             BX r4                   ; THUMB mode 
+    22:                         LTORG 
+    23:  
+    24:             THUMB 
+0x0000033C  E12FFF14  BX        R4
+0x00000340  00000345  ANDEQ     R0,R0,R5,ASR #6
+    25: thb         PUSH {r0, r1, r3} 
+0x00000344  B40B      PUSH      {R0-R1,R3}
+    26:             MOV r7, sp 
+    27:  
+0x00000346  466F      MOV       R7,SP
+    28:             MOVS r6, r2             ; r6 = bias pointer 
+    29:  
+0x00000348  0016      LSL       R6,R2,#0
+    30:             LDR r0, [r7, #40]       ; clamp_min 
+0x0000034A  6AB8      LDR       R0,[R7,#0x28]
+    31:             LDR r1, [r7, #44]       ; clamp_max 
+0x0000034C  6AF9      LDR       R1,[R7,#0x2C]
+    32:             PUSH {r0, r1}           ; push clamp_min and clamp_max for neuron_q12_THB call 
+    33:  
+0x0000034E  B403      PUSH      {R0-R1}
+    34:             MOVS r4, #0             ; checksum = 0; 
+    35:  
+0x00000350  2400      MOV       R4,#0x00
+    36:             LDRH r5, [r7, #36]       ; output_size 
+0x00000352  8CBD      LDRH      R5,[R7,#0x24]
+    37:             CMP r5, #0              ; if (output_size == 0) skip loop 
+0x00000354  2D00      CMP       R5,#0x00
+    38:             BEQ end_loop_l 
+    39:  
+0x00000356  D016      BEQ       0x00000386
+    40: loop_l      LDR r0, [r7, #0]        ; r0 = input pointer 
+0x00000358  6838      LDR       R0,[R7,#0x00]
+    41:             LDR r1, [r7, #4]        ; r1 = weights pointer 
+0x0000035A  6879      LDR       R1,[R7,#0x04]
+    42:             LDRH r2, [r7, #32]       ; r2 = input_size 
+    43:  
+0x0000035C  8C3A      LDRH      R2,[R7,#0x20]
+    44:             LSLS r3, r2, #1         ; Iterate weights 
+0x0000035E  0053      LSL       R3,R2,#1
+    45:             ADDS r3, r1, r3 
+0x00000360  18CB      ADD       R3,R1,R3
+    46:             STR r3, [r7, #4] 
+    47:  
+0x00000362  607B      STR       R3,[R7,#0x04]
+    48:             MOVS r3, #0 
+0x00000364  2300      MOV       R3,#0x00
+    49:             LDRSH r3, [r6, r3]      ; r3 = bias[o] 
+0x00000366  5EF3      LDRSH     R3,[R6,R3]
+    50:             BL neuron_q12_THB       ; r0 = neuron_q12_THB(...) 
+0x00000368  F000      BL        neuron_q12_THB(0x00000390) - Part #1
+0x0000036A  F812      BL        neuron_q12_THB(0x00000390) - Part #2
+    51:             LDR r1, [r7, #8]        ; r1 = output pointer 
+0x0000036C  68B9      LDR       R1,[R7,#0x08]
+    52:             STRH r0, [r1, #0]       ; output[o] = y 
+0x0000036E  8008      STRH      R0,[R1,#0x00]
+    53:             ADDS r1, r1, #2         ; output pointer += 2 
+0x00000370  1C89      ADD       R1,R1,#2
+    54:             STR r1, [r7, #8]        ; store updated output pointer 
+    55:  
+0x00000372  60B9      STR       R1,[R7,#0x08]
+    56:             LSLS r0, r0, #16 
+0x00000374  0400      LSL       R0,R0,#16
+    57:             LSRS r0, r0, #16        ; (uint16_t)y 
+0x00000376  0C00      LSR       R0,R0,#16
+    58:             MOVS r1, r4 
+0x00000378  0021      LSL       R1,R4,#0
+    59:             LSLS r1, r1, #5         ; checksum * 32 
+0x0000037A  0149      LSL       R1,R1,#5
+    60:             ADDS r4, r4, r1         ; checksum = checksum * 33 (written as checksum * 32 + checksum) 
+0x0000037C  1864      ADD       R4,R4,R1
+    61:             ADDS r4, r4, r0         ; checksum = checksum + y 
+    62:  
+0x0000037E  1824      ADD       R4,R4,R0
+    63:             ADDS r6, r6, #2         ; iterate bias 
+    64:  
+0x00000380  1CB6      ADD       R6,R6,#2
+    65:             SUBS r5, r5, #1         ; for (uint16_t o = 0; o < output_size; ++o) 
+0x00000382  1E6D      SUB       R5,R5,#1
+    66:             BNE loop_l              ; branch to loop 
+    67:  
+0x00000384  D1E8      BNE       0x00000358
+    68: end_loop_l  ADD sp, sp, #20         ; pop clamp_min, clamp_max and the saved r0, r1, r3 
+0x00000386  B005      ADD       SP,#0x0014
+    69:             MOVS r0, r4             ; return checksum 
+    70:  
+0x00000388  0020      LSL       R0,R4,#0
+    71:             POP {r4-r7} 
+0x0000038A  BCF0      POP       {R4-R7}
+    72:             POP {r3}                ; saved lr (POP {pc} would not switch state on ARMv4T) 
+0x0000038C  BC08      POP       {R3}
+    73:             BX r3 
+    74:                          
+    75: ; r0 = *input 
+    76: ; r1 = *weights 
+    77: ; r2 = n (input_size) 
+    78: ; r3 = bias           -> se reutiliza como acumulador acc 
+    79: ; [sp+0]  = clamp_min (a la entrada)  -> sp+16 tras el PUSH 
+    80: ; [sp+4]  = clamp_max (a la entrada)  -> sp+20 tras el PUSH 
+    81: ; r4, r5 = temporales (input[i], weights[i]) 
+    82: ; r6 = offset en bytes, recorre los vectores hacia atras (2*(n-1) ... 0) 
+    83:  
+    84: neuron_q12_THB 
+0x0000038E  4718      BX        R3
+    85:             PUSH {r4-r6, lr} 
+    86:  
+0x00000390  B570      PUSH      {R4-R6,LR}
+    87:             LSLS r3, r3, #12        ; acc = bias << Q_SHIFT 
+    88:  
+0x00000392  031B      LSL       R3,R3,#12
+    89:             LSLS r6, r2, #1         ; r6 = 2*n 
+0x00000394  0056      LSL       R6,R2,#1
+    90:             SUBS r6, r6, #2         ; r6 = 2*(n-1); si n == 0 queda negativo 
+0x00000396  1EB6      SUB       R6,R6,#2
+    91:             BMI end_loop_n          ; if (n == 0) skip loop 
+    92:  
+0x00000398  D405      BMI       0x000003A6
+    93: loop_n      LDRSH r4, [r0, r6]      ; r4 = input[i] 
+0x0000039A  5F84      LDRSH     R4,[R0,R6]
+    94:             LDRSH r5, [r1, r6]      ; r5 = weights[i] 
+0x0000039C  5F8D      LDRSH     R5,[R1,R6]
+    95:             MULS r4, r5, r4         ; r4 = weights[i] * input[i] 
+0x0000039E  436C      MUL       R4,R5
+    96:             ADDS r3, r3, r4         ; acc += weights[i] * input[i] 
+0x000003A0  191B      ADD       R3,R3,R4
+    97:             SUBS r6, r6, #2         ; i-- (recorrido inverso, la suma es conmutativa) 
+0x000003A2  1EB6      SUB       R6,R6,#2
+    98:             BPL loop_n              ; while (i >= 0) 
+    99:  
+0x000003A4  D5F9      BPL       0x0000039A
+   100: end_loop_n  ASRS r0, r3, #12        ; r0 = acc >> Q_SHIFT 
+   101:  
+0x000003A6  1318      ASR       R0,R3,#12
+   102:             LDR r1, [sp, #16]       ; r1 = clamp_min 
+0x000003A8  9904      LDR       R1,[SP,#0x0010]
+   103:             CMP r0, r1              ; if (y < clamp_min) y = clamp_min 
+0x000003AA  4288      CMP       R0,R1
+   104:             BGE chk_max 
+0x000003AC  DA00      BGE       0x000003B0
+   105:             MOVS r0, r1 
+0x000003AE  0008      LSL       R0,R1,#0
+   106: chk_max     LDR r1, [sp, #20]       ; r1 = clamp_max 
+0x000003B0  9905      LDR       R1,[SP,#0x0014]
+   107:             CMP r0, r1              ; if (y > clamp_max) y = clamp_max 
+0x000003B2  4288      CMP       R0,R1
+   108:             BLE end_neuron 
+0x000003B4  DD00      BLE       0x000003B8
+   109:             MOVS r0, r1 
+   110:  
+0x000003B6  0008      LSL       R0,R1,#0
+   111: end_neuron  POP {r4-r6} 
+0x000003B8  BC70      POP       {R4-R6}
+   112:             POP {r1}                ; lr guardado (POP {pc} no cambia de estado en ARMv4T) 
+0x000003BA  BC02      POP       {R1}
+   113:             BX r1                   ; vuelve a ARM o Thumb segun el bit 0 (llamador C en ARM) 
+0x000003BC  4708      BX        R1
+0x000003BE  0000      LSL       R0,R0,#0
+   402:     uint32_t chk_esp, const int16_t *out_esp) { 
+   403:  
+   404:     static int16_t out[TEST_MAX_OUTPUT]; 
+   405:  
+0x000003C0  E92D40F0  STMDB     R13!,{R4-R7,R14}
+0x000003C4  E24DD014  SUB       R13,R13,#0x00000014
+0x000003C8  E1A0C002  MOV       R12,R2
+0x000003CC  E1A07001  MOV       R7,R1
+   406:     uint32_t chk = dense_layer_q12_C( 
+   407:         input, weights, bias, out, 
+   408:         input_size, output_size, clamp_min, clamp_max); 
+   409:  
+0x000003D0  E28D602C  ADD       R6,R13,#0x0000002C
+0x000003D4  E8960046  LDMIA     R6,{R1-R2,R6}
+0x000003D8  E59D4038  LDR       R4,[R13,#0x0038]
+0x000003DC  E59D5028  LDR       R5,[R13,#0x0028]
+0x000003E0  E28DE008  ADD       R14,R13,#0x00000008
+0x000003E4  E88E0006  STMIA     R14,{R1-R2}
+0x000003E8  E88D0028  STMIA     R13,{R3,R5}
+0x000003EC  E59F3054  LDR       R3,[PC,#0x0054]
+0x000003F0  E1A0200C  MOV       R2,R12
+0x000003F4  E1A01007  MOV       R1,R7
+0x000003F8  EB000013  BL        dense_layer_q12_C(0x0000044C)
+   410:     if (chk != chk_esp) return 0; 
+   411:     if (out_esp != 0 && !vectores_iguales_i16(out, out_esp, output_size)) return 0; 
+   412:     return 1; 
+0x000003FC  E1500006  CMP       R0,R6
+0x00000400  128DD014  ADDNE     R13,R13,#0x00000014
+0x00000404  18BD40F0  LDMNEIA   R13!,{R4-R7,R14}
+0x00000408  13A00000  MOVNE     R0,#0x00000000
+   413: } 
+   414:  
+   415: /** 
+   416:  * @brief   Ejecuta C, C_ARM, C_THB, ARM_C, ARM y THB y verifica resultados. 
+   417:  * 
+   418:  * @param   input        Vector de entrada Q12. 
+   419:  * @param   weights      Matriz de pesos Q12. 
+   420:  * @param   bias         Vector de bias Q12. 
+   421:  * @param   resultado    Se deja aquÃ­ la salida de la versiÃ³n C. 
+   422:  * @param   input_size   NÃºmero de entradas. 
+   423:  * @param   output_size  NÃºmero de salidas/neuronas. 
+   424:  * @param   clamp_min    LÃ­mite inferior Q12. 
+   425:  * @param   clamp_max    LÃ­mite superior Q12. 
+   426:  * @return  1 si todos devuelven el mismo checksum y el mismo vector; 0 si difieren. 
+   427:  */ 
+   428: uint8_t dense_q12_verificar( 
+   429:     const int16_t *input, 
+   430:     const int16_t *weights, 
+   431:     const int16_t *bias, 
+   432:     int16_t *resultado, 
+   433:     uint16_t input_size, 
+   434:     uint16_t output_size, 
+   435:     int16_t clamp_min, 
+0x0000040C  112FFF1E  BXNE      R14
+   411:     if (out_esp != 0 && !vectores_iguales_i16(out, out_esp, output_size)) return 0; 
+   412:     return 1; 
+0x00000410  E3540000  CMP       R4,#0x00000000
+0x00000414  0A000007  BEQ       0x00000438
+0x00000418  E59F0028  LDR       R0,[PC,#0x0028]
+0x0000041C  E1A02005  MOV       R2,R5
+0x00000420  E1A01004  MOV       R1,R4
+0x00000424  EB000634  BL        vectores_iguales_i16(0x00001CFC)
+0x00000428  E3500000  CMP       R0,#0x00000000
+0x0000042C  028DD014  ADDEQ     R13,R13,#0x00000014
+0x00000430  08BD40F0  LDMEQIA   R13!,{R4-R7,R14}
+   413: } 
+   414:  
+   415: /** 
+   416:  * @brief   Ejecuta C, C_ARM, C_THB, ARM_C, ARM y THB y verifica resultados. 
+   417:  * 
+   418:  * @param   input        Vector de entrada Q12. 
+   419:  * @param   weights      Matriz de pesos Q12. 
+   420:  * @param   bias         Vector de bias Q12. 
+   421:  * @param   resultado    Se deja aquÃ­ la salida de la versiÃ³n C. 
+   422:  * @param   input_size   NÃºmero de entradas. 
+   423:  * @param   output_size  NÃºmero de salidas/neuronas. 
+   424:  * @param   clamp_min    LÃ­mite inferior Q12. 
+   425:  * @param   clamp_max    LÃ­mite superior Q12. 
+   426:  * @return  1 si todos devuelven el mismo checksum y el mismo vector; 0 si difieren. 
+   427:  */ 
+   428: uint8_t dense_q12_verificar( 
+   429:     const int16_t *input, 
+   430:     const int16_t *weights, 
+   431:     const int16_t *bias, 
+   432:     int16_t *resultado, 
+   433:     uint16_t input_size, 
+   434:     uint16_t output_size, 
+   435:     int16_t clamp_min, 
+0x00000434  012FFF1E  BXEQ      R14
+   412:     return 1; 
+0x00000438  E28DD014  ADD       R13,R13,#0x00000014
+0x0000043C  E8BD40F0  LDMIA     R13!,{R4-R7,R14}
+0x00000440  E3A00001  MOV       R0,#0x00000001
+   413: } 
+   414:  
+   415: /** 
+   416:  * @brief   Ejecuta C, C_ARM, C_THB, ARM_C, ARM y THB y verifica resultados. 
+   417:  * 
+   418:  * @param   input        Vector de entrada Q12. 
+   419:  * @param   weights      Matriz de pesos Q12. 
+   420:  * @param   bias         Vector de bias Q12. 
+   421:  * @param   resultado    Se deja aquÃ­ la salida de la versiÃ³n C. 
+   422:  * @param   input_size   NÃºmero de entradas. 
+   423:  * @param   output_size  NÃºmero de salidas/neuronas. 
+   424:  * @param   clamp_min    LÃ­mite inferior Q12. 
+   425:  * @param   clamp_max    LÃ­mite superior Q12. 
+   426:  * @return  1 si todos devuelven el mismo checksum y el mismo vector; 0 si difieren. 
+   427:  */ 
+   428: uint8_t dense_q12_verificar( 
+   429:     const int16_t *input, 
+   430:     const int16_t *weights, 
+   431:     const int16_t *bias, 
+   432:     int16_t *resultado, 
+   433:     uint16_t input_size, 
+   434:     uint16_t output_size, 
+   435:     int16_t clamp_min, 
+0x00000444  E12FFF1E  BX        R14
+0x00000448  40000028  ANDMI     R0,R0,R8,LSR #32
+   243:     int16_t clamp_max) { 
+   244:  
+   245:     uint32_t checksum = 0; 
+   246:  
+0x0000044C  E92D4FFF  STMDB     R13!,{R0-R11,R14}
+0x00000450  E24DD00C  SUB       R13,R13,#0x0000000C
+   247:     for (uint16_t o = 0; o < output_size; ++o) { 
+   248:         const int16_t *weights_o = &weights[o * input_size]; 
+   249:  
+   250:         int16_t y = neuron_q12_C( 
+   251:             input, 
+   252:             weights_o, 
+   253:             input_size, 
+   254:             bias[o], 
+   255:             clamp_min, 
+   256:             clamp_max 
+   257:         ); 
+   258:  
+   259:         output[o] = y; 
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x00000454  E28DE044  ADD       R14,R13,#0x00000044
+0x00000458  E89E4402  LDMIA     R14,{R1,R10,R14}
+0x0000045C  E59DB040  LDR       R11,[R13,#0x0040]
+0x00000460  E3510000  CMP       R1,#0x00000000
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+0x00000464  824B1001  SUBHI     R1,R11,#0x00000001
+   245:     uint32_t checksum = 0; 
+   246:  
+0x00000468  E3A00000  MOV       R0,#0x00000000
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+0x0000046C  858D1008  STRHI     R1,[R13,#0x0008]
+   247:     for (uint16_t o = 0; o < output_size; ++o) { 
+   248:         const int16_t *weights_o = &weights[o * input_size]; 
+   249:  
+   250:         int16_t y = neuron_q12_C( 
+   251:             input, 
+   252:             weights_o, 
+   253:             input_size, 
+   254:             bias[o], 
+   255:             clamp_min, 
+   256:             clamp_max 
+   257:         ); 
+   258:  
+   259:         output[o] = y; 
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x00000470  E1A04000  MOV       R4,R0
+   243:     int16_t clamp_max) { 
+   244:  
+   245:     uint32_t checksum = 0; 
+   246:  
+   247:     for (uint16_t o = 0; o < output_size; ++o) { 
+   248:         const int16_t *weights_o = &weights[o * input_size]; 
+   249:  
+   250:         int16_t y = neuron_q12_C( 
+   251:             input, 
+   252:             weights_o, 
+   253:             input_size, 
+   254:             bias[o], 
+   255:             clamp_min, 
+   256:             clamp_max 
+   257:         ); 
+   258:  
+   259:         output[o] = y; 
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x00000474  928DD01C  ADDLS     R13,R13,#0x0000001C
+0x00000478  98BD4FF0  LDMLSIA   R13!,{R4-R11,R14}
+   264: } 
+   265:  
+   266: /* ============================================================ 
+   267:    Capa C llamando a neurona ARM/Thumb 
+   268:    ============================================================ */ 
+   269:  
+   270: uint32_t dense_layer_q12_C_ARM( 
+   271:     const int16_t *input, 
+   272:     const int16_t *weights, 
+   273:     const int16_t *bias, 
+   274:     int16_t *output, 
+   275:     uint16_t input_size, 
+   276:     uint16_t output_size, 
+   277:     int16_t clamp_min, 
+0x0000047C  912FFF1E  BXLS      R14
+   248:         const int16_t *weights_o = &weights[o * input_size]; 
+   249:  
+0x00000480  E0020B94  MUL       R2,R4,R11
+0x00000484  E59D1010  LDR       R1,[R13,#0x0010]
+0x00000488  E0811082  ADD       R1,R1,R2,LSL #1
+   250:         int16_t y = neuron_q12_C( 
+   251:             input, 
+   252:             weights_o, 
+   253:             input_size, 
+   254:             bias[o], 
+   255:             clamp_min, 
+   256:             clamp_max 
+   257:         ); 
+   258:  
+0x0000048C  E59D200C  LDR       R2,[R13,#0x000C]
+0x00000490  E88D0006  STMIA     R13,{R1-R2}
+0x00000494  E59D1014  LDR       R1,[R13,#0x0014]
+   215:     int32_t acc = ((int32_t)bias_q12) << Q_SHIFT; 
+   216:  
+0x00000498  E59DC008  LDR       R12,[R13,#0x0008]
+0x0000049C  E0811084  ADD       R1,R1,R4,LSL #1
+0x000004A0  E1D110F0  LDRSH     R1,[R1]
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+   218:         // input[i] y weights[i] estÃ¡n en Q12. 
+   219:         // Su producto queda en Q24 y se acumula directamente. 
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x000004A4  E35C0000  CMP       R12,#0x00000000
+0x000004A8  E1A01601  MOV       R1,R1,LSL #12
+0x000004AC  DA000015  BLE       0x00000508
+0x000004B0  E2423002  SUB       R3,R2,#0x00000002
+   229: } 
+0x000004B4  E59D2000  LDR       R2,[R13]
+0x000004B8  E31B0001  TST       R11,#0x00000001
+0x000004BC  E2422002  SUB       R2,R2,#0x00000002
+0x000004C0  1A000002  BNE       0x000004D0
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x000004C4  E1F350F2  LDRSH     R5,[R3,#0x02]!
+0x000004C8  E1F260F2  LDRSH     R6,[R2,#0x02]!
+0x000004CC  E0211695  MLA       R1,R5,R6,R1
+0x000004D0  E1D360F2  LDRSH     R6,[R3,#0x02]
+0x000004D4  E1D270F2  LDRSH     R7,[R2,#0x02]
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+   218:         // input[i] y weights[i] estÃ¡n en Q12. 
+   219:         // Su producto queda en Q24 y se acumula directamente. 
+0x000004D8  E1B0C0CC  MOVS      R12,R12,ASR #1
+0x000004DC  E3A05000  MOV       R5,#0x00000000
+0x000004E0  0A000007  BEQ       0x00000504
+0x000004E4  E1F380F4  LDRSH     R8,[R3,#0x04]!
+0x000004E8  E1F290F4  LDRSH     R9,[R2,#0x04]!
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x000004EC  E0211796  MLA       R1,R6,R7,R1
+0x000004F0  E0255998  MLA       R5,R8,R9,R5
+0x000004F4  E1D360F2  LDRSH     R6,[R3,#0x02]
+0x000004F8  E1D270F2  LDRSH     R7,[R2,#0x02]
+0x000004FC  E25CC001  SUBS      R12,R12,#0x00000001
+0x00000500  1AFFFFF7  BNE       0x000004E4
+   229: } 
+0x00000504  E0811005  ADD       R1,R1,R5
+0x00000508  E25B2001  SUBS      R2,R11,#0x00000001
+0x0000050C  4A000006  BMI       0x0000052C
+0x00000510  E59D3004  LDR       R3,[R13,#0x0004]
+0x00000514  E0833082  ADD       R3,R3,R2,LSL #1
+0x00000518  E1D3C0F0  LDRSH     R12,[R3]
+0x0000051C  E59D3000  LDR       R3,[R13]
+0x00000520  E0832082  ADD       R2,R3,R2,LSL #1
+0x00000524  E1D220F0  LDRSH     R2,[R2]
+0x00000528  E021129C  MLA       R1,R12,R2,R1
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+0x0000052C  E1A01641  MOV       R1,R1,ASR #12
+    82:     if (x < lo) return lo; 
+0x00000530  E151000A  CMP       R1,R10
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x00000534  E1A0300E  MOV       R3,R14
+0x00000538  B1A0100A  MOVLT     R1,R10
+0x0000053C  BA000003  BLT       0x00000550
+    83:     if (x > hi) return hi; 
+0x00000540  E1530001  CMP       R3,R1
+    84:     return (int16_t)x; 
+    85: } 
+    86:  
+    87: /** 
+    88:  * @brief   Compara dos vectores int16_t elemento a elemento. 
+    89:  * 
+    90:  * @param[in] a  Primer vector. 
+    91:  * @param[in] b  Segundo vector. 
+    92:  * @param[in] n  NÃºmero de elementos. 
+    93:  * @return  1 si los dos vectores son idÃ©nticos, 0 si hay alguna diferencia. 
+    94:  */ 
+    95: static uint8_t vectores_iguales_i16(const int16_t *a, const int16_t *b, int n) { 
+0x00000544  A1A01801  MOVGE     R1,R1,LSL #16
+    83:     if (x > hi) return hi; 
+0x00000548  B1A0100E  MOVLT     R1,R14
+0x0000054C  A1A01841  MOVGE     R1,R1,ASR #16
+   259:         output[o] = y; 
+0x00000550  E59D2018  LDR       R2,[R13,#0x0018]
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x00000554  E0800280  ADD       R0,R0,R0,LSL #5
+   259:         output[o] = y; 
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x00000558  E0822084  ADD       R2,R2,R4,LSL #1
+0x0000055C  E1C210B0  STRH      R1,[R2]
+0x00000560  E1A01801  MOV       R1,R1,LSL #16
+0x00000564  E1A01821  MOV       R1,R1,LSR #16
+0x00000568  E0800001  ADD       R0,R0,R1
+   247:     for (uint16_t o = 0; o < output_size; ++o) { 
+   248:         const int16_t *weights_o = &weights[o * input_size]; 
+   249:  
+   250:         int16_t y = neuron_q12_C( 
+   251:             input, 
+   252:             weights_o, 
+   253:             input_size, 
+   254:             bias[o], 
+   255:             clamp_min, 
+   256:             clamp_max 
+   257:         ); 
+   258:  
+   259:         output[o] = y; 
+   260:         checksum = checksum * 33u + (uint16_t)y; 
+   261:     } 
+   262:  
+   263:     return checksum; 
+0x0000056C  E2841001  ADD       R1,R4,#0x00000001
+0x00000570  E3C14801  BIC       R4,R1,#0x00010000
+0x00000574  E59D1044  LDR       R1,[R13,#0x0044]
+0x00000578  E1540001  CMP       R4,R1
+0x0000057C  3AFFFFBF  BCC       0x00000480
+0x00000580  E28DD01C  ADD       R13,R13,#0x0000001C
+0x00000584  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+   264: } 
+   265:  
+   266: /* ============================================================ 
+   267:    Capa C llamando a neurona ARM/Thumb 
+   268:    ============================================================ */ 
+   269:  
+   270: uint32_t dense_layer_q12_C_ARM( 
+   271:     const int16_t *input, 
+   272:     const int16_t *weights, 
+   273:     const int16_t *bias, 
+   274:     int16_t *output, 
+   275:     uint16_t input_size, 
+   276:     uint16_t output_size, 
+   277:     int16_t clamp_min, 
+0x00000588  E12FFF1E  BX        R14
+   278:     int16_t clamp_max) { 
+   279:  
+   280:     uint32_t checksum = 0; 
+   281:  
+0x0000058C  E92D4FFF  STMDB     R13!,{R0-R11,R14}
+0x00000590  E24DD00C  SUB       R13,R13,#0x0000000C
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x00000594  E28DB044  ADD       R11,R13,#0x00000044
+0x00000598  E89B0840  LDMIA     R11,{R6,R11}
+0x0000059C  E59D7040  LDR       R7,[R13,#0x0040]
+0x000005A0  E59DA04C  LDR       R10,[R13,#0x004C]
+   280:     uint32_t checksum = 0; 
+   281:  
+0x000005A4  E3A05000  MOV       R5,#0x00000000
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x000005A8  E3560000  CMP       R6,#0x00000000
+   278:     int16_t clamp_max) { 
+   279:  
+   280:     uint32_t checksum = 0; 
+   281:  
+0x000005AC  E1A08003  MOV       R8,R3
+0x000005B0  E1A09002  MOV       R9,R2
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x000005B4  E1A04005  MOV       R4,R5
+   278:     int16_t clamp_max) { 
+   279:  
+   280:     uint32_t checksum = 0; 
+   281:  
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x000005B8  9A000013  BLS       0x0000060C
+   283:         const int16_t *weights_o = &weights[o * input_size]; 
+   284:  
+0x000005BC  E0010794  MUL       R1,R4,R7
+0x000005C0  E59D0010  LDR       R0,[R13,#0x0010]
+   285:         int16_t y = neuron_q12_ARM( 
+   286:             input, 
+   287:             weights_o, 
+   288:             input_size, 
+   289:             bias[o], 
+   290:             clamp_min, 
+   291:             clamp_max 
+   292:         ); 
+   293:  
+0x000005C4  E58DA004  STR       R10,[R13,#0x0004]
+0x000005C8  E0801081  ADD       R1,R0,R1,LSL #1
+0x000005CC  E0890084  ADD       R0,R9,R4,LSL #1
+0x000005D0  E58DB000  STR       R11,[R13]
+0x000005D4  E1D030F0  LDRSH     R3,[R0]
+0x000005D8  E59D000C  LDR       R0,[R13,#0x000C]
+0x000005DC  E1A02007  MOV       R2,R7
+0x000005E0  EBFFFF3D  BL        neuron_q12_ARM(0x000002DC)
+   294:         output[o] = y; 
+0x000005E4  E0881084  ADD       R1,R8,R4,LSL #1
+0x000005E8  E1C100B0  STRH      R0,[R1]
+   295:         checksum = checksum * 33u + (uint16_t)y; 
+   296:     } 
+   297:  
+0x000005EC  E1A00800  MOV       R0,R0,LSL #16
+0x000005F0  E0851285  ADD       R1,R5,R5,LSL #5
+0x000005F4  E1A00820  MOV       R0,R0,LSR #16
+0x000005F8  E0815000  ADD       R5,R1,R0
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+   283:         const int16_t *weights_o = &weights[o * input_size]; 
+   284:  
+   285:         int16_t y = neuron_q12_ARM( 
+   286:             input, 
+   287:             weights_o, 
+   288:             input_size, 
+   289:             bias[o], 
+   290:             clamp_min, 
+   291:             clamp_max 
+   292:         ); 
+   293:  
+   294:         output[o] = y; 
+   295:         checksum = checksum * 33u + (uint16_t)y; 
+   296:     } 
+   297:  
+0x000005FC  E2840001  ADD       R0,R4,#0x00000001
+0x00000600  E3C04801  BIC       R4,R0,#0x00010000
+0x00000604  E1560004  CMP       R6,R4
+0x00000608  8AFFFFEB  BHI       0x000005BC
+   298:     return checksum; 
+0x0000060C  E1A00005  MOV       R0,R5
+0x00000610  E28DD01C  ADD       R13,R13,#0x0000001C
+0x00000614  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+   299: } 
+   300:  
+   301: uint32_t dense_layer_q12_C_THB( 
+   302:     const int16_t *input, 
+   303:     const int16_t *weights, 
+   304:     const int16_t *bias, 
+   305:     int16_t *output, 
+   306:     uint16_t input_size, 
+   307:     uint16_t output_size, 
+   308:     int16_t clamp_min, 
+0x00000618  E12FFF1E  BX        R14
+   309:     int16_t clamp_max) { 
+   310:  
+   311:     uint32_t checksum = 0; 
+   312:  
+0x0000061C  E92D4FFF  STMDB     R13!,{R0-R11,R14}
+0x00000620  E24DD00C  SUB       R13,R13,#0x0000000C
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x00000624  E28DB044  ADD       R11,R13,#0x00000044
+0x00000628  E89B0840  LDMIA     R11,{R6,R11}
+0x0000062C  E59D7040  LDR       R7,[R13,#0x0040]
+0x00000630  E59DA04C  LDR       R10,[R13,#0x004C]
+   311:     uint32_t checksum = 0; 
+   312:  
+0x00000634  E3A05000  MOV       R5,#0x00000000
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x00000638  E3560000  CMP       R6,#0x00000000
+   309:     int16_t clamp_max) { 
+   310:  
+   311:     uint32_t checksum = 0; 
+   312:  
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x0000063C  E1A08003  MOV       R8,R3
+0x00000640  E1A09002  MOV       R9,R2
+0x00000644  E1A04005  MOV       R4,R5
+0x00000648  9A000013  BLS       0x0000069C
+   314:         const int16_t *weights_o = &weights[o * input_size]; 
+   315:  
+0x0000064C  E0010794  MUL       R1,R4,R7
+0x00000650  E59D0010  LDR       R0,[R13,#0x0010]
+   316:         int16_t y = neuron_q12_THB( 
+   317:             input, 
+   318:             weights_o, 
+   319:             input_size, 
+   320:             bias[o], 
+   321:             clamp_min, 
+   322:             clamp_max 
+   323:         ); 
+   324:  
+0x00000654  E58DA004  STR       R10,[R13,#0x0004]
+   314:         const int16_t *weights_o = &weights[o * input_size]; 
+   315:  
+0x00000658  E0801081  ADD       R1,R0,R1,LSL #1
+   316:         int16_t y = neuron_q12_THB( 
+   317:             input, 
+   318:             weights_o, 
+   319:             input_size, 
+   320:             bias[o], 
+   321:             clamp_min, 
+   322:             clamp_max 
+   323:         ); 
+   324:  
+0x0000065C  E0890084  ADD       R0,R9,R4,LSL #1
+0x00000660  E58DB000  STR       R11,[R13]
+0x00000664  E1D030F0  LDRSH     R3,[R0]
+0x00000668  E59D000C  LDR       R0,[R13,#0x000C]
+0x0000066C  E1A02007  MOV       R2,R7
+0x00000670  EBFFFF2C  BL        $Ven$AT$I$$neuron_q12_THB(0x00000328)
+   325:         output[o] = y; 
+0x00000674  E0881084  ADD       R1,R8,R4,LSL #1
+0x00000678  E1C100B0  STRH      R0,[R1]
+   326:         checksum = checksum * 33u + (uint16_t)y; 
+   327:     } 
+   328:  
+0x0000067C  E1A00800  MOV       R0,R0,LSL #16
+0x00000680  E0851285  ADD       R1,R5,R5,LSL #5
+0x00000684  E1A00820  MOV       R0,R0,LSR #16
+0x00000688  E0815000  ADD       R5,R1,R0
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+   314:         const int16_t *weights_o = &weights[o * input_size]; 
+   315:  
+   316:         int16_t y = neuron_q12_THB( 
+   317:             input, 
+   318:             weights_o, 
+   319:             input_size, 
+   320:             bias[o], 
+   321:             clamp_min, 
+   322:             clamp_max 
+   323:         ); 
+   324:  
+   325:         output[o] = y; 
+   326:         checksum = checksum * 33u + (uint16_t)y; 
+   327:     } 
+   328:  
+0x0000068C  E2840001  ADD       R0,R4,#0x00000001
+0x00000690  E3C04801  BIC       R4,R0,#0x00010000
+0x00000694  E1560004  CMP       R6,R4
+0x00000698  8AFFFFEB  BHI       0x0000064C
+   329:     return checksum; 
+0x0000069C  E1A00005  MOV       R0,R5
+0x000006A0  E28DD01C  ADD       R13,R13,#0x0000001C
+0x000006A4  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+   330: } 
+0x000006A8  E12FFF1E  BX        R14
+   436:     int16_t clamp_max) { 
+   437:  
+   438:     static int16_t out_C     [OUTPUT_SIZE]; 
+   439:     static int16_t out_C_ARM [OUTPUT_SIZE]; 
+   440:     static int16_t out_C_THB [OUTPUT_SIZE]; 
+   441:     static int16_t out_ARM_C [OUTPUT_SIZE]; 
+   442:     static int16_t out_ARM   [OUTPUT_SIZE]; 
+   443:     static int16_t out_THB   [OUTPUT_SIZE]; 
+   444:  
+0x000006AC  E92D4FFF  STMDB     R13!,{R0-R11,R14}
+0x000006B0  E24DD01C  SUB       R13,R13,#0x0000001C
+0x000006B4  E28D4054  ADD       R4,R13,#0x00000054
+0x000006B8  E89401A0  LDMIA     R4,{R5,R7-R8}
+0x000006BC  E59D6050  LDR       R6,[R13,#0x0050]
+   445:     uint32_t chk_C = dense_layer_q12_C( 
+   446:         input, weights, bias, out_C, 
+   447:         input_size, output_size, clamp_min, clamp_max); 
+   448:  
+0x000006C0  E28D0004  ADD       R0,R13,#0x00000004
+0x000006C4  E58D6000  STR       R6,[R13]
+0x000006C8  E88001A0  STMIA     R0,{R5,R7-R8}
+0x000006CC  E28D401C  ADD       R4,R13,#0x0000001C
+0x000006D0  E8940007  LDMIA     R4,{R0-R2}
+0x000006D4  E59F3294  LDR       R3,[PC,#0x0294]
+0x000006D8  EBFFFF5B  BL        dense_layer_q12_C(0x0000044C)
+   449:     uint32_t chk_C_ARM = dense_layer_q12_C_ARM( 
+   450:         input, weights, bias, out_C_ARM, 
+   451:         input_size, output_size, clamp_min, clamp_max); 
+   452:  
+0x000006DC  E58D0010  STR       R0,[R13,#0x0010]
+0x000006E0  E59D001C  LDR       R0,[R13,#0x001C]
+0x000006E4  E59DA024  LDR       R10,[R13,#0x0024]
+0x000006E8  E58D000C  STR       R0,[R13,#0x000C]
+0x000006EC  E59F0280  LDR       R0,[PC,#0x0280]
+0x000006F0  E59DB020  LDR       R11,[R13,#0x0020]
+   280:     uint32_t checksum = 0; 
+   281:  
+0x000006F4  E3A09000  MOV       R9,#0x00000000
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x000006F8  E3550000  CMP       R5,#0x00000000
+0x000006FC  E1A04009  MOV       R4,R9
+0x00000700  E58D0008  STR       R0,[R13,#0x0008]
+0x00000704  9A000012  BLS       0x00000754
+   283:         const int16_t *weights_o = &weights[o * input_size]; 
+   284:  
+0x00000708  E0000694  MUL       R0,R4,R6
+0x0000070C  E08B1080  ADD       R1,R11,R0,LSL #1
+   285:         int16_t y = neuron_q12_ARM( 
+   286:             input, 
+   287:             weights_o, 
+   288:             input_size, 
+   289:             bias[o], 
+   290:             clamp_min, 
+   291:             clamp_max 
+   292:         ); 
+   293:  
+0x00000710  E88D0180  STMIA     R13,{R7-R8}
+0x00000714  E08A0084  ADD       R0,R10,R4,LSL #1
+0x00000718  E1D030F0  LDRSH     R3,[R0]
+0x0000071C  E59D000C  LDR       R0,[R13,#0x000C]
+0x00000720  E1A02006  MOV       R2,R6
+0x00000724  EBFFFEEC  BL        neuron_q12_ARM(0x000002DC)
+   294:         output[o] = y; 
+0x00000728  E59D1008  LDR       R1,[R13,#0x0008]
+0x0000072C  E0811084  ADD       R1,R1,R4,LSL #1
+0x00000730  E1C100B0  STRH      R0,[R1]
+   295:         checksum = checksum * 33u + (uint16_t)y; 
+0x00000734  E1A00800  MOV       R0,R0,LSL #16
+0x00000738  E0891289  ADD       R1,R9,R9,LSL #5
+0x0000073C  E1A00820  MOV       R0,R0,LSR #16
+0x00000740  E0819000  ADD       R9,R1,R0
+   282:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x00000744  E2840001  ADD       R0,R4,#0x00000001
+0x00000748  E3C04801  BIC       R4,R0,#0x00010000
+0x0000074C  E1550004  CMP       R5,R4
+0x00000750  8AFFFFEC  BHI       0x00000708
+   453:     uint32_t chk_C_THB = dense_layer_q12_C_THB( 
+   454:         input, weights, bias, out_C_THB, 
+   455:         input_size, output_size, clamp_min, clamp_max); 
+   456:  
+0x00000754  E59D001C  LDR       R0,[R13,#0x001C]
+0x00000758  E58D9014  STR       R9,[R13,#0x0014]
+0x0000075C  E58D000C  STR       R0,[R13,#0x000C]
+0x00000760  E59F0210  LDR       R0,[PC,#0x0210]
+0x00000764  E59DA024  LDR       R10,[R13,#0x0024]
+0x00000768  E59DB020  LDR       R11,[R13,#0x0020]
+   311:     uint32_t checksum = 0; 
+   312:  
+0x0000076C  E3A09000  MOV       R9,#0x00000000
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x00000770  E3550000  CMP       R5,#0x00000000
+0x00000774  E1A04009  MOV       R4,R9
+0x00000778  E58D0008  STR       R0,[R13,#0x0008]
+0x0000077C  9A000012  BLS       0x000007CC
+   314:         const int16_t *weights_o = &weights[o * input_size]; 
+   315:  
+0x00000780  E0000694  MUL       R0,R4,R6
+0x00000784  E08B1080  ADD       R1,R11,R0,LSL #1
+   316:         int16_t y = neuron_q12_THB( 
+   317:             input, 
+   318:             weights_o, 
+   319:             input_size, 
+   320:             bias[o], 
+   321:             clamp_min, 
+   322:             clamp_max 
+   323:         ); 
+   324:  
+0x00000788  E88D0180  STMIA     R13,{R7-R8}
+0x0000078C  E08A0084  ADD       R0,R10,R4,LSL #1
+0x00000790  E1D030F0  LDRSH     R3,[R0]
+0x00000794  E59D000C  LDR       R0,[R13,#0x000C]
+0x00000798  E1A02006  MOV       R2,R6
+0x0000079C  EBFFFEE1  BL        $Ven$AT$I$$neuron_q12_THB(0x00000328)
+   325:         output[o] = y; 
+0x000007A0  E59D1008  LDR       R1,[R13,#0x0008]
+0x000007A4  E0811084  ADD       R1,R1,R4,LSL #1
+0x000007A8  E1C100B0  STRH      R0,[R1]
+   326:         checksum = checksum * 33u + (uint16_t)y; 
+0x000007AC  E1A00800  MOV       R0,R0,LSL #16
+0x000007B0  E0891289  ADD       R1,R9,R9,LSL #5
+0x000007B4  E1A00820  MOV       R0,R0,LSR #16
+0x000007B8  E0819000  ADD       R9,R1,R0
+   313:     for (uint16_t o = 0; o < output_size; ++o) { 
+0x000007BC  E2840001  ADD       R0,R4,#0x00000001
+0x000007C0  E3C04801  BIC       R4,R0,#0x00010000
+0x000007C4  E1550004  CMP       R5,R4
+0x000007C8  8AFFFFEC  BHI       0x00000780
+   457:     uint32_t chk_ARM_C = dense_layer_q12_ARM_C( 
+   458:         input, weights, bias, out_ARM_C, 
+   459:         input_size, output_size, clamp_min, clamp_max); 
+   460:  
+0x000007CC  E28D0004  ADD       R0,R13,#0x00000004
+0x000007D0  E58D6000  STR       R6,[R13]
+0x000007D4  E88001A0  STMIA     R0,{R5,R7-R8}
+0x000007D8  E28D401C  ADD       R4,R13,#0x0000001C
+0x000007DC  E8940007  LDMIA     R4,{R0-R2}
+0x000007E0  E59F3194  LDR       R3,[PC,#0x0194]
+0x000007E4  EBFFFE78  BL        __semihosting_library_function(0x000001CC)
+0x000007E8  E1A0A000  MOV       R10,R0
+   461:     uint32_t chk_ARM = dense_layer_q12_ARM( 
+   462:         input, weights, bias, out_ARM, 
+   463:         input_size, output_size, clamp_min, clamp_max); 
+   464:  
+0x000007EC  E28D0004  ADD       R0,R13,#0x00000004
+0x000007F0  E58D6000  STR       R6,[R13]
+0x000007F4  E88001A0  STMIA     R0,{R5,R7-R8}
+0x000007F8  E28D401C  ADD       R4,R13,#0x0000001C
+0x000007FC  E8940007  LDMIA     R4,{R0-R2}
+0x00000800  E59F3178  LDR       R3,[PC,#0x0178]
+0x00000804  EBFFFE92  BL        dense_layer_q12_ARM(0x00000254)
+0x00000808  E1A04000  MOV       R4,R0
+   465:     uint32_t chk_THB = dense_layer_q12_THB( 
+   466:         input, weights, bias, out_THB, 
+   467:         input_size, output_size, clamp_min, clamp_max); 
+   468:  
+0x0000080C  E28D0004  ADD       R0,R13,#0x00000004
+0x00000810  E58D6000  STR       R6,[R13]
+0x00000814  E88001A0  STMIA     R0,{R5,R7-R8}
+0x00000818  E28DB01C  ADD       R11,R13,#0x0000001C
+0x0000081C  E89B0007  LDMIA     R11,{R0-R2}
+0x00000820  E59F315C  LDR       R3,[PC,#0x015C]
+0x00000824  EBFFFEC1  BL        dense_layer_q12_THB(0x00000330)
+   445:     uint32_t chk_C = dense_layer_q12_C( 
+   446:         input, weights, bias, out_C, 
+   447:         input_size, output_size, clamp_min, clamp_max); 
+   448:  
+   449:     uint32_t chk_C_ARM = dense_layer_q12_C_ARM( 
+   450:         input, weights, bias, out_C_ARM, 
+   451:         input_size, output_size, clamp_min, clamp_max); 
+   452:  
+   453:     uint32_t chk_C_THB = dense_layer_q12_C_THB( 
+   454:         input, weights, bias, out_C_THB, 
+   455:         input_size, output_size, clamp_min, clamp_max); 
+   456:  
+   457:     uint32_t chk_ARM_C = dense_layer_q12_ARM_C( 
+   458:         input, weights, bias, out_ARM_C, 
+   459:         input_size, output_size, clamp_min, clamp_max); 
+   460:  
+   461:     uint32_t chk_ARM = dense_layer_q12_ARM( 
+   462:         input, weights, bias, out_ARM, 
+   463:         input_size, output_size, clamp_min, clamp_max); 
+   464:  
+   465:     uint32_t chk_THB = dense_layer_q12_THB( 
+   466:         input, weights, bias, out_THB, 
+   467:         input_size, output_size, clamp_min, clamp_max); 
+   468:  
+0x00000828  E59F7140  LDR       R7,[PC,#0x0140]
+   469:     for (uint16_t i = 0; i < output_size; ++i) { 
+   470:         resultado[i] = out_C[i]; 
+   471:     } 
+   472:  
+   473:     if (!(chk_C == chk_C_ARM && chk_C == chk_C_THB && 
+   474:           chk_C == chk_ARM_C && chk_C == chk_ARM && chk_C == chk_THB)) { 
+   475:         return 0; 
+   476:     } 
+   477:  
+   478:     if (!vectores_iguales_i16(out_C, out_C_ARM, output_size)) return 0; 
+   479:     if (!vectores_iguales_i16(out_C, out_C_THB, output_size)) return 0; 
+   480:     if (!vectores_iguales_i16(out_C, out_ARM_C, output_size)) return 0; 
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x0000082C  E2452001  SUB       R2,R5,#0x00000001
+0x00000830  E3520000  CMP       R2,#0x00000000
+   465:     uint32_t chk_THB = dense_layer_q12_THB( 
+   466:         input, weights, bias, out_THB, 
+   467:         input_size, output_size, clamp_min, clamp_max); 
+   468:  
+0x00000834  E1A06000  MOV       R6,R0
+   469:     for (uint16_t i = 0; i < output_size; ++i) { 
+   470:         resultado[i] = out_C[i]; 
+   471:     } 
+   472:  
+   473:     if (!(chk_C == chk_C_ARM && chk_C == chk_C_THB && 
+   474:           chk_C == chk_ARM_C && chk_C == chk_ARM && chk_C == chk_THB)) { 
+   475:         return 0; 
+   476:     } 
+   477:  
+   478:     if (!vectores_iguales_i16(out_C, out_C_ARM, output_size)) return 0; 
+   479:     if (!vectores_iguales_i16(out_C, out_C_THB, output_size)) return 0; 
+   480:     if (!vectores_iguales_i16(out_C, out_ARM_C, output_size)) return 0; 
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x00000838  DA00000F  BLE       0x0000087C
+   485: } 
+   486:  
+   487: /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la 
+   488:    referencia C contra la soluciÃ³n esperada (chk_esp y out_esp; out_esp = 0 
+   489:    para comprobar solo el checksum). */ 
+   490: #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \ 
+   491:     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   492:     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   493:     ok_tests &= func_verificar(dense_layer_q12_ARM_C, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   494:     ok_tests &= func_verificar(dense_layer_q12_ARM,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   495:     ok_tests &= func_verificar(dense_layer_q12_THB,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   496:     ok_tests &= C_cumple_esperado((in), (w), (b), (ni), (no), (lo), (hi), (chk_esp), (out_esp)); \ 
+   497: } while (0) 
+   498:  
+   499: /* ============================================================ 
+   500:    MAIN de prueba 
+   501:    ============================================================ */ 
+0x0000083C  E59D0028  LDR       R0,[R13,#0x0028]
+0x00000840  E3150001  TST       R5,#0x00000001
+0x00000844  E2471002  SUB       R1,R7,#0x00000002
+0x00000848  E2400002  SUB       R0,R0,#0x00000002
+0x0000084C  1A000001  BNE       0x00000858
+   470:         resultado[i] = out_C[i]; 
+   471:     } 
+   472:  
+   473:     if (!(chk_C == chk_C_ARM && chk_C == chk_C_THB && 
+   474:           chk_C == chk_ARM_C && chk_C == chk_ARM && chk_C == chk_THB)) { 
+   475:         return 0; 
+   476:     } 
+   477:  
+   478:     if (!vectores_iguales_i16(out_C, out_C_ARM, output_size)) return 0; 
+   479:     if (!vectores_iguales_i16(out_C, out_C_THB, output_size)) return 0; 
+   480:     if (!vectores_iguales_i16(out_C, out_ARM_C, output_size)) return 0; 
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x00000850  E1F130B2  LDRH      R3,[R1,#0x02]!
+0x00000854  E1E030B2  STRH      R3,[R0,#0x02]!
+   485: } 
+   486:  
+   487: /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la 
+   488:    referencia C contra la soluciÃ³n esperada (chk_esp y out_esp; out_esp = 0 
+   489:    para comprobar solo el checksum). */ 
+   490: #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \ 
+   491:     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   492:     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   493:     ok_tests &= func_verificar(dense_layer_q12_ARM_C, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   494:     ok_tests &= func_verificar(dense_layer_q12_ARM,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   495:     ok_tests &= func_verificar(dense_layer_q12_THB,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   496:     ok_tests &= C_cumple_esperado((in), (w), (b), (ni), (no), (lo), (hi), (chk_esp), (out_esp)); \ 
+   497: } while (0) 
+   498:  
+   499: /* ============================================================ 
+   500:    MAIN de prueba 
+   501:    ============================================================ */ 
+0x00000858  E1D130F2  LDRSH     R3,[R1,#0x02]
+   469:     for (uint16_t i = 0; i < output_size; ++i) { 
+0x0000085C  E1B020C2  MOVS      R2,R2,ASR #1
+0x00000860  0A000005  BEQ       0x0000087C
+0x00000864  E1F1C0B4  LDRH      R12,[R1,#0x04]!
+   470:         resultado[i] = out_C[i]; 
+   471:     } 
+   472:  
+0x00000868  E1C030B2  STRH      R3,[R0,#0x02]
+0x0000086C  E1D130F2  LDRSH     R3,[R1,#0x02]
+0x00000870  E2522001  SUBS      R2,R2,#0x00000001
+0x00000874  E1E0C0B4  STRH      R12,[R0,#0x04]!
+0x00000878  1AFFFFF9  BNE       0x00000864
+0x0000087C  E2550001  SUBS      R0,R5,#0x00000001
+0x00000880  4A000004  BMI       0x00000898
+0x00000884  E0871080  ADD       R1,R7,R0,LSL #1
+0x00000888  E1D120B0  LDRH      R2,[R1]
+0x0000088C  E59D1028  LDR       R1,[R13,#0x0028]
+0x00000890  E0810080  ADD       R0,R1,R0,LSL #1
+0x00000894  E1C020B0  STRH      R2,[R0]
+   473:     if (!(chk_C == chk_C_ARM && chk_C == chk_C_THB && 
+   474:           chk_C == chk_ARM_C && chk_C == chk_ARM && chk_C == chk_THB)) { 
+0x00000898  E28D1010  ADD       R1,R13,#0x00000010
+0x0000089C  E8910003  LDMIA     R1,{R0-R1}
+0x000008A0  E1500001  CMP       R0,R1
+0x000008A4  01500009  CMPEQ     R0,R9
+0x000008A8  1A000003  BNE       0x000008BC
+0x000008AC  E150000A  CMP       R0,R10
+0x000008B0  01500004  CMPEQ     R0,R4
+0x000008B4  01500006  CMPEQ     R0,R6
+0x000008B8  0A000003  BEQ       0x000008CC
+   475:         return 0; 
+   476:     } 
+   477:  
+0x000008BC  E28DD02C  ADD       R13,R13,#0x0000002C
+0x000008C0  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+0x000008C4  E3A00000  MOV       R0,#0x00000000
+0x000008C8  E12FFF1E  BX        R14
+   478:     if (!vectores_iguales_i16(out_C, out_C_ARM, output_size)) return 0; 
+0x000008CC  E59F10A0  LDR       R1,[PC,#0x00A0]
+0x000008D0  E1A02005  MOV       R2,R5
+0x000008D4  E241000A  SUB       R0,R1,#0x0000000A
+0x000008D8  EB000507  BL        vectores_iguales_i16(0x00001CFC)
+0x000008DC  E3500000  CMP       R0,#0x00000000
+0x000008E0  028DD02C  ADDEQ     R13,R13,#0x0000002C
+0x000008E4  08BD4FF0  LDMEQIA   R13!,{R4-R11,R14}
+0x000008E8  012FFF1E  BXEQ      R14
+   479:     if (!vectores_iguales_i16(out_C, out_C_THB, output_size)) return 0; 
+   480:     if (!vectores_iguales_i16(out_C, out_ARM_C, output_size)) return 0; 
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x000008EC  E1A02005  MOV       R2,R5
+0x000008F0  E59F1080  LDR       R1,[PC,#0x0080]
+0x000008F4  E2410014  SUB       R0,R1,#0x00000014
+0x000008F8  EB0004FF  BL        vectores_iguales_i16(0x00001CFC)
+0x000008FC  E3500000  CMP       R0,#0x00000000
+0x00000900  028DD02C  ADDEQ     R13,R13,#0x0000002C
+0x00000904  08BD4FF0  LDMEQIA   R13!,{R4-R11,R14}
+   485: } 
+   486:  
+   487: /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la 
+   488:    referencia C contra la soluciÃ³n esperada (chk_esp y out_esp; out_esp = 0 
+   489:    para comprobar solo el checksum). */ 
+   490: #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \ 
+   491:     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   492:     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   493:     ok_tests &= func_verificar(dense_layer_q12_ARM_C, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   494:     ok_tests &= func_verificar(dense_layer_q12_ARM,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   495:     ok_tests &= func_verificar(dense_layer_q12_THB,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   496:     ok_tests &= C_cumple_esperado((in), (w), (b), (ni), (no), (lo), (hi), (chk_esp), (out_esp)); \ 
+   497: } while (0) 
+   498:  
+   499: /* ============================================================ 
+   500:    MAIN de prueba 
+   501:    ============================================================ */ 
+0x00000908  012FFF1E  BXEQ      R14
+   480:     if (!vectores_iguales_i16(out_C, out_ARM_C, output_size)) return 0; 
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x0000090C  E1A02005  MOV       R2,R5
+0x00000910  E59F1064  LDR       R1,[PC,#0x0064]
+0x00000914  E241001E  SUB       R0,R1,#0x0000001E
+0x00000918  EB0004F7  BL        vectores_iguales_i16(0x00001CFC)
+0x0000091C  E3500000  CMP       R0,#0x00000000
+0x00000920  028DD02C  ADDEQ     R13,R13,#0x0000002C
+0x00000924  08BD4FF0  LDMEQIA   R13!,{R4-R11,R14}
+   485: } 
+   486:  
+   487: /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la 
+   488:    referencia C contra la soluciÃ³n esperada (chk_esp y out_esp; out_esp = 0 
+   489:    para comprobar solo el checksum). */ 
+   490: #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \ 
+   491:     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   492:     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   493:     ok_tests &= func_verificar(dense_layer_q12_ARM_C, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   494:     ok_tests &= func_verificar(dense_layer_q12_ARM,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   495:     ok_tests &= func_verificar(dense_layer_q12_THB,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   496:     ok_tests &= C_cumple_esperado((in), (w), (b), (ni), (no), (lo), (hi), (chk_esp), (out_esp)); \ 
+   497: } while (0) 
+   498:  
+   499: /* ============================================================ 
+   500:    MAIN de prueba 
+   501:    ============================================================ */ 
+0x00000928  012FFF1E  BXEQ      R14
+   481:     if (!vectores_iguales_i16(out_C, out_ARM,   output_size)) return 0; 
+0x0000092C  E1A02005  MOV       R2,R5
+0x00000930  E59F1048  LDR       R1,[PC,#0x0048]
+0x00000934  E2410028  SUB       R0,R1,#0x00000028
+0x00000938  EB0004EF  BL        vectores_iguales_i16(0x00001CFC)
+0x0000093C  E3500000  CMP       R0,#0x00000000
+0x00000940  028DD02C  ADDEQ     R13,R13,#0x0000002C
+0x00000944  08BD4FF0  LDMEQIA   R13!,{R4-R11,R14}
+0x00000948  012FFF1E  BXEQ      R14
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+0x0000094C  E1A02005  MOV       R2,R5
+0x00000950  E59F102C  LDR       R1,[PC,#0x002C]
+0x00000954  E2410032  SUB       R0,R1,#0x00000032
+0x00000958  EB0004E7  BL        vectores_iguales_i16(0x00001CFC)
+   484:     return 1; 
+0x0000095C  E28DD02C  ADD       R13,R13,#0x0000002C
+0x00000960  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+   482:     if (!vectores_iguales_i16(out_C, out_THB,   output_size)) return 0; 
+   483:  
+   484:     return 1; 
+0x00000964  E3500000  CMP       R0,#0x00000000
+0x00000968  13A00001  MOVNE     R0,#0x00000001
+   485: } 
+   486:  
+   487: /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la 
+   488:    referencia C contra la soluciÃ³n esperada (chk_esp y out_esp; out_esp = 0 
+   489:    para comprobar solo el checksum). */ 
+   490: #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \ 
+   491:     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   492:     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   493:     ok_tests &= func_verificar(dense_layer_q12_ARM_C, (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   494:     ok_tests &= func_verificar(dense_layer_q12_ARM,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   495:     ok_tests &= func_verificar(dense_layer_q12_THB,   (in), (w), (b), (ni), (no), (lo), (hi)); \ 
+   496:     ok_tests &= C_cumple_esperado((in), (w), (b), (ni), (no), (lo), (hi), (chk_esp), (out_esp)); \ 
+   497: } while (0) 
+   498:  
+   499: /* ============================================================ 
+   500:    MAIN de prueba 
+   501:    ============================================================ */ 
+0x0000096C  E12FFF1E  BX        R14
+0x00000970  40000038  ANDMI     R0,R0,R8,LSR R0
+0x00000974  40000042  ANDMI     R0,R0,R2,ASR #32
+0x00000978  4000004C  ANDMI     R0,R0,R12,ASR #32
+0x0000097C  40000056  ANDMI     R0,R0,R6,ASR R0
+0x00000980  40000060  ANDMI     R0,R0,R0,RRX
+0x00000984  4000006A  ANDMI     R0,R0,R10,RRX
+   361: ) { 
+   362:     static int16_t out_ref  [TEST_MAX_OUTPUT]; 
+   363:     static int16_t out_func [TEST_MAX_OUTPUT]; 
+   364:  
+   365:     // Rellenamos con el valor de relleno: lo que no se escriba debe quedar intacto. 
+0x00000988  E92D4FFF  STMDB     R13!,{R0-R11,R14}
+0x0000098C  E24DD014  SUB       R13,R13,#0x00000014
+   366:     for (int i = 0; i < TEST_MAX_OUTPUT; ++i) { 
+0x00000990  E59F10C8  LDR       R1,[PC,#0x00C8]
+0x00000994  E1A0A002  MOV       R10,R2
+   367:         out_ref[i]  = RELLENO_SALIDA; 
+0x00000998  E59D4054  LDR       R4,[R13,#0x0054]
+0x0000099C  E59D5050  LDR       R5,[R13,#0x0050]
+0x000009A0  E59D604C  LDR       R6,[R13,#0x004C]
+0x000009A4  E59D7048  LDR       R7,[R13,#0x0048]
+   361: ) { 
+   362:     static int16_t out_ref  [TEST_MAX_OUTPUT]; 
+   363:     static int16_t out_func [TEST_MAX_OUTPUT]; 
+   364:  
+   365:     // Rellenamos con el valor de relleno: lo que no se escriba debe quedar intacto. 
+   366:     for (int i = 0; i < TEST_MAX_OUTPUT; ++i) { 
+0x000009A8  E1A09003  MOV       R9,R3
+0x000009AC  E1A08000  MOV       R8,R0
+   367:         out_ref[i]  = RELLENO_SALIDA; 
+0x000009B0  E3A0205A  MOV       R2,#0x0000005A
+   366:     for (int i = 0; i < TEST_MAX_OUTPUT; ++i) { 
+   367:         out_ref[i]  = RELLENO_SALIDA; 
+0x000009B4  E2810010  ADD       R0,R1,#0x00000010
+0x000009B8  E3A03004  MOV       R3,#0x00000004
+0x000009BC  E2822C5A  ADD       R2,R2,#0x00005A00
+0x000009C0  E1C120B2  STRH      R2,[R1,#0x02]
+   368:         out_func[i] = RELLENO_SALIDA; 
+   369:     } 
+   370:  
+0x000009C4  E1C020B2  STRH      R2,[R0,#0x02]
+0x000009C8  E1E120B4  STRH      R2,[R1,#0x04]!
+0x000009CC  E2533001  SUBS      R3,R3,#0x00000001
+0x000009D0  E1E020B4  STRH      R2,[R0,#0x04]!
+0x000009D4  1AFFFFF9  BNE       0x000009C0
+   371:     uint32_t chk_ref = dense_layer_q12_C( 
+   372:         input, weights, bias, out_ref, 
+   373:         input_size, output_size, clamp_min, clamp_max); 
+   374:  
+0x000009D8  E58D6004  STR       R6,[R13,#0x0004]
+0x000009DC  E59F3080  LDR       R3,[PC,#0x0080]
+0x000009E0  E59D0018  LDR       R0,[R13,#0x0018]
+0x000009E4  E1A02009  MOV       R2,R9
+0x000009E8  E1A0100A  MOV       R1,R10
+0x000009EC  E58D400C  STR       R4,[R13,#0x000C]
+0x000009F0  E58D5008  STR       R5,[R13,#0x0008]
+0x000009F4  E58D7000  STR       R7,[R13]
+0x000009F8  EBFFFE93  BL        dense_layer_q12_C(0x0000044C)
+0x000009FC  E1A0B000  MOV       R11,R0
+   375:     uint32_t chk_func = func( 
+   376:         input, weights, bias, out_func, 
+   377:         input_size, output_size, clamp_min, clamp_max); 
+   378:  
+0x00000A00  E58D6004  STR       R6,[R13,#0x0004]
+0x00000A04  E59F305C  LDR       R3,[PC,#0x005C]
+0x00000A08  E59D0018  LDR       R0,[R13,#0x0018]
+0x00000A0C  E1A02009  MOV       R2,R9
+0x00000A10  E1A0100A  MOV       R1,R10
+0x00000A14  E28FE00C  ADD       R14,PC,#0x0000000C
+0x00000A18  E58D400C  STR       R4,[R13,#0x000C]
+0x00000A1C  E58D5008  STR       R5,[R13,#0x0008]
+0x00000A20  E58D7000  STR       R7,[R13]
+0x00000A24  E12FFF18  BX        R8
+   379:     if (chk_func != chk_ref) { 
+0x00000A28  E150000B  CMP       R0,R11
+0x00000A2C  128DD024  ADDNE     R13,R13,#0x00000024
+0x00000A30  18BD4FF0  LDMNEIA   R13!,{R4-R11,R14}
+   380:         return 0; 
+   381:     } 
+   382:  
+   383:     // Comparamos los buffers enteros: valores correctos en las primeras 
+   384:     // output_size posiciones y relleno intacto en el resto. 
+   385:     if (!vectores_iguales_i16(out_ref, out_func, TEST_MAX_OUTPUT)) { 
+   386:         return 0; 
+   387:     } 
+   388:  
+   389:     return 1; 
+0x00000A34  13A00000  MOVNE     R0,#0x00000000
+   390: } 
+0x00000A38  112FFF1E  BXNE      R14
+   385:     if (!vectores_iguales_i16(out_ref, out_func, TEST_MAX_OUTPUT)) { 
+   386:         return 0; 
+   387:     } 
+   388:  
+0x00000A3C  E3A02008  MOV       R2,#0x00000008
+0x00000A40  E59F1020  LDR       R1,[PC,#0x0020]
+0x00000A44  E2410010  SUB       R0,R1,#0x00000010
+0x00000A48  EB0004AB  BL        vectores_iguales_i16(0x00001CFC)
+   389:     return 1; 
+0x00000A4C  E28DD024  ADD       R13,R13,#0x00000024
+0x00000A50  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+   385:     if (!vectores_iguales_i16(out_ref, out_func, TEST_MAX_OUTPUT)) { 
+   386:         return 0; 
+   387:     } 
+   388:  
+   389:     return 1; 
+0x00000A54  E3500000  CMP       R0,#0x00000000
+0x00000A58  13A00001  MOVNE     R0,#0x00000001
+   390: } 
+0x00000A5C  E12FFF1E  BX        R14
+0x00000A60  40000006  ANDMI     R0,R0,R6
+0x00000A64  40000008  ANDMI     R0,R0,R8
+0x00000A68  40000018  ANDMI     R0,R0,R8,LSL R0
+   502: int main(void) { 
+0x00000A6C  E24DD018  SUB       R13,R13,#0x00000018
+   557:     uint8_t ok = dense_q12_verificar( 
+   558:         input, 
+   559:         weights, 
+   560:         bias, 
+   561:         resultado, 
+   562:         INPUT_SIZE, 
+   563:         OUTPUT_SIZE, 
+   564:         CLAMP_MIN_Q12, 
+   565:         CLAMP_MAX_Q12 
+   566:     ); 
+   567:  
+   568:     // VerificaciÃ³n por casos: cada funciÃ³n de capa contra la referencia C. 
+0x00000A70  E3A01008  MOV       R1,#0x00000008
+0x00000A74  E58D1000  STR       R1,[R13]
+0x00000A78  E3A05000  MOV       R5,#0x00000000
+0x00000A7C  E3A00005  MOV       R0,#0x00000005
+0x00000A80  E59F2F98  LDR       R2,[PC,#0x0F98]
+0x00000A84  E98D0021  STMIB     R13,{R0,R5}
+0x00000A88  E3A04A01  MOV       R4,#0x00001000
+0x00000A8C  E59F3F88  LDR       R3,[PC,#0x0F88]
+0x00000A90  E2421050  SUB       R1,R2,#0x00000050
+0x00000A94  E2420060  SUB       R0,R2,#0x00000060
+0x00000A98  E58D400C  STR       R4,[R13,#0x000C]
+0x00000A9C  EBFFFF02  BL        dense_q12_verificar(0x000006AC)
+   569:     uint8_t ok_tests = ok; 
+   570:  
+   571:     // Capa base (clamp 0..1.0): 'resultado' guarda la salida de la C. 
+0x00000AA0  E1A06000  MOV       R6,R0
+   572:     ok_tests &= vectores_iguales_i16(resultado, esp_main, OUTPUT_SIZE); 
+   573:  
+   574:     // Caso 1: saturaciÃ³n superior. 
+0x00000AA4  E59F1F78  LDR       R1,[PC,#0x0F78]
+0x00000AA8  E59F0F6C  LDR       R0,[PC,#0x0F6C]
+0x00000AAC  E3A02005  MOV       R2,#0x00000005
+0x00000AB0  EB000491  BL        vectores_iguales_i16(0x00001CFC)
+0x00000AB4  E0066000  AND       R6,R6,R0
+   575:     CHECK_ALL(t1_input, t1_weights, t1_bias, T1_IN, T1_OUT, CLAMP_MIN_Q12, CLAMP_MAX_Q12, 0x00463000u, esp_1); 
+   576:  
+   577:     // Caso 2: saturaciÃ³n inferior. 
+0x00000AB8  E3A02000  MOV       R2,#0x00000000
+0x00000ABC  E28D0008  ADD       R0,R13,#0x00000008
+0x00000AC0  E8800014  STMIA     R0,{R2,R4}
+0x00000AC4  E59F3F5C  LDR       R3,[PC,#0x0F5C]
+0x00000AC8  E3A0A003  MOV       R10,#0x00000003
+0x00000ACC  E3A01004  MOV       R1,#0x00000004
+0x00000AD0  E88D0402  STMIA     R13,{R1,R10}
+0x00000AD4  E59F0F50  LDR       R0,[PC,#0x0F50]
+0x00000AD8  E2832060  ADD       R2,R3,#0x00000060
+0x00000ADC  E2831028  ADD       R1,R3,#0x00000028
+0x00000AE0  EBFFFFA8  BL        func_verificar(0x00000988)
+0x00000AE4  E0066000  AND       R6,R6,R0
+0x00000AE8  E3A00000  MOV       R0,#0x00000000
+0x00000AEC  E28DC008  ADD       R12,R13,#0x00000008
+0x00000AF0  E88C0011  STMIA     R12,{R0,R4}
+0x00000AF4  E3A02003  MOV       R2,#0x00000003
+0x00000AF8  E3A01004  MOV       R1,#0x00000004
+0x00000AFC  E59F3F24  LDR       R3,[PC,#0x0F24]
+0x00000B00  E88D0006  STMIA     R13,{R1-R2}
+0x00000B04  E59F0F24  LDR       R0,[PC,#0x0F24]
+0x00000B08  E2832060  ADD       R2,R3,#0x00000060
+0x00000B0C  E2831028  ADD       R1,R3,#0x00000028
+0x00000B10  EBFFFF9C  BL        func_verificar(0x00000988)
+0x00000B14  E3A01003  MOV       R1,#0x00000003
+0x00000B18  E3A02004  MOV       R2,#0x00000004
+0x00000B1C  E0066000  AND       R6,R6,R0
+0x00000B20  E58D2000  STR       R2,[R13]
+0x00000B24  E58D1004  STR       R1,[R13,#0x0004]
+0x00000B28  E59F3EF8  LDR       R3,[PC,#0x0EF8]
+0x00000B2C  E3A00000  MOV       R0,#0x00000000
+0x00000B30  E28DC008  ADD       R12,R13,#0x00000008
+0x00000B34  E88C0011  STMIA     R12,{R0,R4}
+0x00000B38  E59F0EF4  LDR       R0,[PC,#0x0EF4]
+0x00000B3C  E2832060  ADD       R2,R3,#0x00000060
+0x00000B40  E2831028  ADD       R1,R3,#0x00000028
+0x00000B44  EBFFFF8F  BL        func_verificar(0x00000988)
+0x00000B48  E3A01000  MOV       R1,#0x00000000
+0x00000B4C  E28DC008  ADD       R12,R13,#0x00000008
+0x00000B50  E88C0012  STMIA     R12,{R1,R4}
+0x00000B54  E0066000  AND       R6,R6,R0
+0x00000B58  E3A02003  MOV       R2,#0x00000003
+0x00000B5C  E3A00004  MOV       R0,#0x00000004
+0x00000B60  E59F3EC0  LDR       R3,[PC,#0x0EC0]
+0x00000B64  E88D0005  STMIA     R13,{R0,R2}
+0x00000B68  E59F0EC8  LDR       R0,[PC,#0x0EC8]
+0x00000B6C  E2832060  ADD       R2,R3,#0x00000060
+0x00000B70  E2831028  ADD       R1,R3,#0x00000028
+0x00000B74  EBFFFF83  BL        func_verificar(0x00000988)
+0x00000B78  E3A01003  MOV       R1,#0x00000003
+0x00000B7C  E3A02004  MOV       R2,#0x00000004
+0x00000B80  E0066000  AND       R6,R6,R0
+0x00000B84  E58D2000  STR       R2,[R13]
+0x00000B88  E58D1004  STR       R1,[R13,#0x0004]
+0x00000B8C  E59F3E94  LDR       R3,[PC,#0x0E94]
+0x00000B90  E3A00000  MOV       R0,#0x00000000
+0x00000B94  E28DC008  ADD       R12,R13,#0x00000008
+0x00000B98  E88C0011  STMIA     R12,{R0,R4}
+0x00000B9C  E59F0E98  LDR       R0,[PC,#0x0E98]
+0x00000BA0  E2832060  ADD       R2,R3,#0x00000060
+0x00000BA4  E2831028  ADD       R1,R3,#0x00000028
+0x00000BA8  EBFFFF76  BL        func_verificar(0x00000988)
+0x00000BAC  E0066000  AND       R6,R6,R0
+0x00000BB0  E3A00A63  MOV       R0,#0x00063000
+0x00000BB4  E59F2E84  LDR       R2,[PC,#0x0E84]
+0x00000BB8  E2800501  ADD       R0,R0,#0x00400000
+0x00000BBC  E28D300C  ADD       R3,R13,#0x0000000C
+0x00000BC0  E8830005  STMIA     R3,{R0,R2}
+0x00000BC4  E3A01000  MOV       R1,#0x00000000
+0x00000BC8  E3A00003  MOV       R0,#0x00000003
+0x00000BCC  E88D0013  STMIA     R13,{R0-R1,R4}
+0x00000BD0  E2422016  SUB       R2,R2,#0x00000016
+0x00000BD4  E3A03004  MOV       R3,#0x00000004
+0x00000BD8  E2821060  ADD       R1,R2,#0x00000060
+0x00000BDC  E2820028  ADD       R0,R2,#0x00000028
+0x00000BE0  EBFFFDF6  BL        C_cumple_esperado(0x000003C0)
+   578:     CHECK_ALL(t2_input, t2_weights, t2_bias, T2_IN, T2_OUT, CLAMP_MIN_Q12, CLAMP_MAX_Q12, 0x00000000u, esp_2); 
+   579:  
+   580:     // Caso 3: clamp simÃ©trico, negativos y truncamiento. 
+0x00000BE4  E3A01003  MOV       R1,#0x00000003
+0x00000BE8  E0066000  AND       R6,R6,R0
+0x00000BEC  E58D1000  STR       R1,[R13]
+0x00000BF0  E3A02000  MOV       R2,#0x00000000
+0x00000BF4  E3A00004  MOV       R0,#0x00000004
+0x00000BF8  E28DC004  ADD       R12,R13,#0x00000004
+0x00000BFC  E88C0015  STMIA     R12,{R0,R2,R4}
+0x00000C00  E59F3E3C  LDR       R3,[PC,#0x0E3C]
+0x00000C04  E59F0E20  LDR       R0,[PC,#0x0E20]
+0x00000C08  E2832048  ADD       R2,R3,#0x00000048
+0x00000C0C  E2431028  SUB       R1,R3,#0x00000028
+0x00000C10  EBFFFF5C  BL        func_verificar(0x00000988)
+0x00000C14  E3A01004  MOV       R1,#0x00000004
+0x00000C18  E3A02003  MOV       R2,#0x00000003
+0x00000C1C  E0066000  AND       R6,R6,R0
+0x00000C20  E58D2000  STR       R2,[R13]
+0x00000C24  E58D1004  STR       R1,[R13,#0x0004]
+0x00000C28  E59F3E14  LDR       R3,[PC,#0x0E14]
+0x00000C2C  E3A00000  MOV       R0,#0x00000000
+0x00000C30  E28DC008  ADD       R12,R13,#0x00000008
+0x00000C34  E88C0011  STMIA     R12,{R0,R4}
+0x00000C38  E59F0DF0  LDR       R0,[PC,#0x0DF0]
+0x00000C3C  E2832048  ADD       R2,R3,#0x00000048
+0x00000C40  E2431028  SUB       R1,R3,#0x00000028
+0x00000C44  EBFFFF4F  BL        func_verificar(0x00000988)
+0x00000C48  E3A01004  MOV       R1,#0x00000004
+0x00000C4C  E3A02003  MOV       R2,#0x00000003
+0x00000C50  E0066000  AND       R6,R6,R0
+0x00000C54  E58D2000  STR       R2,[R13]
+0x00000C58  E58D1004  STR       R1,[R13,#0x0004]
+0x00000C5C  E59F3DE0  LDR       R3,[PC,#0x0DE0]
+0x00000C60  E3A00000  MOV       R0,#0x00000000
+0x00000C64  E28DC008  ADD       R12,R13,#0x00000008
+0x00000C68  E88C0011  STMIA     R12,{R0,R4}
+0x00000C6C  E59F0DC0  LDR       R0,[PC,#0x0DC0]
+0x00000C70  E2832048  ADD       R2,R3,#0x00000048
+0x00000C74  E2431028  SUB       R1,R3,#0x00000028
+0x00000C78  EBFFFF42  BL        func_verificar(0x00000988)
+0x00000C7C  E3A01000  MOV       R1,#0x00000000
+0x00000C80  E28DC008  ADD       R12,R13,#0x00000008
+0x00000C84  E88C0012  STMIA     R12,{R1,R4}
+0x00000C88  E0066000  AND       R6,R6,R0
+0x00000C8C  E3A02004  MOV       R2,#0x00000004
+0x00000C90  E3A00003  MOV       R0,#0x00000003
+0x00000C94  E59F3DA8  LDR       R3,[PC,#0x0DA8]
+0x00000C98  E88D0005  STMIA     R13,{R0,R2}
+0x00000C9C  E59F0D94  LDR       R0,[PC,#0x0D94]
+0x00000CA0  E2832048  ADD       R2,R3,#0x00000048
+0x00000CA4  E2431028  SUB       R1,R3,#0x00000028
+0x00000CA8  EBFFFF36  BL        func_verificar(0x00000988)
+0x00000CAC  E3A01004  MOV       R1,#0x00000004
+0x00000CB0  E3A02003  MOV       R2,#0x00000003
+0x00000CB4  E0066000  AND       R6,R6,R0
+0x00000CB8  E58D2000  STR       R2,[R13]
+0x00000CBC  E58D1004  STR       R1,[R13,#0x0004]
+0x00000CC0  E59F3D7C  LDR       R3,[PC,#0x0D7C]
+0x00000CC4  E3A00000  MOV       R0,#0x00000000
+0x00000CC8  E28DC008  ADD       R12,R13,#0x00000008
+0x00000CCC  E88C0011  STMIA     R12,{R0,R4}
+0x00000CD0  E59F0D64  LDR       R0,[PC,#0x0D64]
+0x00000CD4  E2832048  ADD       R2,R3,#0x00000048
+0x00000CD8  E2431028  SUB       R1,R3,#0x00000028
+0x00000CDC  EBFFFF29  BL        func_verificar(0x00000988)
+0x00000CE0  E0066000  AND       R6,R6,R0
+0x00000CE4  E59F0D5C  LDR       R0,[PC,#0x0D5C]
+0x00000CE8  E3A01000  MOV       R1,#0x00000000
+0x00000CEC  E58D0010  STR       R0,[R13,#0x0010]
+0x00000CF0  E1A02001  MOV       R2,R1
+0x00000CF4  E3A00004  MOV       R0,#0x00000004
+0x00000CF8  E58D100C  STR       R1,[R13,#0x000C]
+0x00000CFC  E88D0015  STMIA     R13,{R0,R2,R4}
+0x00000D00  E59F2D3C  LDR       R2,[PC,#0x0D3C]
+0x00000D04  E3A03003  MOV       R3,#0x00000003
+0x00000D08  E2821048  ADD       R1,R2,#0x00000048
+0x00000D0C  E2420028  SUB       R0,R2,#0x00000028
+0x00000D10  EBFFFDAA  BL        C_cumple_esperado(0x000003C0)
+0x00000D14  E0008006  AND       R8,R0,R6
+   581:     CHECK_ALL(t3_input, t3_weights, t3_bias, T3_IN, T3_OUT, T3_CLAMP_MIN, T3_CLAMP_MAX, 0x8C61E067u, esp_3); 
+   582:  
+   583:     // Caso 4: 1 x 1, clamp que no incluye el 0. 
+0x00000D18  E2446A02  SUB       R6,R4,#0x00002000
+0x00000D1C  E3A00004  MOV       R0,#0x00000004
+0x00000D20  E98D0041  STMIB     R13,{R0,R6}
+0x00000D24  E59F3D20  LDR       R3,[PC,#0x0D20]
+0x00000D28  E3A07006  MOV       R7,#0x00000006
+0x00000D2C  E59F0CF8  LDR       R0,[PC,#0x0CF8]
+0x00000D30  E2832068  ADD       R2,R3,#0x00000068
+0x00000D34  E2831058  ADD       R1,R3,#0x00000058
+0x00000D38  E58D400C  STR       R4,[R13,#0x000C]
+0x00000D3C  E58D7000  STR       R7,[R13]
+0x00000D40  EBFFFF10  BL        func_verificar(0x00000988)
+0x00000D44  E0088000  AND       R8,R8,R0
+0x00000D48  E3A00004  MOV       R0,#0x00000004
+0x00000D4C  E98D0041  STMIB     R13,{R0,R6}
+0x00000D50  E59F3CF4  LDR       R3,[PC,#0x0CF4]
+0x00000D54  E59F0CD4  LDR       R0,[PC,#0x0CD4]
+0x00000D58  E2832068  ADD       R2,R3,#0x00000068
+0x00000D5C  E2831058  ADD       R1,R3,#0x00000058
+0x00000D60  E58D400C  STR       R4,[R13,#0x000C]
+0x00000D64  E58D7000  STR       R7,[R13]
+0x00000D68  EBFFFF06  BL        func_verificar(0x00000988)
+0x00000D6C  E0088000  AND       R8,R8,R0
+0x00000D70  E3A00004  MOV       R0,#0x00000004
+0x00000D74  E98D0041  STMIB     R13,{R0,R6}
+0x00000D78  E59F3CCC  LDR       R3,[PC,#0x0CCC]
+0x00000D7C  E59F0CB0  LDR       R0,[PC,#0x0CB0]
+0x00000D80  E2832068  ADD       R2,R3,#0x00000068
+0x00000D84  E2831058  ADD       R1,R3,#0x00000058
+0x00000D88  E58D400C  STR       R4,[R13,#0x000C]
+0x00000D8C  E58D7000  STR       R7,[R13]
+0x00000D90  EBFFFEFC  BL        func_verificar(0x00000988)
+0x00000D94  E0088000  AND       R8,R8,R0
+0x00000D98  E3A00004  MOV       R0,#0x00000004
+0x00000D9C  E98D0041  STMIB     R13,{R0,R6}
+0x00000DA0  E59F3CA4  LDR       R3,[PC,#0x0CA4]
+0x00000DA4  E59F0C8C  LDR       R0,[PC,#0x0C8C]
+0x00000DA8  E2832068  ADD       R2,R3,#0x00000068
+0x00000DAC  E2831058  ADD       R1,R3,#0x00000058
+0x00000DB0  E58D400C  STR       R4,[R13,#0x000C]
+0x00000DB4  E58D7000  STR       R7,[R13]
+0x00000DB8  EBFFFEF2  BL        func_verificar(0x00000988)
+0x00000DBC  E0088000  AND       R8,R8,R0
+0x00000DC0  E3A00004  MOV       R0,#0x00000004
+0x00000DC4  E98D0041  STMIB     R13,{R0,R6}
+0x00000DC8  E59F3C7C  LDR       R3,[PC,#0x0C7C]
+0x00000DCC  E59F0C68  LDR       R0,[PC,#0x0C68]
+0x00000DD0  E2832068  ADD       R2,R3,#0x00000068
+0x00000DD4  E2831058  ADD       R1,R3,#0x00000058
+0x00000DD8  E58D400C  STR       R4,[R13,#0x000C]
+0x00000DDC  E58D7000  STR       R7,[R13]
+0x00000DE0  EBFFFEE8  BL        func_verificar(0x00000988)
+0x00000DE4  E0007008  AND       R7,R0,R8
+0x00000DE8  E59F0C60  LDR       R0,[PC,#0x0C60]
+0x00000DEC  E59F1C60  LDR       R1,[PC,#0x0C60]
+0x00000DF0  E58D0010  STR       R0,[R13,#0x0010]
+0x00000DF4  E58D100C  STR       R1,[R13,#0x000C]
+0x00000DF8  E59F2C4C  LDR       R2,[PC,#0x0C4C]
+0x00000DFC  E3A00004  MOV       R0,#0x00000004
+0x00000E00  E58D4008  STR       R4,[R13,#0x0008]
+0x00000E04  E88D0041  STMIA     R13,{R0,R6}
+0x00000E08  E3A03006  MOV       R3,#0x00000006
+0x00000E0C  E2821068  ADD       R1,R2,#0x00000068
+0x00000E10  E2820058  ADD       R0,R2,#0x00000058
+0x00000E14  EBFFFD69  BL        C_cumple_esperado(0x000003C0)
+0x00000E18  E0008007  AND       R8,R0,R7
+   584:     CHECK_ALL(t4_input, t4_weights, t4_bias, T4_IN, T4_OUT, T4_CLAMP_MIN, T4_CLAMP_MAX, 0x00000700u, esp_4); 
+   585:  
+   586:     // Caso 4b: satura por abajo. 
+0x00000E1C  E59F3C34  LDR       R3,[PC,#0x0C34]
+0x00000E20  E3A06B02  MOV       R6,#0x00000800
+0x00000E24  E3A07001  MOV       R7,#0x00000001
+0x00000E28  E3A0BB01  MOV       R11,#0x00000400
+0x00000E2C  E58D7000  STR       R7,[R13]
+0x00000E30  E58D600C  STR       R6,[R13,#0x000C]
+0x00000E34  E98D0880  STMIB     R13,{R7,R11}
+0x00000E38  E59F0BEC  LDR       R0,[PC,#0x0BEC]
+0x00000E3C  E2432008  SUB       R2,R3,#0x00000008
+0x00000E40  E2431010  SUB       R1,R3,#0x00000010
+0x00000E44  EBFFFECF  BL        func_verificar(0x00000988)
+0x00000E48  E59F3C08  LDR       R3,[PC,#0x0C08]
+0x00000E4C  E58D7000  STR       R7,[R13]
+0x00000E50  E58D600C  STR       R6,[R13,#0x000C]
+0x00000E54  E0088000  AND       R8,R8,R0
+0x00000E58  E98D0880  STMIB     R13,{R7,R11}
+0x00000E5C  E59F0BCC  LDR       R0,[PC,#0x0BCC]
+0x00000E60  E2432008  SUB       R2,R3,#0x00000008
+0x00000E64  E2431010  SUB       R1,R3,#0x00000010
+0x00000E68  EBFFFEC6  BL        func_verificar(0x00000988)
+0x00000E6C  E59F3BE4  LDR       R3,[PC,#0x0BE4]
+0x00000E70  E58D7000  STR       R7,[R13]
+0x00000E74  E58D600C  STR       R6,[R13,#0x000C]
+0x00000E78  E0088000  AND       R8,R8,R0
+0x00000E7C  E98D0880  STMIB     R13,{R7,R11}
+0x00000E80  E59F0BAC  LDR       R0,[PC,#0x0BAC]
+0x00000E84  E2432008  SUB       R2,R3,#0x00000008
+0x00000E88  E2431010  SUB       R1,R3,#0x00000010
+0x00000E8C  EBFFFEBD  BL        func_verificar(0x00000988)
+0x00000E90  E59F3BC0  LDR       R3,[PC,#0x0BC0]
+0x00000E94  E58D7000  STR       R7,[R13]
+0x00000E98  E58D600C  STR       R6,[R13,#0x000C]
+0x00000E9C  E0088000  AND       R8,R8,R0
+0x00000EA0  E98D0880  STMIB     R13,{R7,R11}
+0x00000EA4  E59F0B8C  LDR       R0,[PC,#0x0B8C]
+0x00000EA8  E2432008  SUB       R2,R3,#0x00000008
+0x00000EAC  E2431010  SUB       R1,R3,#0x00000010
+0x00000EB0  EBFFFEB4  BL        func_verificar(0x00000988)
+0x00000EB4  E59F3B9C  LDR       R3,[PC,#0x0B9C]
+0x00000EB8  E58D7000  STR       R7,[R13]
+0x00000EBC  E58D600C  STR       R6,[R13,#0x000C]
+0x00000EC0  E0088000  AND       R8,R8,R0
+0x00000EC4  E98D0880  STMIB     R13,{R7,R11}
+0x00000EC8  E59F0B6C  LDR       R0,[PC,#0x0B6C]
+0x00000ECC  E2432008  SUB       R2,R3,#0x00000008
+0x00000ED0  E2431010  SUB       R1,R3,#0x00000010
+0x00000ED4  EBFFFEAB  BL        func_verificar(0x00000988)
+0x00000ED8  E0088000  AND       R8,R8,R0
+0x00000EDC  E59F0B78  LDR       R0,[PC,#0x0B78]
+0x00000EE0  E3A01C07  MOV       R1,#0x00000700
+0x00000EE4  E58D100C  STR       R1,[R13,#0x000C]
+0x00000EE8  E58D0010  STR       R0,[R13,#0x0010]
+0x00000EEC  E2402002  SUB       R2,R0,#0x00000002
+0x00000EF0  E58D6008  STR       R6,[R13,#0x0008]
+0x00000EF4  E88D0880  STMIA     R13,{R7,R11}
+0x00000EF8  E3A03001  MOV       R3,#0x00000001
+0x00000EFC  E2421008  SUB       R1,R2,#0x00000008
+0x00000F00  E2420010  SUB       R0,R2,#0x00000010
+0x00000F04  EBFFFD2D  BL        C_cumple_esperado(0x000003C0)
+   587:     CHECK_ALL(t4_input, t4_weights, t4_bias, T4_IN, T4_OUT, T4B_CLAMP_MIN, T4B_CLAMP_MAX, 0x00000800u, esp_4b); 
+   588:  
+   589:     // Caso 4c: satura por arriba. 
+0x00000F08  E59F3B48  LDR       R3,[PC,#0x0B48]
+0x00000F0C  E0088000  AND       R8,R8,R0
+0x00000F10  E59F0B14  LDR       R0,[PC,#0x0B14]
+0x00000F14  E2432008  SUB       R2,R3,#0x00000008
+0x00000F18  E2431010  SUB       R1,R3,#0x00000010
+0x00000F1C  E58D7000  STR       R7,[R13]
+0x00000F20  E58D400C  STR       R4,[R13,#0x000C]
+0x00000F24  E58D6008  STR       R6,[R13,#0x0008]
+0x00000F28  E58D7004  STR       R7,[R13,#0x0004]
+0x00000F2C  EBFFFE95  BL        func_verificar(0x00000988)
+0x00000F30  E59F3B20  LDR       R3,[PC,#0x0B20]
+0x00000F34  E0088000  AND       R8,R8,R0
+0x00000F38  E59F0AF0  LDR       R0,[PC,#0x0AF0]
+0x00000F3C  E2432008  SUB       R2,R3,#0x00000008
+0x00000F40  E2431010  SUB       R1,R3,#0x00000010
+0x00000F44  E58D7000  STR       R7,[R13]
+0x00000F48  E58D400C  STR       R4,[R13,#0x000C]
+0x00000F4C  E58D6008  STR       R6,[R13,#0x0008]
+0x00000F50  E58D7004  STR       R7,[R13,#0x0004]
+0x00000F54  EBFFFE8B  BL        func_verificar(0x00000988)
+0x00000F58  E59F3AF8  LDR       R3,[PC,#0x0AF8]
+0x00000F5C  E0088000  AND       R8,R8,R0
+0x00000F60  E59F0ACC  LDR       R0,[PC,#0x0ACC]
+0x00000F64  E2432008  SUB       R2,R3,#0x00000008
+0x00000F68  E2431010  SUB       R1,R3,#0x00000010
+0x00000F6C  E58D7000  STR       R7,[R13]
+0x00000F70  E58D400C  STR       R4,[R13,#0x000C]
+0x00000F74  E58D6008  STR       R6,[R13,#0x0008]
+0x00000F78  E58D7004  STR       R7,[R13,#0x0004]
+0x00000F7C  EBFFFE81  BL        func_verificar(0x00000988)
+0x00000F80  E59F3AD0  LDR       R3,[PC,#0x0AD0]
+0x00000F84  E0088000  AND       R8,R8,R0
+0x00000F88  E59F0AA8  LDR       R0,[PC,#0x0AA8]
+0x00000F8C  E2432008  SUB       R2,R3,#0x00000008
+0x00000F90  E2431010  SUB       R1,R3,#0x00000010
+0x00000F94  E58D7000  STR       R7,[R13]
+0x00000F98  E58D400C  STR       R4,[R13,#0x000C]
+0x00000F9C  E58D6008  STR       R6,[R13,#0x0008]
+0x00000FA0  E58D7004  STR       R7,[R13,#0x0004]
+0x00000FA4  EBFFFE77  BL        func_verificar(0x00000988)
+0x00000FA8  E59F3AA8  LDR       R3,[PC,#0x0AA8]
+0x00000FAC  E0088000  AND       R8,R8,R0
+0x00000FB0  E59F0A84  LDR       R0,[PC,#0x0A84]
+0x00000FB4  E2432008  SUB       R2,R3,#0x00000008
+0x00000FB8  E2431010  SUB       R1,R3,#0x00000010
+0x00000FBC  E58D7000  STR       R7,[R13]
+0x00000FC0  E58D400C  STR       R4,[R13,#0x000C]
+0x00000FC4  E58D6008  STR       R6,[R13,#0x0008]
+0x00000FC8  E58D7004  STR       R7,[R13,#0x0004]
+0x00000FCC  EBFFFE6D  BL        func_verificar(0x00000988)
+0x00000FD0  E0088000  AND       R8,R8,R0
+0x00000FD4  E59F0A84  LDR       R0,[PC,#0x0A84]
+0x00000FD8  E3A03001  MOV       R3,#0x00000001
+0x00000FDC  E2402004  SUB       R2,R0,#0x00000004
+0x00000FE0  E58D0010  STR       R0,[R13,#0x0010]
+0x00000FE4  E2421008  SUB       R1,R2,#0x00000008
+0x00000FE8  E2420010  SUB       R0,R2,#0x00000010
+0x00000FEC  E58D4008  STR       R4,[R13,#0x0008]
+0x00000FF0  E58D6004  STR       R6,[R13,#0x0004]
+0x00000FF4  E58D600C  STR       R6,[R13,#0x000C]
+0x00000FF8  E58D7000  STR       R7,[R13]
+0x00000FFC  EBFFFCEF  BL        C_cumple_esperado(0x000003C0)
+0x00001000  E0009008  AND       R9,R0,R8
+   590:     CHECK_ALL(t4_input, t4_weights, t4_bias, T4_IN, T4_OUT, T4C_CLAMP_MIN, T4C_CLAMP_MAX, 0x00000200u, esp_4c); 
+   591:  
+   592:     // Caso 5: input_size = 0 (solo bias). 
+0x00001004  E59F3A4C  LDR       R3,[PC,#0x0A4C]
+0x00001008  E3A08C02  MOV       R8,#0x00000200
+0x0000100C  E28DC008  ADD       R12,R13,#0x00000008
+0x00001010  E58D7000  STR       R7,[R13]
+0x00001014  E88C0120  STMIA     R12,{R5,R8}
+0x00001018  E59F0A0C  LDR       R0,[PC,#0x0A0C]
+0x0000101C  E2432008  SUB       R2,R3,#0x00000008
+0x00001020  E2431010  SUB       R1,R3,#0x00000010
+0x00001024  E58D7004  STR       R7,[R13,#0x0004]
+0x00001028  EBFFFE56  BL        func_verificar(0x00000988)
+0x0000102C  E59F3A24  LDR       R3,[PC,#0x0A24]
+0x00001030  E28DC008  ADD       R12,R13,#0x00000008
+0x00001034  E58D7000  STR       R7,[R13]
+0x00001038  E88C0120  STMIA     R12,{R5,R8}
+0x0000103C  E0099000  AND       R9,R9,R0
+0x00001040  E59F09E8  LDR       R0,[PC,#0x09E8]
+0x00001044  E2432008  SUB       R2,R3,#0x00000008
+0x00001048  E2431010  SUB       R1,R3,#0x00000010
+0x0000104C  E58D7004  STR       R7,[R13,#0x0004]
+0x00001050  EBFFFE4C  BL        func_verificar(0x00000988)
+0x00001054  E59F39FC  LDR       R3,[PC,#0x09FC]
+0x00001058  E28DC008  ADD       R12,R13,#0x00000008
+0x0000105C  E58D7000  STR       R7,[R13]
+0x00001060  E88C0120  STMIA     R12,{R5,R8}
+0x00001064  E0099000  AND       R9,R9,R0
+0x00001068  E59F09C4  LDR       R0,[PC,#0x09C4]
+0x0000106C  E2432008  SUB       R2,R3,#0x00000008
+0x00001070  E2431010  SUB       R1,R3,#0x00000010
+0x00001074  E58D7004  STR       R7,[R13,#0x0004]
+0x00001078  EBFFFE42  BL        func_verificar(0x00000988)
+0x0000107C  E59F39D4  LDR       R3,[PC,#0x09D4]
+0x00001080  E28DC008  ADD       R12,R13,#0x00000008
+0x00001084  E58D7000  STR       R7,[R13]
+0x00001088  E88C0120  STMIA     R12,{R5,R8}
+0x0000108C  E0099000  AND       R9,R9,R0
+0x00001090  E59F09A0  LDR       R0,[PC,#0x09A0]
+0x00001094  E2432008  SUB       R2,R3,#0x00000008
+0x00001098  E2431010  SUB       R1,R3,#0x00000010
+0x0000109C  E58D7004  STR       R7,[R13,#0x0004]
+0x000010A0  EBFFFE38  BL        func_verificar(0x00000988)
+0x000010A4  E59F39AC  LDR       R3,[PC,#0x09AC]
+0x000010A8  E28DC008  ADD       R12,R13,#0x00000008
+0x000010AC  E58D7000  STR       R7,[R13]
+0x000010B0  E88C0120  STMIA     R12,{R5,R8}
+0x000010B4  E0099000  AND       R9,R9,R0
+0x000010B8  E59F097C  LDR       R0,[PC,#0x097C]
+0x000010BC  E2432008  SUB       R2,R3,#0x00000008
+0x000010C0  E2431010  SUB       R1,R3,#0x00000010
+0x000010C4  E58D7004  STR       R7,[R13,#0x0004]
+0x000010C8  EBFFFE2E  BL        func_verificar(0x00000988)
+0x000010CC  E0099000  AND       R9,R9,R0
+0x000010D0  E59F098C  LDR       R0,[PC,#0x098C]
+0x000010D4  E98D0120  STMIB     R13,{R5,R8}
+0x000010D8  E2402006  SUB       R2,R0,#0x00000006
+0x000010DC  E58D0010  STR       R0,[R13,#0x0010]
+0x000010E0  E3A03001  MOV       R3,#0x00000001
+0x000010E4  E2421008  SUB       R1,R2,#0x00000008
+0x000010E8  E2420010  SUB       R0,R2,#0x00000010
+0x000010EC  E58D7000  STR       R7,[R13]
+0x000010F0  E58D800C  STR       R8,[R13,#0x000C]
+0x000010F4  EBFFFCB1  BL        C_cumple_esperado(0x000003C0)
+   593:     CHECK_ALL(t1_input, t1_weights, t5_bias, T5_IN, T5_OUT, CLAMP_MIN_Q12, CLAMP_MAX_Q12, 0x00011800u, esp_5); 
+   594:  
+   595:     // Caso 6: capa 16 x 8. 
+0x000010F8  E1A0700A  MOV       R7,R10
+0x000010FC  E59F3964  LDR       R3,[PC,#0x0964]
+0x00001100  E88D00A0  STMIA     R13,{R5,R7}
+0x00001104  E0008009  AND       R8,R0,R9
+0x00001108  E59F091C  LDR       R0,[PC,#0x091C]
+0x0000110C  E2832050  ADD       R2,R3,#0x00000050
+0x00001110  E2831018  ADD       R1,R3,#0x00000018
+0x00001114  E58D400C  STR       R4,[R13,#0x000C]
+0x00001118  E58D5008  STR       R5,[R13,#0x0008]
+0x0000111C  EBFFFE19  BL        func_verificar(0x00000988)
+0x00001120  E59F3940  LDR       R3,[PC,#0x0940]
+0x00001124  E88D00A0  STMIA     R13,{R5,R7}
+0x00001128  E0088000  AND       R8,R8,R0
+0x0000112C  E59F08FC  LDR       R0,[PC,#0x08FC]
+0x00001130  E2832050  ADD       R2,R3,#0x00000050
+0x00001134  E2831018  ADD       R1,R3,#0x00000018
+0x00001138  E58D400C  STR       R4,[R13,#0x000C]
+0x0000113C  E58D5008  STR       R5,[R13,#0x0008]
+0x00001140  EBFFFE10  BL        func_verificar(0x00000988)
+0x00001144  E59F391C  LDR       R3,[PC,#0x091C]
+0x00001148  E88D00A0  STMIA     R13,{R5,R7}
+0x0000114C  E0088000  AND       R8,R8,R0
+0x00001150  E59F08DC  LDR       R0,[PC,#0x08DC]
+0x00001154  E2832050  ADD       R2,R3,#0x00000050
+0x00001158  E2831018  ADD       R1,R3,#0x00000018
+0x0000115C  E58D400C  STR       R4,[R13,#0x000C]
+0x00001160  E58D5008  STR       R5,[R13,#0x0008]
+0x00001164  EBFFFE07  BL        func_verificar(0x00000988)
+0x00001168  E59F38F8  LDR       R3,[PC,#0x08F8]
+0x0000116C  E88D00A0  STMIA     R13,{R5,R7}
+0x00001170  E0088000  AND       R8,R8,R0
+0x00001174  E59F08BC  LDR       R0,[PC,#0x08BC]
+0x00001178  E2832050  ADD       R2,R3,#0x00000050
+0x0000117C  E2831018  ADD       R1,R3,#0x00000018
+0x00001180  E58D400C  STR       R4,[R13,#0x000C]
+0x00001184  E58D5008  STR       R5,[R13,#0x0008]
+0x00001188  EBFFFDFE  BL        func_verificar(0x00000988)
+0x0000118C  E59F38D4  LDR       R3,[PC,#0x08D4]
+0x00001190  E88D00A0  STMIA     R13,{R5,R7}
+0x00001194  E0088000  AND       R8,R8,R0
+0x00001198  E59F089C  LDR       R0,[PC,#0x089C]
+0x0000119C  E2832050  ADD       R2,R3,#0x00000050
+0x000011A0  E2831018  ADD       R1,R3,#0x00000018
+0x000011A4  E58D400C  STR       R4,[R13,#0x000C]
+0x000011A8  E58D5008  STR       R5,[R13,#0x0008]
+0x000011AC  EBFFFDF5  BL        func_verificar(0x00000988)
+0x000011B0  E0088000  AND       R8,R8,R0
+0x000011B4  E59F08B0  LDR       R0,[PC,#0x08B0]
+0x000011B8  E3A01B46  MOV       R1,#0x00011800
+0x000011BC  E240200C  SUB       R2,R0,#0x0000000C
+0x000011C0  E58D100C  STR       R1,[R13,#0x000C]
+0x000011C4  E58D0010  STR       R0,[R13,#0x0010]
+0x000011C8  E3A03000  MOV       R3,#0x00000000
+0x000011CC  E2821050  ADD       R1,R2,#0x00000050
+0x000011D0  E2820018  ADD       R0,R2,#0x00000018
+0x000011D4  E58D4008  STR       R4,[R13,#0x0008]
+0x000011D8  E58D5004  STR       R5,[R13,#0x0004]
+0x000011DC  E58D7000  STR       R7,[R13]
+0x000011E0  EBFFFC76  BL        C_cumple_esperado(0x000003C0)
+0x000011E4  E000A008  AND       R10,R0,R8
+   596:     CHECK_ALL(t6_input, t6_weights, t6_bias, T6_IN, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0xB1F1AF49u, esp_6); 
+   597:  
+   598:     // Caso 7: output_size = 0 (checksum 0). 
+0x000011E8  E59F3880  LDR       R3,[PC,#0x0880]
+0x000011EC  E2448B06  SUB       R8,R4,#0x00001800
+0x000011F0  E3A07008  MOV       R7,#0x00000008
+0x000011F4  E58D600C  STR       R6,[R13,#0x000C]
+0x000011F8  E98D0180  STMIB     R13,{R7-R8}
+0x000011FC  E3A09010  MOV       R9,#0x00000010
+0x00001200  E59F0824  LDR       R0,[PC,#0x0824]
+0x00001204  E2432C01  SUB       R2,R3,#0x00000100
+0x00001208  E2431E12  SUB       R1,R3,#0x00000120
+0x0000120C  E58D9000  STR       R9,[R13]
+0x00001210  EBFFFDDC  BL        func_verificar(0x00000988)
+0x00001214  E59F3854  LDR       R3,[PC,#0x0854]
+0x00001218  E58D600C  STR       R6,[R13,#0x000C]
+0x0000121C  E98D0180  STMIB     R13,{R7-R8}
+0x00001220  E00AA000  AND       R10,R10,R0
+0x00001224  E59F0804  LDR       R0,[PC,#0x0804]
+0x00001228  E2432C01  SUB       R2,R3,#0x00000100
+0x0000122C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001230  E58D9000  STR       R9,[R13]
+0x00001234  EBFFFDD3  BL        func_verificar(0x00000988)
+0x00001238  E59F3830  LDR       R3,[PC,#0x0830]
+0x0000123C  E58D600C  STR       R6,[R13,#0x000C]
+0x00001240  E98D0180  STMIB     R13,{R7-R8}
+0x00001244  E00AA000  AND       R10,R10,R0
+0x00001248  E59F07E4  LDR       R0,[PC,#0x07E4]
+0x0000124C  E2432C01  SUB       R2,R3,#0x00000100
+0x00001250  E2431E12  SUB       R1,R3,#0x00000120
+0x00001254  E58D9000  STR       R9,[R13]
+0x00001258  EBFFFDCA  BL        func_verificar(0x00000988)
+0x0000125C  E59F380C  LDR       R3,[PC,#0x080C]
+0x00001260  E58D600C  STR       R6,[R13,#0x000C]
+0x00001264  E98D0180  STMIB     R13,{R7-R8}
+0x00001268  E00AA000  AND       R10,R10,R0
+0x0000126C  E59F07C4  LDR       R0,[PC,#0x07C4]
+0x00001270  E2432C01  SUB       R2,R3,#0x00000100
+0x00001274  E2431E12  SUB       R1,R3,#0x00000120
+0x00001278  E58D9000  STR       R9,[R13]
+0x0000127C  EBFFFDC1  BL        func_verificar(0x00000988)
+0x00001280  E59F37E8  LDR       R3,[PC,#0x07E8]
+0x00001284  E58D600C  STR       R6,[R13,#0x000C]
+0x00001288  E98D0180  STMIB     R13,{R7-R8}
+0x0000128C  E00AA000  AND       R10,R10,R0
+0x00001290  E59F07A4  LDR       R0,[PC,#0x07A4]
+0x00001294  E2432C01  SUB       R2,R3,#0x00000100
+0x00001298  E2431E12  SUB       R1,R3,#0x00000120
+0x0000129C  E58D9000  STR       R9,[R13]
+0x000012A0  EBFFFDB8  BL        func_verificar(0x00000988)
+0x000012A4  E000900A  AND       R9,R0,R10
+0x000012A8  E59F07C4  LDR       R0,[PC,#0x07C4]
+0x000012AC  E59F17C4  LDR       R1,[PC,#0x07C4]
+0x000012B0  E58D0010  STR       R0,[R13,#0x0010]
+0x000012B4  E58D100C  STR       R1,[R13,#0x000C]
+0x000012B8  E240203C  SUB       R2,R0,#0x0000003C
+0x000012BC  E58D6008  STR       R6,[R13,#0x0008]
+0x000012C0  E88D0180  STMIA     R13,{R7-R8}
+0x000012C4  E3A03010  MOV       R3,#0x00000010
+0x000012C8  E2421C01  SUB       R1,R2,#0x00000100
+0x000012CC  E2420E12  SUB       R0,R2,#0x00000120
+0x000012D0  EBFFFC3A  BL        C_cumple_esperado(0x000003C0)
+   599:     CHECK_ALL(t1_input, t1_weights, t1_bias, T1_IN, T7_OUT, CLAMP_MIN_Q12, CLAMP_MAX_Q12, 0x00000000u, 0); 
+   600:  
+   601:     // Caso 8: extremos int16, clamp de rango completo. 
+0x000012D4  E59F374C  LDR       R3,[PC,#0x074C]
+0x000012D8  E0007009  AND       R7,R0,R9
+0x000012DC  E3A06004  MOV       R6,#0x00000004
+0x000012E0  E59F0744  LDR       R0,[PC,#0x0744]
+0x000012E4  E2832060  ADD       R2,R3,#0x00000060
+0x000012E8  E2831028  ADD       R1,R3,#0x00000028
+0x000012EC  E58D5004  STR       R5,[R13,#0x0004]
+0x000012F0  E58D6000  STR       R6,[R13]
+0x000012F4  E58D400C  STR       R4,[R13,#0x000C]
+0x000012F8  E58D5008  STR       R5,[R13,#0x0008]
+0x000012FC  EBFFFDA1  BL        func_verificar(0x00000988)
+0x00001300  E59F3720  LDR       R3,[PC,#0x0720]
+0x00001304  E0077000  AND       R7,R7,R0
+0x00001308  E59F0720  LDR       R0,[PC,#0x0720]
+0x0000130C  E2832060  ADD       R2,R3,#0x00000060
+0x00001310  E2831028  ADD       R1,R3,#0x00000028
+0x00001314  E58D5004  STR       R5,[R13,#0x0004]
+0x00001318  E58D6000  STR       R6,[R13]
+0x0000131C  E58D400C  STR       R4,[R13,#0x000C]
+0x00001320  E58D5008  STR       R5,[R13,#0x0008]
+0x00001324  EBFFFD97  BL        func_verificar(0x00000988)
+0x00001328  E59F36F8  LDR       R3,[PC,#0x06F8]
+0x0000132C  E0077000  AND       R7,R7,R0
+0x00001330  E59F06FC  LDR       R0,[PC,#0x06FC]
+0x00001334  E2832060  ADD       R2,R3,#0x00000060
+0x00001338  E2831028  ADD       R1,R3,#0x00000028
+0x0000133C  E58D5004  STR       R5,[R13,#0x0004]
+0x00001340  E58D6000  STR       R6,[R13]
+0x00001344  E58D400C  STR       R4,[R13,#0x000C]
+0x00001348  E58D5008  STR       R5,[R13,#0x0008]
+0x0000134C  EBFFFD8D  BL        func_verificar(0x00000988)
+0x00001350  E59F36D0  LDR       R3,[PC,#0x06D0]
+0x00001354  E0077000  AND       R7,R7,R0
+0x00001358  E59F06D8  LDR       R0,[PC,#0x06D8]
+0x0000135C  E2832060  ADD       R2,R3,#0x00000060
+0x00001360  E2831028  ADD       R1,R3,#0x00000028
+0x00001364  E58D5004  STR       R5,[R13,#0x0004]
+0x00001368  E58D6000  STR       R6,[R13]
+0x0000136C  E58D400C  STR       R4,[R13,#0x000C]
+0x00001370  E58D5008  STR       R5,[R13,#0x0008]
+0x00001374  EBFFFD83  BL        func_verificar(0x00000988)
+0x00001378  E59F36A8  LDR       R3,[PC,#0x06A8]
+0x0000137C  E0077000  AND       R7,R7,R0
+0x00001380  E59F06B4  LDR       R0,[PC,#0x06B4]
+0x00001384  E2832060  ADD       R2,R3,#0x00000060
+0x00001388  E2831028  ADD       R1,R3,#0x00000028
+0x0000138C  E58D5004  STR       R5,[R13,#0x0004]
+0x00001390  E58D6000  STR       R6,[R13]
+0x00001394  E58D400C  STR       R4,[R13,#0x000C]
+0x00001398  E58D5008  STR       R5,[R13,#0x0008]
+0x0000139C  EBFFFD79  BL        func_verificar(0x00000988)
+0x000013A0  E59F2680  LDR       R2,[PC,#0x0680]
+0x000013A4  E0077000  AND       R7,R7,R0
+0x000013A8  E3A03004  MOV       R3,#0x00000004
+0x000013AC  E2821060  ADD       R1,R2,#0x00000060
+0x000013B0  E2820028  ADD       R0,R2,#0x00000028
+0x000013B4  E58D4008  STR       R4,[R13,#0x0008]
+0x000013B8  E58D5004  STR       R5,[R13,#0x0004]
+0x000013BC  E58D500C  STR       R5,[R13,#0x000C]
+0x000013C0  E58D5010  STR       R5,[R13,#0x0010]
+0x000013C4  E58D5000  STR       R5,[R13]
+0x000013C8  EBFFFBFC  BL        C_cumple_esperado(0x000003C0)
+   602:     CHECK_ALL(t8_input, t8_weights, t8_bias, T8_IN, T8_OUT, T8_CLAMP_MIN, T8_CLAMP_MAX, 0x5490633Du, esp_8); 
+   603:  
+   604:     // Caso 9: clamp_min == clamp_max. 
+0x000013CC  E1A048A8  MOV       R4,R8,LSR #17
+0x000013D0  E59F36A4  LDR       R3,[PC,#0x06A4]
+0x000013D4  E000A007  AND       R10,R0,R7
+0x000013D8  E1E07004  MVN       R7,R4
+0x000013DC  E3A08005  MOV       R8,#0x00000005
+0x000013E0  E3A09002  MOV       R9,#0x00000002
+0x000013E4  E59F0640  LDR       R0,[PC,#0x0640]
+0x000013E8  E2432018  SUB       R2,R3,#0x00000018
+0x000013EC  E2431E22  SUB       R1,R3,#0x00000220
+0x000013F0  E58D400C  STR       R4,[R13,#0x000C]
+0x000013F4  E58D7008  STR       R7,[R13,#0x0008]
+0x000013F8  E58D8004  STR       R8,[R13,#0x0004]
+0x000013FC  E58D9000  STR       R9,[R13]
+0x00001400  EBFFFD60  BL        func_verificar(0x00000988)
+0x00001404  E59F3670  LDR       R3,[PC,#0x0670]
+0x00001408  E00AA000  AND       R10,R10,R0
+0x0000140C  E59F061C  LDR       R0,[PC,#0x061C]
+0x00001410  E2432018  SUB       R2,R3,#0x00000018
+0x00001414  E2431E22  SUB       R1,R3,#0x00000220
+0x00001418  E58D400C  STR       R4,[R13,#0x000C]
+0x0000141C  E58D7008  STR       R7,[R13,#0x0008]
+0x00001420  E58D8004  STR       R8,[R13,#0x0004]
+0x00001424  E58D9000  STR       R9,[R13]
+0x00001428  EBFFFD56  BL        func_verificar(0x00000988)
+0x0000142C  E59F3648  LDR       R3,[PC,#0x0648]
+0x00001430  E00AA000  AND       R10,R10,R0
+0x00001434  E59F05F8  LDR       R0,[PC,#0x05F8]
+0x00001438  E2432018  SUB       R2,R3,#0x00000018
+0x0000143C  E2431E22  SUB       R1,R3,#0x00000220
+0x00001440  E58D400C  STR       R4,[R13,#0x000C]
+0x00001444  E58D7008  STR       R7,[R13,#0x0008]
+0x00001448  E58D8004  STR       R8,[R13,#0x0004]
+0x0000144C  E58D9000  STR       R9,[R13]
+0x00001450  EBFFFD4C  BL        func_verificar(0x00000988)
+0x00001454  E59F3620  LDR       R3,[PC,#0x0620]
+0x00001458  E00AA000  AND       R10,R10,R0
+0x0000145C  E59F05D4  LDR       R0,[PC,#0x05D4]
+0x00001460  E2432018  SUB       R2,R3,#0x00000018
+0x00001464  E2431E22  SUB       R1,R3,#0x00000220
+0x00001468  E58D400C  STR       R4,[R13,#0x000C]
+0x0000146C  E58D7008  STR       R7,[R13,#0x0008]
+0x00001470  E58D8004  STR       R8,[R13,#0x0004]
+0x00001474  E58D9000  STR       R9,[R13]
+0x00001478  EBFFFD42  BL        func_verificar(0x00000988)
+0x0000147C  E59F35F8  LDR       R3,[PC,#0x05F8]
+0x00001480  E00AA000  AND       R10,R10,R0
+0x00001484  E59F05B0  LDR       R0,[PC,#0x05B0]
+0x00001488  E2432018  SUB       R2,R3,#0x00000018
+0x0000148C  E2431E22  SUB       R1,R3,#0x00000220
+0x00001490  E58D400C  STR       R4,[R13,#0x000C]
+0x00001494  E58D7008  STR       R7,[R13,#0x0008]
+0x00001498  E58D8004  STR       R8,[R13,#0x0004]
+0x0000149C  E58D9000  STR       R9,[R13]
+0x000014A0  EBFFFD38  BL        func_verificar(0x00000988)
+0x000014A4  E00AA000  AND       R10,R10,R0
+0x000014A8  E59F05D0  LDR       R0,[PC,#0x05D0]
+0x000014AC  E59F15D0  LDR       R1,[PC,#0x05D0]
+0x000014B0  E2402024  SUB       R2,R0,#0x00000024
+0x000014B4  E58D100C  STR       R1,[R13,#0x000C]
+0x000014B8  E58D0010  STR       R0,[R13,#0x0010]
+0x000014BC  E3A03002  MOV       R3,#0x00000002
+0x000014C0  E2421018  SUB       R1,R2,#0x00000018
+0x000014C4  E2420E22  SUB       R0,R2,#0x00000220
+0x000014C8  E58D4008  STR       R4,[R13,#0x0008]
+0x000014CC  E58D7004  STR       R7,[R13,#0x0004]
+0x000014D0  E58D8000  STR       R8,[R13]
+0x000014D4  EBFFFBB9  BL        C_cumple_esperado(0x000003C0)
+   605:     CHECK_ALL(t3_input, t3_weights, t3_bias, T3_IN, T3_OUT, T9_CLAMP_MIN, T9_CLAMP_MAX, 0x02431000u, esp_9); 
+   606:  
+   607:     // Caso 10: clamp totalmente negativo. 
+0x000014D8  E59F356C  LDR       R3,[PC,#0x056C]
+0x000014DC  E98D0840  STMIB     R13,{R6,R11}
+0x000014E0  E000400A  AND       R4,R0,R10
+0x000014E4  E3A07006  MOV       R7,#0x00000006
+0x000014E8  E59F053C  LDR       R0,[PC,#0x053C]
+0x000014EC  E2832068  ADD       R2,R3,#0x00000068
+0x000014F0  E2831058  ADD       R1,R3,#0x00000058
+0x000014F4  E58D7000  STR       R7,[R13]
+0x000014F8  E58DB00C  STR       R11,[R13,#0x000C]
+0x000014FC  EBFFFD21  BL        func_verificar(0x00000988)
+0x00001500  E59F3544  LDR       R3,[PC,#0x0544]
+0x00001504  E98D0840  STMIB     R13,{R6,R11}
+0x00001508  E0044000  AND       R4,R4,R0
+0x0000150C  E59F051C  LDR       R0,[PC,#0x051C]
+0x00001510  E2832068  ADD       R2,R3,#0x00000068
+0x00001514  E2831058  ADD       R1,R3,#0x00000058
+0x00001518  E58D7000  STR       R7,[R13]
+0x0000151C  E58DB00C  STR       R11,[R13,#0x000C]
+0x00001520  EBFFFD18  BL        func_verificar(0x00000988)
+0x00001524  E59F3520  LDR       R3,[PC,#0x0520]
+0x00001528  E98D0840  STMIB     R13,{R6,R11}
+0x0000152C  E0044000  AND       R4,R4,R0
+0x00001530  E59F04FC  LDR       R0,[PC,#0x04FC]
+0x00001534  E2832068  ADD       R2,R3,#0x00000068
+0x00001538  E2831058  ADD       R1,R3,#0x00000058
+0x0000153C  E58D7000  STR       R7,[R13]
+0x00001540  E58DB00C  STR       R11,[R13,#0x000C]
+0x00001544  EBFFFD0F  BL        func_verificar(0x00000988)
+0x00001548  E59F34FC  LDR       R3,[PC,#0x04FC]
+0x0000154C  E98D0840  STMIB     R13,{R6,R11}
+0x00001550  E0044000  AND       R4,R4,R0
+0x00001554  E59F04DC  LDR       R0,[PC,#0x04DC]
+0x00001558  E2832068  ADD       R2,R3,#0x00000068
+0x0000155C  E2831058  ADD       R1,R3,#0x00000058
+0x00001560  E58D7000  STR       R7,[R13]
+0x00001564  E58DB00C  STR       R11,[R13,#0x000C]
+0x00001568  EBFFFD06  BL        func_verificar(0x00000988)
+0x0000156C  E59F34D8  LDR       R3,[PC,#0x04D8]
+0x00001570  E98D0840  STMIB     R13,{R6,R11}
+0x00001574  E0044000  AND       R4,R4,R0
+0x00001578  E59F04BC  LDR       R0,[PC,#0x04BC]
+0x0000157C  E2832068  ADD       R2,R3,#0x00000068
+0x00001580  E2831058  ADD       R1,R3,#0x00000058
+0x00001584  E58D7000  STR       R7,[R13]
+0x00001588  E58DB00C  STR       R11,[R13,#0x000C]
+0x0000158C  EBFFFCFD  BL        func_verificar(0x00000988)
+0x00001590  E0044000  AND       R4,R4,R0
+0x00001594  E59F04EC  LDR       R0,[PC,#0x04EC]
+0x00001598  E3A01A31  MOV       R1,#0x00031000
+0x0000159C  E2811509  ADD       R1,R1,#0x02400000
+0x000015A0  E2402018  SUB       R2,R0,#0x00000018
+0x000015A4  E58D100C  STR       R1,[R13,#0x000C]
+0x000015A8  E58D0010  STR       R0,[R13,#0x0010]
+0x000015AC  E3A03006  MOV       R3,#0x00000006
+0x000015B0  E2821068  ADD       R1,R2,#0x00000068
+0x000015B4  E2820058  ADD       R0,R2,#0x00000058
+0x000015B8  E58DB004  STR       R11,[R13,#0x0004]
+0x000015BC  E58D6000  STR       R6,[R13]
+0x000015C0  E58DB008  STR       R11,[R13,#0x0008]
+0x000015C4  EBFFFB7D  BL        C_cumple_esperado(0x000003C0)
+0x000015C8  E000B004  AND       R11,R0,R4
+   608:     CHECK_ALL(t3_input, t3_weights, t3_bias, T3_IN, T3_OUT, T10_CLAMP_MIN, T10_CLAMP_MAX, 0x8E80EC00u, esp_10); 
+   609:  
+   610:     // Caso 11: input_size no mÃºltiplo de 4 (datos del caso 6; solo checksum). 
+0x000015CC  E245AB01  SUB       R10,R5,#0x00000400
+0x000015D0  E2454B02  SUB       R4,R5,#0x00000800
+0x000015D4  E28DC008  ADD       R12,R13,#0x00000008
+0x000015D8  E59F346C  LDR       R3,[PC,#0x046C]
+0x000015DC  E88C0410  STMIA     R12,{R4,R10}
+0x000015E0  E59F0444  LDR       R0,[PC,#0x0444]
+0x000015E4  E2832068  ADD       R2,R3,#0x00000068
+0x000015E8  E2831058  ADD       R1,R3,#0x00000058
+0x000015EC  E58D6004  STR       R6,[R13,#0x0004]
+0x000015F0  E58D7000  STR       R7,[R13]
+0x000015F4  EBFFFCE3  BL        func_verificar(0x00000988)
+0x000015F8  E28DC008  ADD       R12,R13,#0x00000008
+0x000015FC  E59F3448  LDR       R3,[PC,#0x0448]
+0x00001600  E88C0410  STMIA     R12,{R4,R10}
+0x00001604  E00BB000  AND       R11,R11,R0
+0x00001608  E59F0420  LDR       R0,[PC,#0x0420]
+0x0000160C  E2832068  ADD       R2,R3,#0x00000068
+0x00001610  E2831058  ADD       R1,R3,#0x00000058
+0x00001614  E58D6004  STR       R6,[R13,#0x0004]
+0x00001618  E58D7000  STR       R7,[R13]
+0x0000161C  EBFFFCD9  BL        func_verificar(0x00000988)
+0x00001620  E28DC008  ADD       R12,R13,#0x00000008
+0x00001624  E59F3420  LDR       R3,[PC,#0x0420]
+0x00001628  E88C0410  STMIA     R12,{R4,R10}
+0x0000162C  E00BB000  AND       R11,R11,R0
+0x00001630  E59F03FC  LDR       R0,[PC,#0x03FC]
+0x00001634  E2832068  ADD       R2,R3,#0x00000068
+0x00001638  E2831058  ADD       R1,R3,#0x00000058
+0x0000163C  E58D6004  STR       R6,[R13,#0x0004]
+0x00001640  E58D7000  STR       R7,[R13]
+0x00001644  EBFFFCCF  BL        func_verificar(0x00000988)
+0x00001648  E28DC008  ADD       R12,R13,#0x00000008
+0x0000164C  E59F33F8  LDR       R3,[PC,#0x03F8]
+0x00001650  E88C0410  STMIA     R12,{R4,R10}
+0x00001654  E00BB000  AND       R11,R11,R0
+0x00001658  E59F03D8  LDR       R0,[PC,#0x03D8]
+0x0000165C  E2832068  ADD       R2,R3,#0x00000068
+0x00001660  E2831058  ADD       R1,R3,#0x00000058
+0x00001664  E58D6004  STR       R6,[R13,#0x0004]
+0x00001668  E58D7000  STR       R7,[R13]
+0x0000166C  EBFFFCC5  BL        func_verificar(0x00000988)
+0x00001670  E28DC008  ADD       R12,R13,#0x00000008
+0x00001674  E59F33D0  LDR       R3,[PC,#0x03D0]
+0x00001678  E88C0410  STMIA     R12,{R4,R10}
+0x0000167C  E00BB000  AND       R11,R11,R0
+0x00001680  E59F03B4  LDR       R0,[PC,#0x03B4]
+0x00001684  E2832068  ADD       R2,R3,#0x00000068
+0x00001688  E2831058  ADD       R1,R3,#0x00000058
+0x0000168C  E58D6004  STR       R6,[R13,#0x0004]
+0x00001690  E58D7000  STR       R7,[R13]
+0x00001694  EBFFFCBB  BL        func_verificar(0x00000988)
+0x00001698  E000700B  AND       R7,R0,R11
+0x0000169C  E59F03E8  LDR       R0,[PC,#0x03E8]
+0x000016A0  E59F13E8  LDR       R1,[PC,#0x03E8]
+0x000016A4  E58D0010  STR       R0,[R13,#0x0010]
+0x000016A8  E58D100C  STR       R1,[R13,#0x000C]
+0x000016AC  E2402020  SUB       R2,R0,#0x00000020
+0x000016B0  E98D0410  STMIB     R13,{R4,R10}
+0x000016B4  E3A03006  MOV       R3,#0x00000006
+0x000016B8  E2821068  ADD       R1,R2,#0x00000068
+0x000016BC  E2820058  ADD       R0,R2,#0x00000058
+0x000016C0  E58D6000  STR       R6,[R13]
+0x000016C4  EBFFFB3D  BL        C_cumple_esperado(0x000003C0)
+   611:     CHECK_ALL(t6_input, t6_weights, t6_bias,  2, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0xD9C686DFu, 0); 
+0x000016C8  E3A06B02  MOV       R6,#0x00000800
+0x000016CC  E28DC008  ADD       R12,R13,#0x00000008
+0x000016D0  E59F3398  LDR       R3,[PC,#0x0398]
+0x000016D4  E000A007  AND       R10,R0,R7
+0x000016D8  E88C0050  STMIA     R12,{R4,R6}
+0x000016DC  E3A07008  MOV       R7,#0x00000008
+0x000016E0  E59F0344  LDR       R0,[PC,#0x0344]
+0x000016E4  E2432C01  SUB       R2,R3,#0x00000100
+0x000016E8  E2431E12  SUB       R1,R3,#0x00000120
+0x000016EC  E58D7004  STR       R7,[R13,#0x0004]
+0x000016F0  E58D9000  STR       R9,[R13]
+0x000016F4  EBFFFCA3  BL        func_verificar(0x00000988)
+0x000016F8  E28DC008  ADD       R12,R13,#0x00000008
+0x000016FC  E59F336C  LDR       R3,[PC,#0x036C]
+0x00001700  E88C0050  STMIA     R12,{R4,R6}
+0x00001704  E00AA000  AND       R10,R10,R0
+0x00001708  E59F0320  LDR       R0,[PC,#0x0320]
+0x0000170C  E2432C01  SUB       R2,R3,#0x00000100
+0x00001710  E2431E12  SUB       R1,R3,#0x00000120
+0x00001714  E58D7004  STR       R7,[R13,#0x0004]
+0x00001718  E58D9000  STR       R9,[R13]
+0x0000171C  EBFFFC99  BL        func_verificar(0x00000988)
+0x00001720  E28DC008  ADD       R12,R13,#0x00000008
+0x00001724  E59F3344  LDR       R3,[PC,#0x0344]
+0x00001728  E88C0050  STMIA     R12,{R4,R6}
+0x0000172C  E00AA000  AND       R10,R10,R0
+0x00001730  E59F02FC  LDR       R0,[PC,#0x02FC]
+0x00001734  E2432C01  SUB       R2,R3,#0x00000100
+0x00001738  E2431E12  SUB       R1,R3,#0x00000120
+0x0000173C  E58D7004  STR       R7,[R13,#0x0004]
+0x00001740  E58D9000  STR       R9,[R13]
+0x00001744  EBFFFC8F  BL        func_verificar(0x00000988)
+0x00001748  E28DC008  ADD       R12,R13,#0x00000008
+0x0000174C  E59F331C  LDR       R3,[PC,#0x031C]
+0x00001750  E88C0050  STMIA     R12,{R4,R6}
+0x00001754  E00AA000  AND       R10,R10,R0
+0x00001758  E59F02D8  LDR       R0,[PC,#0x02D8]
+0x0000175C  E2432C01  SUB       R2,R3,#0x00000100
+0x00001760  E2431E12  SUB       R1,R3,#0x00000120
+0x00001764  E58D7004  STR       R7,[R13,#0x0004]
+0x00001768  E58D9000  STR       R9,[R13]
+0x0000176C  EBFFFC85  BL        func_verificar(0x00000988)
+0x00001770  E28DC008  ADD       R12,R13,#0x00000008
+0x00001774  E59F32F4  LDR       R3,[PC,#0x02F4]
+0x00001778  E88C0050  STMIA     R12,{R4,R6}
+0x0000177C  E00AA000  AND       R10,R10,R0
+0x00001780  E59F02B4  LDR       R0,[PC,#0x02B4]
+0x00001784  E2432C01  SUB       R2,R3,#0x00000100
+0x00001788  E2431E12  SUB       R1,R3,#0x00000120
+0x0000178C  E58D7004  STR       R7,[R13,#0x0004]
+0x00001790  E58D9000  STR       R9,[R13]
+0x00001794  EBFFFC7B  BL        func_verificar(0x00000988)
+0x00001798  E000900A  AND       R9,R0,R10
+0x0000179C  E59F02F0  LDR       R0,[PC,#0x02F0]
+0x000017A0  E28DC00C  ADD       R12,R13,#0x0000000C
+0x000017A4  E88C0021  STMIA     R12,{R0,R5}
+0x000017A8  E59F22C0  LDR       R2,[PC,#0x02C0]
+0x000017AC  E98D0050  STMIB     R13,{R4,R6}
+0x000017B0  E3A03002  MOV       R3,#0x00000002
+0x000017B4  E2421C01  SUB       R1,R2,#0x00000100
+0x000017B8  E2420E12  SUB       R0,R2,#0x00000120
+0x000017BC  E58D7000  STR       R7,[R13]
+0x000017C0  EBFFFAFE  BL        C_cumple_esperado(0x000003C0)
+   612:     CHECK_ALL(t6_input, t6_weights, t6_bias,  5, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0xFB83BD0Cu, 0); 
+0x000017C4  E28DC008  ADD       R12,R13,#0x00000008
+0x000017C8  E59F32A0  LDR       R3,[PC,#0x02A0]
+0x000017CC  E88C0050  STMIA     R12,{R4,R6}
+0x000017D0  E0099000  AND       R9,R9,R0
+0x000017D4  E59F0250  LDR       R0,[PC,#0x0250]
+0x000017D8  E2432C01  SUB       R2,R3,#0x00000100
+0x000017DC  E2431E12  SUB       R1,R3,#0x00000120
+0x000017E0  E58D7004  STR       R7,[R13,#0x0004]
+0x000017E4  E58D8000  STR       R8,[R13]
+0x000017E8  EBFFFC66  BL        func_verificar(0x00000988)
+0x000017EC  E28DC008  ADD       R12,R13,#0x00000008
+0x000017F0  E59F3278  LDR       R3,[PC,#0x0278]
+0x000017F4  E88C0050  STMIA     R12,{R4,R6}
+0x000017F8  E0099000  AND       R9,R9,R0
+0x000017FC  E59F022C  LDR       R0,[PC,#0x022C]
+0x00001800  E2432C01  SUB       R2,R3,#0x00000100
+0x00001804  E2431E12  SUB       R1,R3,#0x00000120
+0x00001808  E58D7004  STR       R7,[R13,#0x0004]
+0x0000180C  E58D8000  STR       R8,[R13]
+0x00001810  EBFFFC5C  BL        func_verificar(0x00000988)
+0x00001814  E28DC008  ADD       R12,R13,#0x00000008
+0x00001818  E59F3250  LDR       R3,[PC,#0x0250]
+0x0000181C  E88C0050  STMIA     R12,{R4,R6}
+0x00001820  E0099000  AND       R9,R9,R0
+0x00001824  E59F0208  LDR       R0,[PC,#0x0208]
+0x00001828  E2432C01  SUB       R2,R3,#0x00000100
+0x0000182C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001830  E58D7004  STR       R7,[R13,#0x0004]
+0x00001834  E58D8000  STR       R8,[R13]
+0x00001838  EBFFFC52  BL        func_verificar(0x00000988)
+0x0000183C  E28DC008  ADD       R12,R13,#0x00000008
+0x00001840  E59F3228  LDR       R3,[PC,#0x0228]
+0x00001844  E88C0050  STMIA     R12,{R4,R6}
+0x00001848  E0099000  AND       R9,R9,R0
+0x0000184C  E59F01E4  LDR       R0,[PC,#0x01E4]
+0x00001850  E2432C01  SUB       R2,R3,#0x00000100
+0x00001854  E2431E12  SUB       R1,R3,#0x00000120
+0x00001858  E58D7004  STR       R7,[R13,#0x0004]
+0x0000185C  E58D8000  STR       R8,[R13]
+0x00001860  EBFFFC48  BL        func_verificar(0x00000988)
+0x00001864  E28DC008  ADD       R12,R13,#0x00000008
+0x00001868  E59F3200  LDR       R3,[PC,#0x0200]
+0x0000186C  E88C0050  STMIA     R12,{R4,R6}
+0x00001870  E0099000  AND       R9,R9,R0
+0x00001874  E59F01C0  LDR       R0,[PC,#0x01C0]
+0x00001878  E2432C01  SUB       R2,R3,#0x00000100
+0x0000187C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001880  E58D7004  STR       R7,[R13,#0x0004]
+0x00001884  E58D8000  STR       R8,[R13]
+0x00001888  EBFFFC3E  BL        func_verificar(0x00000988)
+0x0000188C  E0008009  AND       R8,R0,R9
+0x00001890  E59F0200  LDR       R0,[PC,#0x0200]
+0x00001894  E28DC00C  ADD       R12,R13,#0x0000000C
+0x00001898  E88C0021  STMIA     R12,{R0,R5}
+0x0000189C  E59F21CC  LDR       R2,[PC,#0x01CC]
+0x000018A0  E98D0050  STMIB     R13,{R4,R6}
+0x000018A4  E3A03005  MOV       R3,#0x00000005
+0x000018A8  E2421C01  SUB       R1,R2,#0x00000100
+0x000018AC  E2420E12  SUB       R0,R2,#0x00000120
+0x000018B0  E58D7000  STR       R7,[R13]
+0x000018B4  EBFFFAC1  BL        C_cumple_esperado(0x000003C0)
+   613:     CHECK_ALL(t6_input, t6_weights, t6_bias,  7, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0x8C32BCE2u, 0); 
+0x000018B8  E28DC008  ADD       R12,R13,#0x00000008
+0x000018BC  E59F31AC  LDR       R3,[PC,#0x01AC]
+0x000018C0  E0009008  AND       R9,R0,R8
+0x000018C4  E88C0050  STMIA     R12,{R4,R6}
+0x000018C8  E3A08007  MOV       R8,#0x00000007
+0x000018CC  E59F0158  LDR       R0,[PC,#0x0158]
+0x000018D0  E2432C01  SUB       R2,R3,#0x00000100
+0x000018D4  E2431E12  SUB       R1,R3,#0x00000120
+0x000018D8  E58D7004  STR       R7,[R13,#0x0004]
+0x000018DC  E58D8000  STR       R8,[R13]
+0x000018E0  EBFFFC28  BL        func_verificar(0x00000988)
+0x000018E4  E28DC008  ADD       R12,R13,#0x00000008
+0x000018E8  E59F3180  LDR       R3,[PC,#0x0180]
+0x000018EC  E88C0050  STMIA     R12,{R4,R6}
+0x000018F0  E0099000  AND       R9,R9,R0
+0x000018F4  E59F0134  LDR       R0,[PC,#0x0134]
+0x000018F8  E2432C01  SUB       R2,R3,#0x00000100
+0x000018FC  E2431E12  SUB       R1,R3,#0x00000120
+0x00001900  E58D7004  STR       R7,[R13,#0x0004]
+0x00001904  E58D8000  STR       R8,[R13]
+0x00001908  EBFFFC1E  BL        func_verificar(0x00000988)
+0x0000190C  E28DC008  ADD       R12,R13,#0x00000008
+0x00001910  E59F3158  LDR       R3,[PC,#0x0158]
+0x00001914  E88C0050  STMIA     R12,{R4,R6}
+0x00001918  E0099000  AND       R9,R9,R0
+0x0000191C  E59F0110  LDR       R0,[PC,#0x0110]
+0x00001920  E2432C01  SUB       R2,R3,#0x00000100
+0x00001924  E2431E12  SUB       R1,R3,#0x00000120
+0x00001928  E58D7004  STR       R7,[R13,#0x0004]
+0x0000192C  E58D8000  STR       R8,[R13]
+0x00001930  EBFFFC14  BL        func_verificar(0x00000988)
+0x00001934  E28DC008  ADD       R12,R13,#0x00000008
+0x00001938  E59F3130  LDR       R3,[PC,#0x0130]
+0x0000193C  E88C0050  STMIA     R12,{R4,R6}
+0x00001940  E0099000  AND       R9,R9,R0
+0x00001944  E59F00EC  LDR       R0,[PC,#0x00EC]
+0x00001948  E2432C01  SUB       R2,R3,#0x00000100
+0x0000194C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001950  E58D7004  STR       R7,[R13,#0x0004]
+0x00001954  E58D8000  STR       R8,[R13]
+0x00001958  EBFFFC0A  BL        func_verificar(0x00000988)
+0x0000195C  E28DC008  ADD       R12,R13,#0x00000008
+0x00001960  E59F3108  LDR       R3,[PC,#0x0108]
+0x00001964  E88C0050  STMIA     R12,{R4,R6}
+0x00001968  E0099000  AND       R9,R9,R0
+0x0000196C  E59F00C8  LDR       R0,[PC,#0x00C8]
+0x00001970  E2432C01  SUB       R2,R3,#0x00000100
+0x00001974  E2431E12  SUB       R1,R3,#0x00000120
+0x00001978  E58D7004  STR       R7,[R13,#0x0004]
+0x0000197C  E58D8000  STR       R8,[R13]
+0x00001980  EBFFFC00  BL        func_verificar(0x00000988)
+0x00001984  E0008009  AND       R8,R0,R9
+0x00001988  E59F010C  LDR       R0,[PC,#0x010C]
+0x0000198C  E28DC00C  ADD       R12,R13,#0x0000000C
+0x00001990  E88C0021  STMIA     R12,{R0,R5}
+0x00001994  E59F20D4  LDR       R2,[PC,#0x00D4]
+0x00001998  E98D0050  STMIB     R13,{R4,R6}
+0x0000199C  E3A03007  MOV       R3,#0x00000007
+0x000019A0  E2421C01  SUB       R1,R2,#0x00000100
+0x000019A4  E2420E12  SUB       R0,R2,#0x00000120
+0x000019A8  E58D7000  STR       R7,[R13]
+0x000019AC  EBFFFA83  BL        C_cumple_esperado(0x000003C0)
+   614:     CHECK_ALL(t6_input, t6_weights, t6_bias,  9, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0x3B42CC96u, 0); 
+0x000019B0  E28DC008  ADD       R12,R13,#0x00000008
+0x000019B4  E59F30B4  LDR       R3,[PC,#0x00B4]
+0x000019B8  E0009008  AND       R9,R0,R8
+0x000019BC  E88C0050  STMIA     R12,{R4,R6}
+0x000019C0  E3A08009  MOV       R8,#0x00000009
+0x000019C4  E59F0060  LDR       R0,[PC,#0x0060]
+0x000019C8  E2432C01  SUB       R2,R3,#0x00000100
+0x000019CC  E2431E12  SUB       R1,R3,#0x00000120
+0x000019D0  E58D7004  STR       R7,[R13,#0x0004]
+0x000019D4  E58D8000  STR       R8,[R13]
+0x000019D8  EBFFFBEA  BL        func_verificar(0x00000988)
+0x000019DC  E28DC008  ADD       R12,R13,#0x00000008
+0x000019E0  E59F3088  LDR       R3,[PC,#0x0088]
+0x000019E4  E88C0050  STMIA     R12,{R4,R6}
+0x000019E8  E0099000  AND       R9,R9,R0
+0x000019EC  E59F003C  LDR       R0,[PC,#0x003C]
+0x000019F0  E2432C01  SUB       R2,R3,#0x00000100
+0x000019F4  E2431E12  SUB       R1,R3,#0x00000120
+0x000019F8  E58D7004  STR       R7,[R13,#0x0004]
+0x000019FC  E58D8000  STR       R8,[R13]
+0x00001A00  EBFFFBE0  BL        func_verificar(0x00000988)
+0x00001A04  E59F3064  LDR       R3,[PC,#0x0064]
+0x00001A08  E0099000  AND       R9,R9,R0
+0x00001A0C  E59F0020  LDR       R0,[PC,#0x0020]
+0x00001A10  E2432C01  SUB       R2,R3,#0x00000100
+0x00001A14  E2431E12  SUB       R1,R3,#0x00000120
+0x00001A18  EA000020  B         0x00001AA0
+0x00001A1C  40000078  ANDMI     R0,R0,R8,ROR R0
+0x00001A20  00002060  ANDEQ     R2,R0,R0,RRX
+0x00001A24  00001FDA  ???EQ     
+0x00001A28  00001DB8  (???)EQ   
+0x00001A2C  0000058C  ANDEQ     R0,R0,R12,LSL #11
+0x00001A30  0000061C  ANDEQ     R0,R0,R12,LSL R6
+0x00001A34  000001CC  ANDEQ     R0,R0,R12,ASR #3
+0x00001A38  00000254  ANDEQ     R0,R0,R4,ASR R2
+0x00001A3C  00000330  ANDEQ     R0,R0,R0,LSR R3
+0x00001A40  00001DCE  ANDEQ     R1,R0,R14,ASR #27
+0x00001A44  00001DE8  ANDEQ     R1,R0,R8,ROR #27
+0x00001A48  00001DF8  ???EQ     
+0x00001A4C  00001DF0  ???EQ     
+0x00001A50  00001E00  ANDEQ     R1,R0,R0,LSL #28
+0x00001A54  8C61E067  STCHIL    p0,CR14,[R1],#-0x019C
+0x00001A58  00001DA8  ANDEQ     R1,R0,R8,LSR #27
+0x00001A5C  00001DAA  ANDEQ     R1,R0,R10,LSR #27
+0x00001A60  00001DAC  ANDEQ     R1,R0,R12,LSR #27
+0x00001A64  00001DAE  ANDEQ     R1,R0,R14,LSR #27
+0x00001A68  00001DC8  ANDEQ     R1,R0,R8,ASR #27
+0x00001A6C  00001DD4  ???EQ     
+0x00001A70  00001FA8  ANDEQ     R1,R0,R8,LSR #31
+0x00001A74  00001FE4  ANDEQ     R1,R0,R4,ROR #31
+0x00001A78  B1F1AF49  MVNLTS    R10,R9,ASR #30
+0x00001A7C  00001FD0  ???EQ     
+0x00001A80  00001FF4  ???EQ     
+0x00001A84  5490633D  LDRPL     R6,[R0],#0x033D
+0x00001A88  00001E08  ANDEQ     R1,R0,R8,LSL #28
+0x00001A8C  00001E10  ANDEQ     R1,R0,R0,LSL R14
+0x00001A90  8E80EC00  CDPHI     p12,8,CR14,CR0,CR0,0
+0x00001A94  D9C686DF  STMLEIB   R6,{R0-R4,R6-R7,R9-R10,PC}^
+0x00001A98  FB83BD0C  (???)     
+0x00001A9C  8C32BCE2  LDCHI     p12,CR11,[R2],#-0x0388
+0x00001AA0  E28DC008  ADD       R12,R13,#0x00000008
+0x00001AA4  E88C0050  STMIA     R12,{R4,R6}
+0x00001AA8  E58D7004  STR       R7,[R13,#0x0004]
+0x00001AAC  E58D8000  STR       R8,[R13]
+0x00001AB0  EBFFFBB4  BL        func_verificar(0x00000988)
+0x00001AB4  E28DC008  ADD       R12,R13,#0x00000008
+0x00001AB8  E51F3050  LDR       R3,[PC,#-0x0050]
+0x00001ABC  E88C0050  STMIA     R12,{R4,R6}
+0x00001AC0  E0099000  AND       R9,R9,R0
+0x00001AC4  E51F0094  LDR       R0,[PC,#-0x0094]
+0x00001AC8  E2432C01  SUB       R2,R3,#0x00000100
+0x00001ACC  E2431E12  SUB       R1,R3,#0x00000120
+0x00001AD0  E58D7004  STR       R7,[R13,#0x0004]
+0x00001AD4  E58D8000  STR       R8,[R13]
+0x00001AD8  EBFFFBAA  BL        func_verificar(0x00000988)
+0x00001ADC  E28DC008  ADD       R12,R13,#0x00000008
+0x00001AE0  E51F3078  LDR       R3,[PC,#-0x0078]
+0x00001AE4  E88C0050  STMIA     R12,{R4,R6}
+0x00001AE8  E0099000  AND       R9,R9,R0
+0x00001AEC  E51F00B8  LDR       R0,[PC,#-0x00B8]
+0x00001AF0  E2432C01  SUB       R2,R3,#0x00000100
+0x00001AF4  E2431E12  SUB       R1,R3,#0x00000120
+0x00001AF8  E58D7004  STR       R7,[R13,#0x0004]
+0x00001AFC  E58D8000  STR       R8,[R13]
+0x00001B00  EBFFFBA0  BL        func_verificar(0x00000988)
+0x00001B04  E0008009  AND       R8,R0,R9
+0x00001B08  E59F0128  LDR       R0,[PC,#0x0128]
+0x00001B0C  E28DC00C  ADD       R12,R13,#0x0000000C
+0x00001B10  E88C0021  STMIA     R12,{R0,R5}
+0x00001B14  E51F20AC  LDR       R2,[PC,#-0x00AC]
+0x00001B18  E98D0050  STMIB     R13,{R4,R6}
+0x00001B1C  E3A03009  MOV       R3,#0x00000009
+0x00001B20  E2421C01  SUB       R1,R2,#0x00000100
+0x00001B24  E2420E12  SUB       R0,R2,#0x00000120
+0x00001B28  E58D7000  STR       R7,[R13]
+0x00001B2C  EBFFFA23  BL        C_cumple_esperado(0x000003C0)
+   615:     CHECK_ALL(t6_input, t6_weights, t6_bias, 13, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0x2FADCE47u, 0); 
+   616:  
+   617:     // Guardamos el resultado en la variable global para verlo en el Watch. 
+0x00001B30  E28DC008  ADD       R12,R13,#0x00000008
+0x00001B34  E51F30CC  LDR       R3,[PC,#-0x00CC]
+0x00001B38  E0009008  AND       R9,R0,R8
+0x00001B3C  E88C0050  STMIA     R12,{R4,R6}
+0x00001B40  E3A0800D  MOV       R8,#0x0000000D
+0x00001B44  E51F0120  LDR       R0,[PC,#-0x0120]
+0x00001B48  E2432C01  SUB       R2,R3,#0x00000100
+0x00001B4C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001B50  E58D7004  STR       R7,[R13,#0x0004]
+0x00001B54  E58D8000  STR       R8,[R13]
+0x00001B58  EBFFFB8A  BL        func_verificar(0x00000988)
+0x00001B5C  E28DC008  ADD       R12,R13,#0x00000008
+0x00001B60  E51F30F8  LDR       R3,[PC,#-0x00F8]
+0x00001B64  E88C0050  STMIA     R12,{R4,R6}
+0x00001B68  E0099000  AND       R9,R9,R0
+0x00001B6C  E51F0144  LDR       R0,[PC,#-0x0144]
+0x00001B70  E2432C01  SUB       R2,R3,#0x00000100
+0x00001B74  E2431E12  SUB       R1,R3,#0x00000120
+0x00001B78  E58D7004  STR       R7,[R13,#0x0004]
+0x00001B7C  E58D8000  STR       R8,[R13]
+0x00001B80  EBFFFB80  BL        func_verificar(0x00000988)
+0x00001B84  E28DC008  ADD       R12,R13,#0x00000008
+0x00001B88  E51F3120  LDR       R3,[PC,#-0x0120]
+0x00001B8C  E88C0050  STMIA     R12,{R4,R6}
+0x00001B90  E0099000  AND       R9,R9,R0
+0x00001B94  E51F0168  LDR       R0,[PC,#-0x0168]
+0x00001B98  E2432C01  SUB       R2,R3,#0x00000100
+0x00001B9C  E2431E12  SUB       R1,R3,#0x00000120
+0x00001BA0  E58D7004  STR       R7,[R13,#0x0004]
+0x00001BA4  E58D8000  STR       R8,[R13]
+0x00001BA8  EBFFFB76  BL        func_verificar(0x00000988)
+0x00001BAC  E28DC008  ADD       R12,R13,#0x00000008
+0x00001BB0  E51F3148  LDR       R3,[PC,#-0x0148]
+0x00001BB4  E88C0050  STMIA     R12,{R4,R6}
+0x00001BB8  E0099000  AND       R9,R9,R0
+0x00001BBC  E51F018C  LDR       R0,[PC,#-0x018C]
+0x00001BC0  E2432C01  SUB       R2,R3,#0x00000100
+0x00001BC4  E2431E12  SUB       R1,R3,#0x00000120
+0x00001BC8  E58D7004  STR       R7,[R13,#0x0004]
+0x00001BCC  E58D8000  STR       R8,[R13]
+0x00001BD0  EBFFFB6C  BL        func_verificar(0x00000988)
+0x00001BD4  E28DC008  ADD       R12,R13,#0x00000008
+0x00001BD8  E51F3170  LDR       R3,[PC,#-0x0170]
+0x00001BDC  E88C0050  STMIA     R12,{R4,R6}
+0x00001BE0  E0099000  AND       R9,R9,R0
+0x00001BE4  E51F01B0  LDR       R0,[PC,#-0x01B0]
+0x00001BE8  E2432C01  SUB       R2,R3,#0x00000100
+0x00001BEC  E2431E12  SUB       R1,R3,#0x00000120
+0x00001BF0  E58D7004  STR       R7,[R13,#0x0004]
+0x00001BF4  E58D8000  STR       R8,[R13]
+0x00001BF8  EBFFFB62  BL        func_verificar(0x00000988)
+0x00001BFC  E0008009  AND       R8,R0,R9
+0x00001C00  E59F0034  LDR       R0,[PC,#0x0034]
+0x00001C04  E28DC00C  ADD       R12,R13,#0x0000000C
+0x00001C08  E88C0021  STMIA     R12,{R0,R5}
+0x00001C0C  E51F21A4  LDR       R2,[PC,#-0x01A4]
+0x00001C10  E98D0050  STMIB     R13,{R4,R6}
+0x00001C14  E3A0300D  MOV       R3,#0x0000000D
+0x00001C18  E2421C01  SUB       R1,R2,#0x00000100
+0x00001C1C  E2420E12  SUB       R0,R2,#0x00000120
+0x00001C20  E58D7000  STR       R7,[R13]
+0x00001C24  EBFFF9E5  BL        C_cumple_esperado(0x000003C0)
+   618:     resultado_tests = ok_tests; 
+   619:  
+   620:     // Punto de parada: pon aquÃ­ un breakpoint y mira 'resultado_tests'. 
+   621:     // En este entorno no hay SO; nos quedamos en bucle. 
+0x00001C28  E59F1010  LDR       R1,[PC,#0x0010]
+0x00001C2C  E0000008  AND       R0,R0,R8
+0x00001C30  E5C10000  STRB      R0,[R1]
+   622:     while (1) { /* no retornar */ } 
+0x00001C34  EAFFFFFE  B         0x00001C34
+0x00001C38  3B42CC96  BLCC      0x010B4E98
+0x00001C3C  2FADCE47  SWICS     0x00ADCE47
+0x00001C40  40000000  ANDMI     R0,R0,R0
+   211:     int16_t clamp_max) { 
+   212:  
+   213:     // El bias estÃ¡ en Q12; el acumulador trabaja en Q24. 
+   214:     // Por tanto, bias_q12 se desplaza 12 bits a la izquierda. 
+   215:     int32_t acc = ((int32_t)bias_q12) << Q_SHIFT; 
+   216:  
+0x00001C44  E92D4FF0  STMDB     R13!,{R4-R11,R14}
+0x00001C48  E1A0B000  MOV       R11,R0
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+   218:         // input[i] y weights[i] estÃ¡n en Q12. 
+   219:         // Su producto queda en Q24 y se acumula directamente. 
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x00001C4C  E59D0028  LDR       R0,[R13,#0x0028]
+0x00001C50  E59DA024  LDR       R10,[R13,#0x0024]
+0x00001C54  E2425001  SUB       R5,R2,#0x00000001
+0x00001C58  E3550000  CMP       R5,#0x00000000
+   215:     int32_t acc = ((int32_t)bias_q12) << Q_SHIFT; 
+   216:  
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+   218:         // input[i] y weights[i] estÃ¡n en Q12. 
+   219:         // Su producto queda en Q24 y se acumula directamente. 
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x00001C5C  E1A03603  MOV       R3,R3,LSL #12
+0x00001C60  DA000014  BLE       0x00001CB8
+   229: } 
+0x00001C64  E3120001  TST       R2,#0x00000001
+0x00001C68  E24B4002  SUB       R4,R11,#0x00000002
+0x00001C6C  E241C002  SUB       R12,R1,#0x00000002
+0x00001C70  1A000002  BNE       0x00001C80
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+0x00001C74  E1F460F2  LDRSH     R6,[R4,#0x02]!
+0x00001C78  E1FC70F2  LDRSH     R7,[R12,#0x02]!
+0x00001C7C  E0233796  MLA       R3,R6,R7,R3
+0x00001C80  E1D470F2  LDRSH     R7,[R4,#0x02]
+0x00001C84  E1DC80F2  LDRSH     R8,[R12,#0x02]
+   217:     for (uint16_t i = 0; i < n; ++i) { 
+   218:         // input[i] y weights[i] estÃ¡n en Q12. 
+   219:         // Su producto queda en Q24 y se acumula directamente. 
+   220:         acc += (int32_t)input[i] * (int32_t)weights[i]; 
+   221:     } 
+   222:  
+   223:     // Volvemos de Q24 a Q12. 
+   224:     // En ARM esto corresponde naturalmente a un desplazamiento aritmÃ©tico ASR #12. 
+0x00001C88  E1B050C5  MOVS      R5,R5,ASR #1
+0x00001C8C  E3A06000  MOV       R6,#0x00000000
+0x00001C90  0A000007  BEQ       0x00001CB4
+0x00001C94  E1F4E0F4  LDRSH     R14,[R4,#0x04]!
+0x00001C98  E1FC90F4  LDRSH     R9,[R12,#0x04]!
+0x00001C9C  E0233897  MLA       R3,R7,R8,R3
+0x00001CA0  E026699E  MLA       R6,R14,R9,R6
+0x00001CA4  E1D470F2  LDRSH     R7,[R4,#0x02]
+0x00001CA8  E1DC80F2  LDRSH     R8,[R12,#0x02]
+0x00001CAC  E2555001  SUBS      R5,R5,#0x00000001
+0x00001CB0  1AFFFFF7  BNE       0x00001C94
+0x00001CB4  E0833006  ADD       R3,R3,R6
+0x00001CB8  E2522001  SUBS      R2,R2,#0x00000001
+0x00001CBC  4A000004  BMI       0x00001CD4
+0x00001CC0  E08BC082  ADD       R12,R11,R2,LSL #1
+0x00001CC4  E0811082  ADD       R1,R1,R2,LSL #1
+0x00001CC8  E1DCC0F0  LDRSH     R12,[R12]
+0x00001CCC  E1D110F0  LDRSH     R1,[R1]
+0x00001CD0  E023319C  MLA       R3,R12,R1,R3
+   225:     int32_t result_q12 = acc >> Q_SHIFT; 
+   226:  
+   227:     // ActivaciÃ³n/saturaciÃ³n final. 
+   228:     return clamp_i16_q12(result_q12, clamp_min, clamp_max); 
+0x00001CD4  E1A01643  MOV       R1,R3,ASR #12
+    82:     if (x < lo) return lo; 
+0x00001CD8  E151000A  CMP       R1,R10
+0x00001CDC  B1A0000A  MOVLT     R0,R10
+0x00001CE0  B8BD4FF0  LDMLTIA   R13!,{R4-R11,R14}
+   229: } 
+0x00001CE4  B12FFF1E  BXLT      R14
+0x00001CE8  E8BD4FF0  LDMIA     R13!,{R4-R11,R14}
+    83:     if (x > hi) return hi; 
+0x00001CEC  E1500001  CMP       R0,R1
+    84:     return (int16_t)x; 
+    85: } 
+    86:  
+    87: /** 
+    88:  * @brief   Compara dos vectores int16_t elemento a elemento. 
+    89:  * 
+    90:  * @param[in] a  Primer vector. 
+    91:  * @param[in] b  Segundo vector. 
+    92:  * @param[in] n  NÃºmero de elementos. 
+    93:  * @return  1 si los dos vectores son idÃ©nticos, 0 si hay alguna diferencia. 
+    94:  */ 
+    95: static uint8_t vectores_iguales_i16(const int16_t *a, const int16_t *b, int n) { 
+0x00001CF0  A1A00801  MOVGE     R0,R1,LSL #16
+0x00001CF4  A1A00840  MOVGE     R0,R0,ASR #16
+0x00001CF8  E12FFF1E  BX        R14
+    96:     for (int i = 0; i < n; ++i) { 
+0x00001CFC  E3520000  CMP       R2,#0x00000000
+    95: static uint8_t vectores_iguales_i16(const int16_t *a, const int16_t *b, int n) { 
+    96:     for (int i = 0; i < n; ++i) { 
+0x00001D00  E92D0070  STMDB     R13!,{R4-R6}
+0x00001D04  C2023001  ANDGT     R3,R2,#0x00000001
+0x00001D08  D3A03000  MOVLE     R3,#0x00000000
+0x00001D0C  E2534001  SUBS      R4,R3,#0x00000001
+0x00001D10  E3A0C000  MOV       R12,#0x00000000
+0x00001D14  51A05004  MOVPL     R5,R4
+0x00001D18  4A000008  BMI       0x00001D40
+    97:         if (a[i] != b[i]) return 0; 
+    98:     } 
+    99:     return 1; 
+0x00001D1C  E080408C  ADD       R4,R0,R12,LSL #1
+0x00001D20  E081608C  ADD       R6,R1,R12,LSL #1
+0x00001D24  E1D440F0  LDRSH     R4,[R4]
+0x00001D28  E1D660F0  LDRSH     R6,[R6]
+0x00001D2C  E1540006  CMP       R4,R6
+0x00001D30  1A00000E  BNE       0x00001D70
+0x00001D34  E28CC001  ADD       R12,R12,#0x00000001
+0x00001D38  E15C0005  CMP       R12,R5
+0x00001D3C  DAFFFFF6  BLE       0x00001D1C
+    96:     for (int i = 0; i < n; ++i) { 
+    97:         if (a[i] != b[i]) return 0; 
+    98:     } 
+    99:     return 1; 
+0x00001D40  E1530002  CMP       R3,R2
+0x00001D44  AA00000F  BGE       0x00001D88
+0x00001D48  E0804083  ADD       R4,R0,R3,LSL #1
+0x00001D4C  E081C083  ADD       R12,R1,R3,LSL #1
+0x00001D50  E1D450F0  LDRSH     R5,[R4]
+0x00001D54  E1DC60F0  LDRSH     R6,[R12]
+0x00001D58  E1550006  CMP       R5,R6
+0x00001D5C  1A000003  BNE       0x00001D70
+0x00001D60  E1D440F2  LDRSH     R4,[R4,#0x02]
+0x00001D64  E1DCC0F2  LDRSH     R12,[R12,#0x02]
+0x00001D68  E154000C  CMP       R4,R12
+0x00001D6C  0A000002  BEQ       0x00001D7C
+0x00001D70  E8BD0070  LDMIA     R13!,{R4-R6}
+0x00001D74  E3A00000  MOV       R0,#0x00000000
+   100: } 
+0x00001D78  E12FFF1E  BX        R14
+0x00001D7C  E2833002  ADD       R3,R3,#0x00000002
+0x00001D80  E1530002  CMP       R3,R2
+0x00001D84  BAFFFFEF  BLT       0x00001D48
+    99:     return 1; 
+0x00001D88  E8BD0070  LDMIA     R13!,{R4-R6}
+0x00001D8C  E3A00001  MOV       R0,#0x00000001
+0x00001D90  E12FFF1E  BX        R14
+0x00001D94  00000000  ANDEQ     R0,R0,R0
+0x00001D98  00000C00  ANDEQ     R0,R0,R0,LSL #24
+0x00001D9C  00000000  ANDEQ     R0,R0,R0
+0x00001DA0  00000800  ANDEQ     R0,R0,R0,LSL #16
+0x00001DA4  00000000  ANDEQ     R0,R0,R0
+0x00001DA8  07000100  STREQ     R0,[R0,-R0,LSL #2]
+0x00001DAC  02000800  ANDEQ     R0,R0,#0x00000000
+0x00001DB0  7FFF8000  SWIVC     0x00FF8000
+0x00001DB4  00000000  ANDEQ     R0,R0,R0
+0x00001DB8  08000000  STMEQDA   R0,{}
+0x00001DBC  00000400  ANDEQ     R0,R0,R0,LSL #8
+0x00001DC0  F8000800  (???)     
+0x00001DC4  00000400  ANDEQ     R0,R0,R0,LSL #8
+0x00001DC8  0800F800  STMEQDA   R0,{R11-PC}
+0x00001DCC  10002000  ANDNE     R2,R0,R0
+0x00001DD0  10001000  ANDNE     R1,R0,R0
+0x00001DD4  08000000  STMEQDA   R0,{}
+0x00001DD8  00001000  ANDEQ     R1,R0,R0
+0x00001DDC  00000000  ANDEQ     R0,R0,R0
+0x00001DE0  10001000  ANDNE     R1,R0,R0
+0x00001DE4  10001000  ANDNE     R1,R0,R0
+0x00001DE8  FE000000  (???)     
+0x00001DEC  FC00FFFF  (???)     
+0x00001DF0  FFFF0000  (???)     
+0x00001DF4  F8000800  (???)     
+0x00001DF8  00000000  ANDEQ     R0,R0,R0
+0x00001DFC  00000000  ANDEQ     R0,R0,R0
+0x00001E00  0001FFFF  ???EQ     
+0x00001E04  F00003A7  (???)     
+0x00001E08  04000400  STREQ     R0,[R0],#-0x0400
+0x00001E0C  04000400  STREQ     R0,[R0],#-0x0400
+0x00001E10  FC00FC00  (???)     
+0x00001E14  F800FC00  (???)     
+0x00001E18  10001000  ANDNE     R1,R0,R0
+0x00001E1C  10001000  ANDNE     R1,R0,R0
+0x00001E20  08000800  STMEQDA   R0,{R11}
+0x00001E24  08000800  STMEQDA   R0,{R11}
+0x00001E28  00002000  ANDEQ     R2,R0,R0
+0x00001E2C  00000000  ANDEQ     R0,R0,R0
+0x00001E30  1000F000  ANDNE     PC,R0,R0
+0x00001E34  F8000000  (???)     
+0x00001E38  F8000800  (???)     
+0x00001E3C  00000000  ANDEQ     R0,R0,R0
+0x00001E40  04000000  STREQ     R0,[R0]
+0x00001E44  F0000800  (???)     
+0x00001E48  FFFD0001  (???)     
+0x00001E4C  F0010FFF  (???)     
+0x00001E50  F6D704D2  (???)     
+0x00001E54  00000000  ANDEQ     R0,R0,R0
+0x00001E58  0000FFFF  ???EQ     
+0x00001E5C  00000000  ANDEQ     R0,R0,R0
+0x00001E60  00000000  ANDEQ     R0,R0,R0
+0x00001E64  1000F000  ANDNE     PC,R0,R0
+0x00001E68  FFFFFFFF  (???)     
+0x00001E6C  FFF90007  (???)     
+0x00001E70  0FFF0FFF  SWIEQ     0x00FF0FFF
+0x00001E74  0FFF0FFF  SWIEQ     0x00FF0FFF
+0x00001E78  0FFF0FFF  SWIEQ     0x00FF0FFF
+0x00001E7C  07D0FC18  ???EQ     
+0x00001E80  05DCF448  LDREQB    PC,[R12,#0x0448]
+0x00001E84  0DACF63C  STCEQ     p6,CPC,[R12,#0x00F0]!
+0x00001E88  0472F79F  LDREQBT   PC,[R2],#-0x079F
+0x00001E8C  FE4AF691  (???)     
+0x00001E90  0F6A0AEB  SWIEQ     0x006A0AEB
+0x00001E94  FF5B0C3A  (???)     
+0x00001E98  F52AF029  (???)     
+0x00001E9C  0262F716  RSBEQ     PC,R2,#0x00580000
+0x00001EA0  0CC7F646  STCEQL    p6,CPC,[R7],{70}
+0x00001EA4  0F60F0BC  SWIEQ     0x0060F0BC
+0x00001EA8  FEBA020E  (???)     
+0x00001EAC  000C04B6  (???)EQ   
+0x00001EB0  03690320  (???)EQ   
+0x00001EB4  FA71040B  (???)     
+0x00001EB8  FADE02E4  (???)     
+0x00001EBC  01340159  TEQEQ     R4,R9,ASR R1
+0x00001EC0  FC8206A3  (???)     
+0x00001EC4  F8CA01E3  (???)     
+0x00001EC8  03A203CD  MOVEQ     R0,#0x34000003
+0x00001ECC  058206C1  STREQ     R0,[R2,#0x06C1]
+0x00001ED0  04C2FAE6  STREQB    PC,[R2],#0x0AE6
+0x00001ED4  FBB907F3  (???)     
+0x00001ED8  07B6059D  ???EQ     
+0x00001EDC  004604BD  STREQH    R0,[R6],#-0x4D
+0x00001EE0  07550570  ???EQ     
+0x00001EE4  FF2FF8CF  (???)     
+0x00001EE8  F990FC20  (???)     
+0x00001EEC  05BDFB48  LDREQ     PC,[R13,#0x0B48]!
+0x00001EF0  FC8E070A  (???)     
+0x00001EF4  FF53076D  (???)     
+0x00001EF8  069EFBE7  LDREQ     PC,[R14],R7,ROR #23
+0x00001EFC  00080705  ANDEQ     R0,R8,R5,LSL #14
+0x00001F00  01D804DD  LDREQSB   R0,[R8,#0x4D]
+0x00001F04  04DC0753  LDREQB    R0,[R12],#0x0753
+0x00001F08  FE7B05DB  (???)     
+0x00001F0C  009B016B  ADDEQS    R0,R11,R11,ROR #2
+0x00001F10  F90FF84B  (???)     
+0x00001F14  06A9FCCB  STREQT    PC,[R9],R11,ASR #25
+0x00001F18  038407AA  ORREQ     R0,R4,#0x02A80000
+0x00001F1C  0052FE65  SUBEQS    PC,R2,R5,ROR #28
+0x00001F20  06EE0789  STREQBT   R0,[R14],R9,LSL #15
+0x00001F24  05E507E8  STREQB    R0,[R5,#0x07E8]!
+0x00001F28  0148F913  ???EQ     
+0x00001F2C  06A50222  STREQT    R0,[R5],R2,LSR #4
+0x00001F30  0607FB25  STREQ     PC,[R7],-R5,LSR #22
+0x00001F34  067E0048  LDREQBT   R0,[R14],-R8,ASR #32
+0x00001F38  059FFDDB  LDREQ     PC,[PC,#0x0DDB]
+0x00001F3C  FA0E0755  (???)     
+0x00001F40  07F30086  LDREQB    R0,[R3,R6,LSL #1]!
+0x00001F44  FB1703D8  (???)     
+0x00001F48  0529FE3A  STREQ     PC,[R9,#-0x0E3A]!
+0x00001F4C  0661FCAE  STREQBT   PC,[R1],-R14,LSR #25
+0x00001F50  FAF3F872  (???)     
+0x00001F54  0670F801  LDREQBT   PC,[R0],-R1,LSL #16
+0x00001F58  FE5CFAA8  (???)     
+0x00001F5C  FBDDFFEE  (???)     
+0x00001F60  0097F96D  ADDEQS    PC,R7,R13,ROR #18
+0x00001F64  FCF3036E  (???)     
+0x00001F68  0207F82A  ANDEQ     PC,R7,#0x002A0000
+0x00001F6C  FC5007BE  (???)     
+0x00001F70  0722FF22  STREQ     PC,[R2,-R2,LSR #30]!
+0x00001F74  014DFC32  ???EQ     
+0x00001F78  055EFAB3  LDREQB    PC,[R14,#-0x0AB3]
+0x00001F7C  FC54FD1F  (???)     
+0x00001F80  052F01CA  STREQ     R0,[PC,#-0x01CA]!
+0x00001F84  FCC0047E  (???)     
+0x00001F88  0408FE4B  STREQ     PC,[R8],#-0x0E4B
+0x00001F8C  FB65F873  (???)     
+0x00001F90  FA590475  (???)     
+0x00001F94  031AF9A4  TSTEQ     R10,#0x00290000
+0x00001F98  F8D3034F  (???)     
+0x00001F9C  073BF8D1  ???EQ     
+0x00001FA0  01B7027D  MOVEQS    R0,R13,ROR R2
+0x00001FA4  026E0667  RSBEQ     R0,R14,#0x06700000
+0x00001FA8  07ECFBE2  STREQB    PC,[R12,R2,ROR #23]!
+0x00001FAC  FD7606EE  (???)     
+0x00001FB0  FE9FFCEC  (???)     
+0x00001FB4  02C305E0  SBCEQ     R0,R3,#0x38000000
+0x00001FB8  00008000  ANDEQ     R8,R0,R0
+0x00001FBC  00007FFF  ???EQ     
+0x00001FC0  7FFF8000  SWIVC     0x00FF8000
+0x00001FC4  00000000  ANDEQ     R0,R0,R0
+0x00001FC8  00000000  ANDEQ     R0,R0,R0
+0x00001FCC  00000000  ANDEQ     R0,R0,R0
+0x00001FD0  00000000  ANDEQ     R0,R0,R0
+0x00001FD4  80000000  ANDHI     R0,R0,R0
+0x00001FD8  10007FFF  ???NE     
+0x00001FDC  00000000  ANDEQ     R0,R0,R0
+0x00001FE0  00000040  ANDEQ     R0,R0,R0,ASR #32
+0x00001FE4  04F7F800  LDREQBT   PC,[R7],#0x0800
+0x00001FE8  F8000800  (???)     
+0x00001FEC  F800F85F  (???)     
+0x00001FF0  05130800  LDREQ     R0,[R3,#-0x0800]
+0x00001FF4  80007FFF  ???HI     
+0x00001FF8  80007FFF  ???HI     
+0x00001FFC  00007FFF  ???EQ     
+0x00002000  08001000  STMEQDA   R0,{R12}
+0x00002004  0C00FC00  STCEQ     p12,CPC,[R0],{0}
+0x00002008  F8000000  (???)     
+0x0000200C  02000400  ANDEQ     R0,R0,#0x00000000
+0x00002010  08000800  STMEQDA   R0,{R11}
+0x00002014  0400FC00  STREQ     PC,[R0],#-0x0C00
+0x00002018  FE000000  (???)     
+0x0000201C  00000400  ANDEQ     R0,R0,R0,LSL #8
+0x00002020  0400F800  STREQ     PC,[R0],#-0x0800
+0x00002024  FC000800  (???)     
+0x00002028  04000200  STREQ     R0,[R0],#-0x0200
+0x0000202C  0200FE00  ANDEQ     PC,R0,#0x00000000
+0x00002030  F0001000  (???)     
+0x00002034  00000800  ANDEQ     R0,R0,R0,LSL #16
+0x00002038  04000000  STREQ     R0,[R0]
+0x0000203C  F8000400  (???)     
+0x00002040  0400FC00  STREQ     PC,[R0],#-0x0C00
+0x00002044  04000400  STREQ     R0,[R0],#-0x0400
+0x00002048  0800F800  STMEQDA   R0,{R11-PC}
+0x0000204C  02000000  ANDEQ     R0,R0,#0x00000000
+0x00002050  FE000200  (???)     
+0x00002054  FE000200  (???)     
+0x00002058  08000800  STMEQDA   R0,{R11}
+0x0000205C  04000400  STREQ     R0,[R0],#-0x0400
+0x00002060  02000000  ANDEQ     R0,R0,#0x00000000
+0x00002064  0400FC00  STREQ     PC,[R0],#-0x0C00
+0x00002068  00000000  ANDEQ     R0,R0,R0
+0x0000206C  0000208C  ANDEQ     R2,R0,R12,LSL #1
+0x00002070  40000000  ANDMI     R0,R0,R0
+0x00002074  00000004  ANDEQ     R0,R0,R4
+0x00002078  00000044  ANDEQ     R0,R0,R4,ASR #32
+0x0000207C  00002090  MULEQ     R0,R0,R0
+0x00002080  40000004  ANDMI     R0,R0,R4
+0x00002084  0000056C  ANDEQ     R0,R0,R12,ROR #10
+0x00002088  0000006C  ANDEQ     R0,R0,R12,RRX
+0x0000208C  000000FF  ???EQ     
+0x00002090  00000000  ANDEQ     R0,R0,R0
+0x00002094  00000000  ANDEQ     R0,R0,R0
+0x00002098  00000000  ANDEQ     R0,R0,R0
+0x0000209C  00000000  ANDEQ     R0,R0,R0
+0x000020A0  00000000  ANDEQ     R0,R0,R0
+0x000020A4  00000000  ANDEQ     R0,R0,R0
+0x000020A8  00000000  ANDEQ     R0,R0,R0
+0x000020AC  00000000  ANDEQ     R0,R0,R0
+0x000020B0  00000000  ANDEQ     R0,R0,R0
+0x000020B4  00000000  ANDEQ     R0,R0,R0
+0x000020B8  00000000  ANDEQ     R0,R0,R0
+0x000020BC  00000000  ANDEQ     R0,R0,R0
+0x000020C0  00000000  ANDEQ     R0,R0,R0
+0x000020C4  00000000  ANDEQ     R0,R0,R0
+0x000020C8  00000000  ANDEQ     R0,R0,R0
+0x000020CC  00000000  ANDEQ     R0,R0,R0
+0x000020D0  00000000  ANDEQ     R0,R0,R0
+0x000020D4  00000000  ANDEQ     R0,R0,R0
+0x000020D8  00000000  ANDEQ     R0,R0,R0
+0x000020DC  00000000  ANDEQ     R0,R0,R0
+0x000020E0  00000000  ANDEQ     R0,R0,R0
+0x000020E4  00000000  ANDEQ     R0,R0,R0
+0x000020E8  00000000  ANDEQ     R0,R0,R0
+0x000020EC  00000000  ANDEQ     R0,R0,R0
+0x000020F0  00000000  ANDEQ     R0,R0,R0
+0x000020F4  00000000  ANDEQ     R0,R0,R0
