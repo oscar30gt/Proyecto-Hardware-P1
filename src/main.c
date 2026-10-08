@@ -55,7 +55,7 @@ static const int16_t t2_bias[T2_OUT] __attribute__((aligned(8))) = {
 };
 
 /* Caso 3: clamp simétrico [-1.0, 1.0] con resultados negativos y valores
-   impares para comprobar el truncamiento de ASR #12 (redondeo hacia -inf). */
+   impares para comprobar el truncamiento de ASR #12 (redondeo hacia -1 y no 0). */
 #define T3_IN   6
 #define T3_OUT  4
 #define T3_CLAMP_MIN  (-Q_ONE)
@@ -87,20 +87,20 @@ static const int16_t t4_weights[T4_OUT * T4_IN] __attribute__((aligned(8))) = {
 static const int16_t t4_bias[T4_OUT] __attribute__((aligned(8))) = {
      Q_ONE / 16
 };
-/* Caso 4b/4c: mismos datos que el caso 4, pero con clamp que SÍ satura. */
-#define T4B_CLAMP_MIN  (Q_ONE / 2)   /* 2048: el resultado (1792) queda por debajo -> sale 2048 */
+/* Caso 4b/4c: mismos datos que el caso 4, pero con clamp que satura. */
+#define T4B_CLAMP_MIN  (Q_ONE / 2)
 #define T4B_CLAMP_MAX  (Q_ONE)
 #define T4C_CLAMP_MIN  0
-#define T4C_CLAMP_MAX  (Q_ONE / 8)   /* 512: el resultado (1792) queda por encima -> sale 512 */
+#define T4C_CLAMP_MAX  (Q_ONE / 8)
 
-/* Caso 5: input_size = 0. La salida es clamp(bias); no se lee input ni weights. */
+/* Caso 5: input_size = 0. La salida es clamp(bias) */
 #define T5_IN   0
 #define T5_OUT  3
 static const int16_t t5_bias[T5_OUT] __attribute__((aligned(8))) = {
     -Q_ONE / 2,  Q_ONE / 2,  2 * Q_ONE
 };
 
-/* Caso 6: capa más grande (16 x 8) con valores pseudoaleatorios. */
+/* Caso 6: capa más grande (16 x 8) */
 #define T6_IN   16
 #define T6_OUT  8
 #define T6_CLAMP_MIN  (-Q_ONE / 2)
@@ -167,19 +167,19 @@ static const int16_t t8_bias[T8_OUT] __attribute__((aligned(8))) = {
 #define T9_CLAMP_MIN  (Q_ONE / 4)
 #define T9_CLAMP_MAX  (Q_ONE / 4)
 
-/* Caso 10: clamp totalmente negativo. Datos del caso 3.
+/* Caso 10: clamp negativo. Datos del caso 3.
    Esperado: {-1024, -1024, -1024, -2048}, checksum 0x8E80EC00. */
 #define T10_CLAMP_MIN  (-Q_ONE / 2)
 #define T10_CLAMP_MAX  (-Q_ONE / 4)
 
 /* Caso 11: input_size que no es múltiplo de 4. Datos del caso 6 con otro
-   input_size (la matriz se reinterpreta con otro stride). Clamp = el del caso 6.
+   input_size. Clamp = el del caso 6.
    Checksums esperados:
      n=2  -> 0xD9C686DF    n=5 -> 0xFB83BD0C    n=7  -> 0x8C32BCE2
      n=9  -> 0x3B42CC96    n=13 -> 0x2FADCE47 */
 
 /* ======================================================================
-   SOLUCIÓN ESPERADA (calculada aparte, independiente del código C/ASM)
+   SOLUCIÓN ESPERADA
    ====================================================================== */
 static const int16_t esp_main[OUTPUT_SIZE] = { 4096, 0, 0, 64, 0 };
 static const int16_t esp_1[T1_OUT]   = { 4096, 4096, 4096 };
@@ -345,7 +345,7 @@ uint32_t dense_layer_q12_C_THB(
  * @param   output_size  Número de salidas/neuronas (<= TEST_MAX_OUTPUT).
  * @param   clamp_min    Límite inferior Q12.
  * @param   clamp_max    Límite superior Q12.
- * @return  1 si el checksum y el vector de salida coinciden con la versión C;
+ * @return  1 si el checksum y el vector de salida coinciden con la versión C
  *          0 si difieren.
  */
 uint8_t func_verificar(
@@ -362,7 +362,7 @@ uint8_t func_verificar(
     static int16_t out_ref  [TEST_MAX_OUTPUT];
     static int16_t out_func [TEST_MAX_OUTPUT];
 
-    // Rellenamos con el valor de relleno: lo que no se escriba debe quedar intacto.
+    // Rellenamos con el valor de relleno
     for (int i = 0; i < TEST_MAX_OUTPUT; ++i) {
         out_ref[i]  = RELLENO_SALIDA;
         out_func[i] = RELLENO_SALIDA;
@@ -381,7 +381,7 @@ uint8_t func_verificar(
     }
 
     // Comparamos los buffers enteros: valores correctos en las primeras
-    // output_size posiciones y relleno intacto en el resto.
+    // output_size posiciones y relleno en el resto.
     if (!vectores_iguales_i16(out_ref, out_func, TEST_MAX_OUTPUT)) {
         return 0;
     }
@@ -485,8 +485,8 @@ uint8_t dense_q12_verificar(
 }
 
 /* Para un mismo caso: las 5 funciones de capa contra la referencia C, y la
-   referencia C contra la solución esperada (chk_esp y out_esp; out_esp = 0
-   para comprobar solo el checksum). */
+   referencia C contra la solución esperada (chk_esp y out_esp. out_esp = 0
+   para comprobar solo el checksum) */
 #define CHECK_ALL(in, w, b, ni, no, lo, hi, chk_esp, out_esp) do { \
     ok_tests &= func_verificar(dense_layer_q12_C_ARM, (in), (w), (b), (ni), (no), (lo), (hi)); \
     ok_tests &= func_verificar(dense_layer_q12_C_THB, (in), (w), (b), (ni), (no), (lo), (hi)); \
@@ -565,10 +565,9 @@ int main(void) {
         CLAMP_MAX_Q12
     );
 
-    // Verificación por casos: cada función de capa contra la referencia C.
     uint8_t ok_tests = ok;
 
-    // Capa base (clamp 0..1.0): 'resultado' guarda la salida de la C.
+    // Capa base (clamp 0..1.0): 'resultado' guarda la salida de la C
     ok_tests &= vectores_iguales_i16(resultado, esp_main, OUTPUT_SIZE);
 
     // Caso 1: saturación superior.
@@ -607,7 +606,7 @@ int main(void) {
     // Caso 10: clamp totalmente negativo.
     CHECK_ALL(t3_input, t3_weights, t3_bias, T3_IN, T3_OUT, T10_CLAMP_MIN, T10_CLAMP_MAX, 0x8E80EC00u, esp_10);
 
-    // Caso 11: input_size no múltiplo de 4 (datos del caso 6; solo checksum).
+    // Caso 11: input_size no múltiplo de 4 (datos del caso 6. solo checksum).
     CHECK_ALL(t6_input, t6_weights, t6_bias,  2, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0xD9C686DFu, 0);
     CHECK_ALL(t6_input, t6_weights, t6_bias,  5, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0xFB83BD0Cu, 0);
     CHECK_ALL(t6_input, t6_weights, t6_bias,  7, T6_OUT, T6_CLAMP_MIN, T6_CLAMP_MAX, 0x8C32BCE2u, 0);
@@ -617,7 +616,6 @@ int main(void) {
     // Guardamos el resultado en la variable global para verlo en el Watch.
     resultado_tests = ok_tests;
 
-    // Punto de parada: pon aquí un breakpoint y mira 'resultado_tests'.
     // En este entorno no hay SO; nos quedamos en bucle.
     while (1) { /* no retornar */ }
 }

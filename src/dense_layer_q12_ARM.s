@@ -17,8 +17,8 @@ dense_layer_q12_ARM
 
             MOV v1, #0              ; checksum = 0;
 
-            ADD fp, sp, #36         ; fp = address of the stacked arguments
-            LDMIA fp, {v6-v8, lr}   ; v6 = input_size, v7 = output_size, v8 = clamp_min, lr = clamp_max
+            ADD ip, sp, #36         ; ip = address of the stacked arguments
+            LDMIA ip, {v6-v8, lr}   ; v6 = input_size, v7 = output_size, v8 = clamp_min, lr = clamp_max
 
             mov v2, r0              ; input pointer
             mov v3, r1              ; weights pointer
@@ -34,18 +34,18 @@ loop_l      ldrsh r3, [v4], #2      ; r3 = bias[o]; bias++
 
             MOVS r2, v6, LSR #1     ; r2 = input_size / 2 (pairs); C = input_size odd
             BCC pairs_i             ; if (input_size even) skip single element
-            ldrsh fp, [r0], #2      ; fp = input[i]; input++
+            ldrsh ip, [r0], #2      ; ip = input[i]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i]; weights++
-            MLA r3, r1, fp, r3      ; acc += weights[i] * input[i]
+            MLA r3, r1, ip, r3      ; acc += weights[i] * input[i]
 
 pairs_i     BEQ end_loop_i          ; if (no pairs) skip loop (flags still from MOVS)
 
-loop_i      ldrsh fp, [r0], #2      ; fp = input[i]; input++
+loop_i      ldrsh ip, [r0], #2      ; ip = input[i]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i]; weights++
-            MLA r3, r1, fp, r3      ; acc += weights[i] * input[i]
-            ldrsh fp, [r0], #2      ; fp = input[i+1]; input++
+            MLA r3, r1, ip, r3      ; acc += weights[i] * input[i]
+            ldrsh ip, [r0], #2      ; ip = input[i+1]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i+1]; weights++
-            MLA r3, r1, fp, r3      ; acc += weights[i+1] * input[i+1]
+            MLA r3, r1, ip, r3      ; acc += weights[i+1] * input[i+1]
 
             SUBS r2, r2, #1         ; for (uint16_t i = 0; i < input_size; i += 2)
             BNE loop_i              ; branch to loop
@@ -86,18 +86,18 @@ neuron_q12_ARM
 
             MOVS r2, r2, LSR #1         ; r2 = input_size / 2 (pairs); C = input_size odd
             BCC pairs_n                 ; if (input_size even) skip single element
-            ldrsh fp, [r0], #2          ; fp = input[i]; input++
+            ldrsh ip, [r0], #2          ; ip = input[i]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i]; weights++
-            MLA r3, v1, fp, r3          ; acc += weights[i] * input[i]
+            MLA r3, v1, ip, r3          ; acc += weights[i] * input[i]
 
 pairs_n     BEQ end_loop_n              ; if (no pairs) skip loop (flags still from MOVS)
 
-loop_n      ldrsh fp, [r0], #2          ; fp = input[i]; input++
+loop_n      ldrsh ip, [r0], #2          ; ip = input[i]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i]; weights++
-            MLA r3, v1, fp, r3          ; acc += weights[i] * input[i]
-            ldrsh fp, [r0], #2          ; fp = input[i+1]; input++
+            MLA r3, v1, ip, r3          ; acc += weights[i] * input[i]
+            ldrsh ip, [r0], #2          ; ip = input[i+1]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i+1]; weights++
-            MLA r3, v1, fp, r3          ; acc += weights[i+1] * input[i+1]
+            MLA r3, v1, ip, r3          ; acc += weights[i+1] * input[i+1]
 
             SUBS r2, r2, #1             ; for (uint16_t i = 0; i < input_size; i += 2)
             BNE loop_n                  ; branch to loop
