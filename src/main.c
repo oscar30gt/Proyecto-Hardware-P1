@@ -13,7 +13,7 @@
 // CASOS DE PRUEBA PARA func_verificar
 // ======================================================================
 
-// Tamaño máximo de salida entre todos los casos (búferes de func_verificar).
+// Tamaño máximo de salida entre todos los casos (buffers de func_verificar).
 #define TEST_MAX_OUTPUT  8
 
 // Valor con el que rellenamos los buffers para ver si alguien escribe de más
@@ -23,7 +23,7 @@
 //   0xFF = aún no ha terminado, 1 = todo OK, 0 = algún fallo.
 volatile uint8_t resultado_tests = 0xFF;
 
-/* Caso 1: saturación superior. Todas las salidas superan clamp_max. */
+/* Caso 1: saturación superior. */
 #define T1_IN   4
 #define T1_OUT  3
 static const int16_t t1_input[T1_IN] __attribute__((aligned(8))) = {
@@ -38,7 +38,7 @@ static const int16_t t1_bias[T1_OUT] __attribute__((aligned(8))) = {
      0,  Q_ONE / 2,  Q_ONE / 4
 };
 
-/* Caso 2: saturación inferior. Todas las salidas quedan por debajo de clamp_min. */
+/* Caso 2: saturación inferior. */
 #define T2_IN   3
 #define T2_OUT  4
 static const int16_t t2_input[T2_IN] __attribute__((aligned(8))) = {
@@ -392,7 +392,7 @@ uint8_t func_verificar(
 /**
  * @brief  Comprueba la referencia C contra una solución esperada calculada aparte.
  * @param  chk_esp  Checksum esperado.
- * @param  out_esp  Vector de salida esperado (NULL = comprobar solo el checksum).
+ * @param  out_esp  Vector de salida esperado (0 = comprobar solo el checksum).
  * @return 1 si coincide, 0 si no.
  */
 static uint8_t C_cumple_esperado(
@@ -423,7 +423,7 @@ static uint8_t C_cumple_esperado(
  * @param   output_size  Número de salidas/neuronas.
  * @param   clamp_min    Límite inferior Q12.
  * @param   clamp_max    Límite superior Q12.
- * @return  1 si todos devuelven el mismo checksum y el mismo vector; 0 si difieren.
+ * @return  1 si todos devuelven el mismo checksum y el mismo vector. 0 si difieren.
  */
 uint8_t dense_q12_verificar(
     const int16_t *input,
