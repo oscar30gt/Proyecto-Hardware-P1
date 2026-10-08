@@ -12,7 +12,6 @@
 ; r7+36 = output_size
 ; r7+40 = clamp_min
 ; r7+44 = clamp_max
-; (r7 = sp after PUSH {r0, r1, r3}: 12 bytes + 20 bytes of PUSH {r4-r7, lr} = 32)
 dense_layer_q12_THB
             PUSH {r4-r7, lr}
 
@@ -33,13 +32,13 @@ thb         PUSH {r0, r1, r3}
 
             MOVS r4, #0             ; checksum = 0;
 
-            LDRH r5, [r7, #36]       ; output_size
+            LDRH r5, [r7, #36]      ; output_size
             CMP r5, #0              ; if (output_size == 0) skip loop
             BEQ end_loop_l
 
 loop_l      LDR r0, [r7, #0]        ; r0 = input pointer
             LDR r1, [r7, #4]        ; r1 = weights pointer
-            LDRH r2, [r7, #32]       ; r2 = input_size
+            LDRH r2, [r7, #32]      ; r2 = input_size
 
             LSLS r3, r2, #1         ; Iterate weights
             ADDS r3, r1, r3
@@ -69,7 +68,7 @@ end_loop_l  ADD sp, sp, #20         ; pop clamp_min, clamp_max and the saved r0,
             MOVS r0, r4             ; return checksum
 
             POP {r4-r7}
-            POP {r3}                ; saved lr (POP {pc} would not switch state on ARMv4T)
+            POP {r3}                ; saved lr (POP {pc} would not switch state on ARM)
             BX r3
 			
 ; r0 = *input
@@ -80,7 +79,6 @@ end_loop_l  ADD sp, sp, #20         ; pop clamp_min, clamp_max and the saved r0,
 ; [sp+4]  = clamp_max (a la entrada)  -> sp+20 tras el PUSH
 ; r4, r5 = temporales (input[i], weights[i])
 ; r6 = offset en bytes, recorre los vectores hacia atras (2*(n-1) ... 0)
-
 neuron_q12_THB
             PUSH {r4-r6, lr}
 
@@ -94,7 +92,7 @@ loop_n      LDRSH r4, [r0, r6]      ; r4 = input[i]
             LDRSH r5, [r1, r6]      ; r5 = weights[i]
             MULS r4, r5, r4         ; r4 = weights[i] * input[i]
             ADDS r3, r3, r4         ; acc += weights[i] * input[i]
-            SUBS r6, r6, #2         ; i-- (recorrido inverso, la suma es conmutativa)
+            SUBS r6, r6, #2         ; i-- (recorrido inverso)
             BPL loop_n              ; while (i >= 0)
 
 end_loop_n  ASRS r0, r3, #12        ; r0 = acc >> Q_SHIFT
@@ -109,7 +107,7 @@ chk_max     LDR r1, [sp, #20]       ; r1 = clamp_max
             MOVS r0, r1
 
 end_neuron  POP {r4-r6}
-            POP {r1}                ; lr guardado (POP {pc} no cambia de estado en ARMv4T)
+            POP {r1}                ; lr guardado (POP {pc} no cambia de estado en ARM)
             BX r1                   ; vuelve a ARM o Thumb segun el bit 0 (llamador C en ARM)
 
             END
