@@ -17,11 +17,11 @@ dense_layer_q12_ARM
 
             MOV v1, #0              ; checksum = 0;
 
-            ADD ip, sp, #36         ; ip = address of the stacked arguments
-            LDMIA ip, {v6-v8, lr}   ; v6 = input_size, v7 = output_size, v8 = clamp_min, lr = clamp_max
+            ADD fp, sp, #36         ; fp = address of the stacked arguments
+            LDMIA fp, {v6-v8, lr}   ; v6 = input_size, v7 = output_size, v8 = clamp_min, lr = clamp_max
 
             mov v2, r0              ; input pointer
-            mov v3, r1              ; weights pointer (walks all rows: after each neuron it already points to the next row)
+            mov v3, r1              ; weights pointer
             mov v4, r2              ; bias pointer
             mov v5, r3              ; output pointer
 
@@ -32,20 +32,20 @@ loop_l      ldrsh r3, [v4], #2      ; r3 = bias[o]; bias++
             MOV r3, r3, LSL #12     ; r3 = acc = bias << Q_SHIFT
             mov r0, v2              ; r0 = input pointer (restart for every neuron)
 
-            MOVS r2, v6, LSR #1     ; r2 = input_size / 2 (pairs); C = input_size odd; Z = no pairs
+            MOVS r2, v6, LSR #1     ; r2 = input_size / 2 (pairs); C = input_size odd
             BCC pairs_i             ; if (input_size even) skip single element
-            ldrsh ip, [r0], #2      ; ip = input[i]; input++
+            ldrsh fp, [r0], #2      ; fp = input[i]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i]; weights++
-            MLA r3, r1, ip, r3      ; acc += weights[i] * input[i]
+            MLA r3, r1, fp, r3      ; acc += weights[i] * input[i]
 
 pairs_i     BEQ end_loop_i          ; if (no pairs) skip loop (flags still from MOVS)
 
-loop_i      ldrsh ip, [r0], #2      ; ip = input[i]; input++
+loop_i      ldrsh fp, [r0], #2      ; fp = input[i]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i]; weights++
-            MLA r3, r1, ip, r3      ; acc += weights[i] * input[i]
-            ldrsh ip, [r0], #2      ; ip = input[i+1]; input++
+            MLA r3, r1, fp, r3      ; acc += weights[i] * input[i]
+            ldrsh fp, [r0], #2      ; fp = input[i+1]; input++
             ldrsh r1, [v3], #2      ; r1 = weights[i+1]; weights++
-            MLA r3, r1, ip, r3      ; acc += weights[i+1] * input[i+1]
+            MLA r3, r1, fp, r3      ; acc += weights[i+1] * input[i+1]
 
             SUBS r2, r2, #1         ; for (uint16_t i = 0; i < input_size; i += 2)
             BNE loop_i              ; branch to loop
@@ -58,7 +58,7 @@ end_loop_i  MOV r3, r3, ASR #12     ; y = acc >> Q_SHIFT
             MOVGT r3, lr
             strh r3, [v5], #2       ; output[o] = y; output++
 
-            LSL r3, r3, #16         ; (uint16_t)y: the LSR #16 is done inside the next ADD
+            LSL r3, r3, #16         ; (uint16_t)y: shift for checksum calculation
             ADD v1, v1, v1, LSL #5  ; checksum = checksum * 33 (written as checksum * 32 + checksum)
             ADD v1, v1, r3, LSR #16 ; checksum = checksum + (uint16_t)y
 
@@ -71,6 +71,7 @@ end_loop_l  mov r0, v1              ; return checksum
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; PARA SER LLAMADA POR C. EN LA VERSION OPTIMIZADA, ARM NO LLAMA A ESTA SUBRUTINA
 
 ; r0 = *input
 ; r1 = *weights
@@ -83,26 +84,26 @@ neuron_q12_ARM
 
             MOV r3, r3, LSL #12         ; r3 = acc = bias << Q_SHIFT
 
-            MOVS r2, r2, LSR #1         ; r2 = input_size / 2 (pairs); C = input_size odd; Z = no pairs
+            MOVS r2, r2, LSR #1         ; r2 = input_size / 2 (pairs); C = input_size odd
             BCC pairs_n                 ; if (input_size even) skip single element
-            ldrsh ip, [r0], #2          ; ip = input[i]; input++
+            ldrsh fp, [r0], #2          ; fp = input[i]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i]; weights++
-            MLA r3, v1, ip, r3          ; acc += weights[i] * input[i]
+            MLA r3, v1, fp, r3          ; acc += weights[i] * input[i]
 
 pairs_n     BEQ end_loop_n              ; if (no pairs) skip loop (flags still from MOVS)
 
-loop_n      ldrsh ip, [r0], #2          ; ip = input[i]; input++
+loop_n      ldrsh fp, [r0], #2          ; fp = input[i]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i]; weights++
-            MLA r3, v1, ip, r3          ; acc += weights[i] * input[i]
-            ldrsh ip, [r0], #2          ; ip = input[i+1]; input++
+            MLA r3, v1, fp, r3          ; acc += weights[i] * input[i]
+            ldrsh fp, [r0], #2          ; fp = input[i+1]; input++
             ldrsh v1, [r1], #2          ; v1 = weights[i+1]; weights++
-            MLA r3, v1, ip, r3          ; acc += weights[i+1] * input[i+1]
+            MLA r3, v1, fp, r3          ; acc += weights[i+1] * input[i+1]
 
             SUBS r2, r2, #1             ; for (uint16_t i = 0; i < input_size; i += 2)
             BNE loop_n                  ; branch to loop
 
 end_loop_n  MOV r0, r3, ASR #12         ; r0 = acc >> Q_SHIFT
-            LDMIB sp, {r1, r2}          ; r1 = clamp_min, r2 = clamp_max (stacked as words, already extended by the caller)
+            LDMIB sp, {r1, r2}          ; r1 = clamp_min, r2 = clamp_max
 
             CMP r0, r1                  ; if (y < clamp_min) return clamp_min
             MOVLT r0, r1
